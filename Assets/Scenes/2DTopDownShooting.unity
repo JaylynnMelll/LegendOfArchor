@@ -977,7 +977,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1351795176}
-  m_Father: {fileID: 1166240962}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -1766,7 +1766,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1166240962}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3412,6 +3412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   speed: 2
+  rewardGold: 10
+  rewardExp: 5
 --- !u!114 &610771944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3633,7 +3635,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 142884114}
-  - {fileID: 1139546084}
+  - {fileID: 1076009898}
+  - {fileID: 1185192251}
+  - {fileID: 1711297424}
   m_Father: {fileID: 825627560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5012,7 +5016,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1881726675}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5814,7 +5818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &931464221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6005,7 +6009,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1881726675}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11113,7 +11117,14 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1110172489}
-  m_OnClick:
+  m_FillRect: {fileID: 0}
+  m_HandleRect: {fileID: 0}
+  m_Direction: 0
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 0
+  m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1110172489
@@ -17443,6 +17454,7 @@ GameObject:
   - component: {fileID: 1509543278}
   - component: {fileID: 1509543279}
   - component: {fileID: 1509543280}
+  - component: {fileID: 1509543281}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -17583,6 +17595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 3
+  rewardGold: 10
+  rewardExp: 5
 --- !u!114 &1509543279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17669,7 +17683,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 813080485}
-  - {fileID: 496243483}
   m_Father: {fileID: 1076009898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17718,7 +17731,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  m_FillRect: {fileID: 1231406474}
+  m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
@@ -17905,8 +17918,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1881726675}
+  m_Children: []
   m_Father: {fileID: 645079967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -18860,3 +18872,8 @@ SceneRoots:
   - {fileID: 1718647169}
   - {fileID: 825627560}
   - {fileID: 1747002295}
+  - {fileID: 450974039}
+  - {fileID: 560569163}
+  - {fileID: 623260073}
+  - {fileID: 867924532}
+  - {fileID: 1051581166}

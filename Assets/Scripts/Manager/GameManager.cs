@@ -102,9 +102,16 @@ public class GameManager : MonoBehaviour
     // 스테이지 정보와 적 스폰을 stageManager에 요청
     public void RequestStageLoad(int stageNumber, bool isBossRoom)
     {
-        uiManager.ChangePlayerGold(playerStats.Gold);
         stageManager.LoadRoom(stageNumber);
     }
+
+    // 골드 UI 업데이트
+    public void UpdateGold()
+    {
+        uiManager.ChangePlayerGold(playerStats.Gold);
+    }
+
+    // 스테이지 정보와 적 스폰을 stageManager에 요청
     public void GameOver()
     {
         uiManager.SetGameOver(); // UI 상태 변경
