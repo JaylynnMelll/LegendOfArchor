@@ -36,6 +36,8 @@ public class WeaponHandler : MonoBehaviour
     private static readonly int IsAttaking = Animator.StringToHash("IsAttacking");
 
     public BaseController Controller { get; private set; }
+    public PlayerSkillHandler PlayerSkillHandler { get; private set; }
+    public bool IsPlayerWeapon { get; private set; }
 
     private Animator animator;
     private SpriteRenderer weaponRenderer;
@@ -55,6 +57,12 @@ public class WeaponHandler : MonoBehaviour
     protected virtual void Start()
     {
 
+    }
+
+    public void SetAsPlayerWeapon(PlayerSkillHandler handler)
+    {
+        IsPlayerWeapon = true;
+        PlayerSkillHandler = handler;
     }
 
     public virtual void Attack()

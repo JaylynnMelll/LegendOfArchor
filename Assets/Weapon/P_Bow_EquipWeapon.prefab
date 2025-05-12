@@ -200,6 +200,7 @@ MonoBehaviour:
   bulletSize: 0.7
   bulletDuration: 10
   bulletSpread: 1
-  numberOfProjectilesPerShot: 3
+  numberOfProjectilesPerShot: 1
   multipleProjectileAngle: 3
   projectileColor: {r: 1, g: 1, b: 1, a: 1}
+  MultiShot: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
