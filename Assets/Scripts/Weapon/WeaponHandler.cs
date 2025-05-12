@@ -92,7 +92,7 @@ public class WeaponHandler : MonoBehaviour
         KnockbackTime = 0.5f;
     }
 
-    public virtual void ApplyFinalStats(float WeaponPower, float WeaponSpeed, float CriticalChance, float CriticalDamage, float WeaponRange)
+    public virtual void ApplyFinalStats()
     {
         WeaponPower = playerSkillHandler.CalculateFinalDamage(WeaponPower);
         WeaponSpeed = playerSkillHandler.CalculateFinalAttackSpeed(WeaponSpeed);

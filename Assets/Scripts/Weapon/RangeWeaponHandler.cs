@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RangeWeaponHandler : WeaponHandler
 {
@@ -38,24 +39,6 @@ public class RangeWeaponHandler : WeaponHandler
     {
         base.Start();
         projectileManager = ProjectileManager.Instance;
-
-        if (IsPlayerWeapon && PlayerSkillHandler != null)
-        {
-            Debug.Log("PlayerSkillHandler successfully linked to RangeWeaponHandler!");
-            multishot = PlayerSkillHandler.acquiredSkills.FirstOrDefault(skill => skill.skillName == "멀티샷");
-            if (multishot != null)
-            {
-                Debug.Log($"Found multishot skill! Current stacks: {multishot.currentStacks}");
-            }
-            else
-            {
-                Debug.LogWarning("Multishot skill NOT found in acquiredSkills.");
-            }
-        }
-        else
-        {
-            Debug.Log("This is an enemy weapon — no PlayerSkillHandler expected.");
-        }
     }
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Public Methods]
@@ -68,21 +51,6 @@ public class RangeWeaponHandler : WeaponHandler
         {
             CreateProjectile(Controller.LookDirection, angle);
         }
-
-        // 멀티샷 적용 체크
-        if (IsPlayerWeapon && PlayerSkillHandler != null && multishot != null && PlayerSkillHandler.HasThisSkill(multishot))
-        {
-            int extraShots = multishot.currentStacks;
-
-            for (int i = 0; i < extraShots; i++)
-            {
-                foreach (float angle in GetArrowAngle())
-                {
-                    CreateProjectile(Controller.LookDirection, angle);
-                }
-            }
-        }
-
     }
 
     public void ProjectileManagerNullCheck()
@@ -104,9 +72,21 @@ public class RangeWeaponHandler : WeaponHandler
 
     public override void ResetStats()
     {
-        base.ResetStats();
+        WeaponSize = 0.7f;
+        WeaponPower = 5;
+        WeaponSpeed = 10f;
+        WeaponRange = 10f;
+        CriticalChance = 0.2f;
+        CriticalChance = 1.5f;
+        KnockbackPower = 0.1f;
+        KnockbackTime = 0.5f;
         NumberofProjectilesPerShot = 1;
 
+    }
+
+    public override void ApplyFinalStats()
+    {
+        base.ApplyFinalStats();
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
