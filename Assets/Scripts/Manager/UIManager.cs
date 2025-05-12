@@ -5,7 +5,6 @@ using UnityEngine;
 
 public enum UIState
 {
-    Home,
     Game,
     LevelUp,
     Pause,
@@ -14,7 +13,6 @@ public enum UIState
 
 public class UIManager : MonoBehaviour
 {
-    HomeUI homeUI;
     GameUI gameUI;
     LevelUpUI levelUpUI;
     GameOverUI gameOverUI;
@@ -37,8 +35,6 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        homeUI = GetComponentInChildren<HomeUI>(true);
-        homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
         gameUI.Init(this);
         levelUpUI = GetComponentInChildren<LevelUpUI>(true);
@@ -49,7 +45,7 @@ public class UIManager : MonoBehaviour
         pauseUI.Init(this);
 
         // 처음엔 홈 상태로
-        ChangeState(UIState.Home);
+        ChangeState(UIState.Game);
     }
 
 
@@ -141,7 +137,6 @@ public class UIManager : MonoBehaviour
     public void ChangeState(UIState state)
     {
         currentState = state;
-        homeUI.SetActive(currentState);
         gameUI.SetActive(currentState);
         levelUpUI.SetActive(currentState);
         pauseUI.SetActive(currentState);

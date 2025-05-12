@@ -20,6 +20,7 @@ public class GameOverUI : BaseUI
     public void OnClickRestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void OnClickExitButton()
