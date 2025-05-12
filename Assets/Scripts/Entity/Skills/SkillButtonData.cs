@@ -6,8 +6,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
-/// Skill UI¿¡ ÀÖ´Â 3°³ÀÇ ¹öÆ°¿¡ °¢°¢ ÇÒ´çµÇ¾î
-/// ·£´ýÀ¸·Î ¼±ÅÃµÈ ½ºÅ³À» UI¿¡ º¸¿©ÁÖ°í, °¢ ½ºÅ³ÀÇ Á¤º¸¸¦ ÀúÀåÇØÁÖ´Â ½ºÅ©¸³Æ®.
+/// Skill UIï¿½ï¿½ ï¿½Ö´ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½Ç¾ï¿½
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Å³ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½, ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®.
 /// </summary>
 public class SkillButtonData : MonoBehaviour
 {
@@ -33,10 +33,10 @@ public class SkillButtonData : MonoBehaviour
     }
 
     /// <summary>
-    /// SkillButtonDataÀÇ °¢ ¹öÆ°¿¡ ½ºÅ³ Á¤º¸¸¦ ÀúÀåÇØÁÖ´Â ¸Þ¼­µå.
+    /// SkillButtonDataï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½.
     /// </summary>
     /// <param name="skill"></param>
-    public void SetSkillDataToButton (Skill skill)
+    public void SetSkillDataToButton(Skill skill)
     {
         skillIcon.sprite = skill.icon;
         skillNameText.text = skill.skillName;
@@ -44,12 +44,12 @@ public class SkillButtonData : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÅ³À» °í¸£´Â ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ ¼±ÅÃÇÑ ½ºÅ³À» 
-    /// Player¿¡°Ô Àû¿ë½ÃÄÑÁÖ´Â ¸Þ¼­µå.
+    /// ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ 
+    /// Playerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½.
     /// </summary>
     public void AddSkillOnClick()
     {
-        // ½ºÅ³ ¹öÆ°ÀÌ ´Ù½Ã È°¼ºÈ­ µÇ±â±îÁöÀÇ Äð´Ù¿î ½Ã°£À» Ã¼Å©
+        // ï¿½ï¿½Å³ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­ ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ Ã¼Å©
         if (cooldown.IsCoolingDown)
         {
 #if UNITY_EDITOR
@@ -60,9 +60,10 @@ public class SkillButtonData : MonoBehaviour
 
         playerSkillHandler.SkillAcquired(assignedSkill);
         ApplyingSkillsToStats();
+        GameManager.instance.SkillAdded();
 
-        // Äð´Ù¿î ½ÃÀÛ
-        cooldown.StartCoolingDown();     
+        // ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+        cooldown.StartCoolingDown();
     }
 
     public void ApplyingSkillsToStats()

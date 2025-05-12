@@ -6,6 +6,8 @@ public class EnemyController : BaseController, IEnemy
     private EnemyManager enemyManager;
     private Transform target;
 
+    public GameObject ConnectedHPBar { get; set; }
+
     [SerializeField] private float followRange = 15f;
 
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }

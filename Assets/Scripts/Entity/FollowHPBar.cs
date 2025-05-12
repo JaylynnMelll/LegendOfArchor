@@ -18,7 +18,7 @@ public class FollowHPBar : MonoBehaviour
     {
         if (target == null)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
         } // 대상없을시 실행 X
 

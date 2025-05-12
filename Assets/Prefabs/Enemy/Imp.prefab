@@ -274,6 +274,8 @@ MonoBehaviour:
   characterRenderer: {fileID: 2416596328206317188}
   weaponPivot: {fileID: 4231641581024972985}
   WeaponPrefab: {fileID: 2864783522489194586, guid: df679258809fbe440a6d100365766d3f, type: 3}
+  dieMaterial: {fileID: 2100000, guid: c492775ec99b0224183215a97d3e97e9, type: 2}
+  resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   followRange: 15
 --- !u!1 &6556863791140127021
 GameObject:

@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
         enemyManager = GetComponentInChildren<EnemyManager>();
         enemyManager.Init(this, enemyPool);
         stageManager = FindObjectOfType<StageManager>();
-        stageManager.Init(enemyManager);
 
     }
 
@@ -52,30 +51,34 @@ public class GameManager : MonoBehaviour
         {
             isFirstLoading = false;
         }
-        // enemyManager = GetComponentInChildren<EnemyManager>();
-        // enemyManager.Init(this);
     }
 
     public void StartGame()
     {
         uiManager.SetPlayGame(); // UI 상태 Game으로 설정
+        stageManager.Init(enemyManager);
     }
 
     // 체력바 생성
     public void CreatePlayerHPBar()
     {
-        uiManager.CreateHPBar(player.transform, _playerResourceController, Color.green);
+        uiManager.CreatePlayerHPBar(player.transform, _playerResourceController);
     }
 
     // 적 체력바 생성
-    public void CreateEnemyHPBar(Transform enemy, ResourceController resource)
+    public GameObject CreateEnemyHPBar(Transform enemyTransform, ResourceController resource)
     {
-        uiManager.CreateHPBar(enemy, resource, Color.red);
+        return uiManager.CreateEnemyHPBar(enemyTransform, resource); // 실제 풀링 호출은 UIManager가 담당
+    }
+    public void ReturnEnemyHPBar(GameObject hpBar)
+    {
+        uiManager.ReturnEnemyHPBar(hpBar);
     }
     public void ShowDamageText(Vector3 worldPos, int damage)
     {
         uiManager.ShowDamageText(worldPos, damage);
     }
+
 
     public bool IsGamePlaying()
     {
@@ -90,27 +93,49 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        uiManager.ChangeState(UIState.Game);
         Time.timeScale = 1;
+        uiManager.ChangeState(UIState.Game);
+    }
+
+    public void SkillAdded()
+    {
+        // Time.timeScale = 1;
+        uiManager.ChangeState(UIState.Game);
     }
 
     public void ReturnToMainMenu()
     {
-        uiManager.ChangeState(UIState.Home);
         Time.timeScale = 0;
+        uiManager.ChangeState(UIState.Home);
         // 사운스 설정 추가 예정
     }
 
-    // 스테이지 정보와 적 스폰을 stageManager에 요청
-    public void RequestStageLoad(int stageNumber, bool isBossRoom)
+    // 경험치 및 레벨 UI 업데이트
+    public void UpdateExp()
     {
-        stageManager.LoadRoom(stageNumber);
+        uiManager.ChangePlayerExpAndLevel(
+            playerStats.Exp,
+            playerStats.MaxExp,
+            playerStats.Level
+            );
     }
 
     // 골드 UI 업데이트
     public void UpdateGold()
     {
         uiManager.ChangePlayerGold(playerStats.Gold);
+    }
+
+    public void LevelUp(int level)
+    {
+        // Time.timeScale = 0;
+        uiManager.PlayerLevelUp(level);
+    }
+
+    // 스테이지 정보와 적 스폰을 stageManager에 요청
+    public void RequestStageLoad(int stageNumber, bool isBossRoom)
+    {
+        stageManager.LoadRoom(stageNumber);
     }
 
     // 스테이지 정보와 적 스폰을 stageManager에 요청

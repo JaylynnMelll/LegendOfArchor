@@ -5,7 +5,7 @@ using UnityEngine;
 public class SlimeBossController : BaseController, IEnemy
 
 {
-
+    public GameObject ConnectedHPBar { get; set; }
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
     [SerializeField] private int maxSplitCount = 4; // 최대 분열 횟수
@@ -100,12 +100,6 @@ public class SlimeBossController : BaseController, IEnemy
                 // EnemyManager와 플레이어 Transform을 전달하여 초기화
                 splitcontroller.InitEnemy(GetComponentInParent<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
                 splitcontroller.InitSplit(splitCount + 1);
-            }
-
-            // 체력바 생성
-            if (resource != null)
-            {
-                GameManager.instance.CreateEnemyHPBar(split.transform, resource);
             }
         }
 
