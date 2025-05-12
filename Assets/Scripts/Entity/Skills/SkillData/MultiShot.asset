@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902f7217fe7337144bd731d0eb6aa9ad, type: 3}
+  m_Name: MultiShot
+  m_EditorClassIdentifier: 
+  skillName: "\uBA40\uD2F0\uC0F7"
+  skillDescription: "\uBAA8\uB4E0 \uACF5\uACA9\uC744 \uD55C \uBC88 \uB354 \uBC1C\uC0AC\uD558\uC9C0\uB9CC
+    \uACF5\uACA9 \uC18D\uB3C4\uB294 15 %, \uCD5C\uC885 \uACF5\uACA9\uB825\uC740 10
+    % \uD558\uB77D\uD55C\uB2E4. \uCD5C\uB300 3 \uBC88\uAE4C\uC9C0 \uC801\uC6A9 \uAC00\uB2A5\uD558\uB2E4."
+  icon: {fileID: 21300000, guid: 3f8b3a2e78c970545835e892f7723398, type: 3}
+  category: 3
+  weaponType: 0
+  elemenType: 0
+  triggerType: 0
+  baseDamageMultiplier: 0.9
+  additionalDamagePercent: 0.01
+  attakSpeedModifier: -0.15
+  attackRangeModifier: 0
+  criticalChanceModifier: 0
+  criticalDamageModifier: 0
+  projectileSizeModifier: 0
+  healthModifier: 0
+  duration: 0
+  interval: 0
+  isStackable: 1
+  currentStacks: 0
+  maxStacks: 3
+  appliesDot: 0
+  dotInterval: 0
+  dotPercent: 0
+  appliesMultiShot: 1
+  delayBetweenShots: 0.2
+  appliesPiercing: 0
+  appliesReflective: 0
+  appliesFreeze: 0
+  freezeDuration: 0
+  appliesBurn: 0
+  appliesChainEffect: 0
