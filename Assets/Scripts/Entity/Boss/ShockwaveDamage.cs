@@ -15,12 +15,30 @@ public class ShockwaveDamage : MonoBehaviour
     [SerializeField] private float shakeIntensity = 0.4f;
     [SerializeField] private float shakeDuration = 0.25f;
 
+    [Header("오디오")]
+    [SerializeField] private AudioClip chargingSoundClip;
+    [SerializeField] private AudioClip explosionSoundClip;
+
     private Transform playerTarget;
     private float currentSpeed;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
 
     private void Start()
     {
         currentSpeed = initialSpeed;
+
+        if(chargingSoundClip != null)
+        {
+            audioSource.clip = chargingSoundClip;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
 
         // 플레이어 서칭
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -66,6 +84,11 @@ public class ShockwaveDamage : MonoBehaviour
                 rc.ChangeHealth(-damage);
                 Debug.Log("충격파 발생 " + rc.name);
             }
+        }
+
+        if (explosionSoundClip != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSoundClip, transform.position);
         }
 
         // 카메라 흔들림

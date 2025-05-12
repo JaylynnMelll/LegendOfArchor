@@ -4947,3 +4947,5 @@ MonoBehaviour:
     m_Bits: 64
   shakeIntensity: 0.4
   shakeDuration: 0.25
+  chargingSoundClip: {fileID: 8300000, guid: d723bc408d426bb4094489a99bcc7ac8, type: 3}
+  explosionSoundClip: {fileID: 8300000, guid: 229b9cc3f58d9464ca7013d2c432677d, type: 3}

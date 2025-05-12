@@ -309,7 +309,7 @@ MonoBehaviour:
   resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   phaseTwoHealthThreshold: 50
   skeletonPrefab: {fileID: 3675070882677843582, guid: 77210e4638b05de49a38fc06aabbd346, type: 3}
-  summonInterval: 5
+  summonInterval: 8
   skeletonCountPerSummon: 3
   shockwaveEffectPrefab: {fileID: 7733185582974939058, guid: e0eaeb8976bc69044922cbbe22c992c7, type: 3}
   shockwaveCooldown: 8
