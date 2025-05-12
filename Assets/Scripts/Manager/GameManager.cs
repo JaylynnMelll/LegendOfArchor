@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void SkillAdded()
     {
-        // Time.timeScale = 1;
+        Time.timeScale = 1;
         uiManager.ChangeState(UIState.Game);
     }
 
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp(int level)
     {
-        // Time.timeScale = 0;
+        Time.timeScale = 0;
         uiManager.PlayerLevelUp(level);
     }
 
