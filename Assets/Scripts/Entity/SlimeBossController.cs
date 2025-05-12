@@ -24,6 +24,9 @@ public class SlimeBossController : BaseController, IEnemy
     private LineRenderer lineRenderer;
     private Animator animator;
 
+    public bool IsSummoned => isSummoned;
+    public bool isSummoned = false;
+
     // 임시 인터페이스 구현
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
@@ -31,6 +34,11 @@ public class SlimeBossController : BaseController, IEnemy
     {
         target = player;
         StartCoroutine(ChargeRoutine());
+    }
+
+    public void SummonCheck()
+    {
+        isSummoned = true;
     }
     protected override void Awake()
     {
