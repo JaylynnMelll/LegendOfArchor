@@ -34,10 +34,11 @@ public class GameManager : MonoBehaviour
         _playerResourceController = player.GetComponent<ResourceController>();
         enemyPool = FindObjectOfType<EnemyPool>();
 
-        stageManager = FindObjectOfType<StageManager>();
-
         enemyManager = GetComponentInChildren<EnemyManager>();
         enemyManager.Init(this, enemyPool);
+        stageManager = FindObjectOfType<StageManager>();
+        stageManager.Init(enemyManager);
+
     }
 
     private void Start()
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         uiManager.SetPlayGame(); // UI 상태 Game으로 설정
-        stageManager.Init(enemyManager);
     }
 
     // 체력바 생성

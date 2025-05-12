@@ -40,9 +40,6 @@ public class UIManager : MonoBehaviour
         gameUI.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
-
-        ChangeState(UIState.Home);
-
         pauseUI = GetComponentInChildren<PauseUI>(true);
         pauseUI.Init(this);
 
