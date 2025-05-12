@@ -1118,7 +1118,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveText: {fileID: 1898871589}
-  hpSlider: {fileID: 1166240963}
+  levelText: {fileID: 0}
+  goldText: {fileID: 0}
+  expSlider: {fileID: 0}
+  expFillSpeed: 3
 --- !u!1 &645536252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bbec280d3c1034980034a2505a1171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 0}
+  damageTextRoot: {fileID: 0}
+  hpBarPrefab: {fileID: 0}
+  hpBarRoot: {fileID: 0}
 --- !u!1 &931464220
 GameObject:
   m_ObjectHideFlags: 0
@@ -12107,6 +12114,7 @@ MonoBehaviour:
   - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
   bossEnemies:
   - {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
+  - {fileID: 8264194638359092396, guid: dc6e46d2379c6f941a721bcc6d7f9293, type: 3}
 --- !u!1 &1507850383
 GameObject:
   m_ObjectHideFlags: 0

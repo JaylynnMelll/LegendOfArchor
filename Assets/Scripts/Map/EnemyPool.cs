@@ -3,39 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// 적 타입
-public enum EnemyType { Normal, Boss }
-
 public class EnemyPool : MonoBehaviour
 {
-    [Header("프리팹 목록")]
+    [Header("일반 몬스터 프리팹 목록")]
     [SerializeField] private GameObject[] normalEnemies;
-    [SerializeField] private GameObject[] bossEnemies;
 
+    // 적 관리 딕셔너리
     private Dictionary<GameObject, Queue<GameObject>> enemyPools = new();
 
     // 적 꺼내기
-    public GameObject GetEnemy(EnemyType type, Vector3 spawnPos)
+    public GameObject GetEnemy(Vector3 spawnPos)
     {
-        GameObject[] sourceArray = (type == EnemyType.Normal) ? normalEnemies : bossEnemies;
-
-        if (sourceArray.Length == 0)
+        if (normalEnemies.Length == 0)
         {
-            Debug.LogWarning($"EnemyType {type}에 등록된 프리팹이 없습니다.");
+            Debug.LogWarning("일반 몬스터에 등록된 프리팹이 없습니다.");
             return null;
         }
 
-        // 정해진 타입 내에서 랜덤으로 꺼낸다
-        GameObject prefab = sourceArray[Random.Range(0, sourceArray.Length)];
+        // 일반 몬스터 프리팹 중 랜덤 선택
+        GameObject prefab = normalEnemies[Random.Range(0, normalEnemies.Length)];
+        return GetPublicEnemy(prefab, spawnPos);
+    }
 
-        if (!enemyPools.ContainsKey(prefab))
+    // 적을 풀에서 꺼내거나 새로 생성하는 공통 함수
+    private GameObject GetPublicEnemy(GameObject prefab, Vector3 spawnPos)
+    {
+        if(!enemyPools.ContainsKey(prefab))
             enemyPools[prefab] = new Queue<GameObject>();
 
         Queue<GameObject> pool = enemyPools[prefab];
-
         GameObject enemy;
 
-        if (pool.Count > 0)
+        if(pool.Count > 0)
         {
             enemy = pool.Dequeue();
         }
@@ -49,6 +48,7 @@ public class EnemyPool : MonoBehaviour
         enemy.SetActive(true);
         return enemy;
     }
+
 
     // 적 반환
     public void ReturnEnemy(GameObject enemy)
@@ -66,7 +66,7 @@ public class EnemyPool : MonoBehaviour
     // 이름 기반 프리팹 찾기
     private GameObject FindMatchingPrefab(GameObject enemyInstance)
     {
-        foreach (var prefab in normalEnemies.Concat(bossEnemies))
+        foreach (var prefab in normalEnemies)
         {
             if (enemyInstance.name.Contains(prefab.name))
                 return prefab;

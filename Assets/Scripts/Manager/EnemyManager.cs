@@ -18,29 +18,32 @@ public class EnemyManager : MonoBehaviour
     // 생성 위치, 보스 스테이지인지의 여부, 스테이지 번호를 받아온다
     public void SpawnEnemy(List<Transform> spawnPoints, bool isBossStage, int stageNumber)
     {
-        EnemyType enemyType = isBossStage ? EnemyType.Boss : EnemyType.Normal;
         // spawnPoint에 적 생성
         foreach (var spawnPoint in spawnPoints)
         {
             Vector3 spawnPos = spawnPoint.position;
-            GameObject enemy = enemyPool.GetEnemy(enemyType, spawnPos);
+
+            GameObject enemy = enemyPool.GetEnemy(spawnPos);
             // 초기화
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
             SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
-
-
             NecromancerBossController nbController = enemy.GetComponent<NecromancerBossController>();
-            //
-            if (enemyController == null)
-            {
-                nbController.InitEnemy(this, gameManager.player.transform);
-                nbController.Reset();
+            
 
-            }
-            else
+            if (enemyController != null)
             {
                 enemyController.Init(this, gameManager.player.transform);
                 enemyController.Reset();
+            }
+            else if(nbController != null)
+            {
+                nbController.InitEnemy(this, gameManager.player.transform);
+                nbController.Reset();
+            }
+            else
+            {
+                sbController.InitEnemy(this, gameManager.player.transform);
+                sbController.Reset();
             }
             aliveEnemyCount++;
         }

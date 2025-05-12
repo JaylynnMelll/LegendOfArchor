@@ -1744,6 +1744,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4525202101623877185, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
+      propertyPath: bossPools.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4525202101623877185, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
+      propertyPath: bossPools.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
+    - target: {fileID: 4525202101623877185, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
+      propertyPath: bossPools.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 8264194638359092396, guid: dc6e46d2379c6f941a721bcc6d7f9293, type: 3}
+    - target: {fileID: 4525202101623877185, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
+      propertyPath: bossPools.Array.data[1].bossType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4525202101623877185, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
+      propertyPath: bossPools.Array.data[0].maxSplitCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4933478973128147881, guid: 7454c06552cc840ccac73b6aedd6d33b, type: 3}
       propertyPath: playerTransform
       value: 
@@ -4401,7 +4421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &663609537
 Transform:
   m_ObjectHideFlags: 0
@@ -17541,7 +17561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b04f5d3d4ecb6444bbaedf0bc0774b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 100
   speed: 3
   rewardGold: 10
   rewardExp: 5
