@@ -10,10 +10,25 @@ public class EnemyController : BaseController, IEnemy
 
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
+    private bool isSummoned = false;
+    public bool IsSummoned => isSummoned;
+
     public void Init(EnemyManager enemyManager, Transform target)
     {
         this.enemyManager = enemyManager;
         this.target = target;
+    }
+
+    // �ӽñ���
+    public void InitEnemy(EnemyManager enemyManager, Transform target)
+    {
+        this.enemyManager = enemyManager;
+        this.target = target;
+    }
+
+    public void SummonCheck()
+    {
+        isSummoned = true;
     }
 
     protected float DistanceToTarget()
@@ -75,10 +90,5 @@ public class EnemyController : BaseController, IEnemy
         base.Reset();
     }
 
-    // �ӽñ���
-    public void InitEnemy(EnemyManager enemyManager, Transform target)
-    {
-        this.enemyManager = enemyManager;
-        this.target = target;
-    }
+
 }

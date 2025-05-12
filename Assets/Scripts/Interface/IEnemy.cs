@@ -8,4 +8,6 @@ public interface IEnemy
     GameObject gameObject { get; set; }
 
     void InitEnemy(EnemyManager enemyManager, Transform player);
+
+    bool IsSummoned { get; }
 }

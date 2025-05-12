@@ -21,6 +21,8 @@ public class NecromancerBossController : BaseController, IEnemy
     private EnemyManager enemyManager;
     private Transform target;
 
+    public bool IsSummoned => false;
+
     // 임시 인터페이스 구현
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
@@ -121,6 +123,10 @@ public class NecromancerBossController : BaseController, IEnemy
                 if (enemy != null)
                 {
                     enemy.InitEnemy(enemyManager, target);
+
+                    // 소환몬스터로 체크
+                    EnemyController enemyController = skeleton.GetComponent<EnemyController>();
+                    enemyController.SummonCheck();
                 }
                 else
                 {
