@@ -11,15 +11,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int currentWaveIndex = 0;
 
-    private EnemyManager enemyManager; // 적 스폰 및 관리
-    private UIManager uiManager; // UI 제어
+    private EnemyManager enemyManager;
+    // private StageManager stageManager;
+    private UIManager uiManager;
+
+    // private EnemyPool enemyPool;
 
     public static bool isFirstLoading = true; // 첫 실행 여부
 
     private void Awake()
     {
         instance = this;
-
 
         // 플레이어 객체 초기화 및 연결
         player = FindObjectOfType<PlayerController>();
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         uiManager.SetPlayGame(); // UI 상태 Game으로 설정
-        StartNextWave(); // 웨이브 시작
+        // stageManager.Init(enemyManager);
     }
 
     // 체력바 생성
@@ -63,13 +65,6 @@ public class GameManager : MonoBehaviour
     public void CreateEnemyHPBar(Transform enemy, ResourceController resource)
     {
         uiManager.CreateHPBar(enemy, resource, Color.red);
-    }
-
-    void StartNextWave()
-    {
-        currentWaveIndex += 1;
-        // uiManager.ChangeWave(currentWaveIndex);
-        enemyManager.StartWave(1 + currentWaveIndex / 5);
     }
     public void ShowDamageText(Vector3 worldPos, int damage)
     {
@@ -115,15 +110,8 @@ public class GameManager : MonoBehaviour
     {
         uiManager.ChangePlayerGold(playerStats.Gold);
     }
-
-    public void EndOfWave()
-    {
-        StartNextWave();
-    }
-
     public void GameOver()
     {
-        enemyManager.StopWave();
         uiManager.SetGameOver(); // UI 상태 변경
         Time.timeScale = 0;
         uiManager.DestroyPlayerHPBar();

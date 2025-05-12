@@ -115,12 +115,6 @@ public class UIManager : MonoBehaviour
         gameUI.UpdateGold(gold);
     }
 
-    // 플레이어 체력 갱신
-    // public void ChangeHP(float currentHP, float maxHP)
-    // {
-    //     hpBarUI.UpdateHP(currentHP, maxHP);
-    // }
-
     // 경험치 바, 레벨 갱신
     public void ChangePlayerExpAndLevel(float currentExp, float maxExp, int level)
     {
