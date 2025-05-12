@@ -188,6 +188,8 @@ MonoBehaviour:
   weaponPower: 5
   weaponSpeed: 10
   weaponRange: 10
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
   target:
     serializedVersion: 2
     m_Bits: 128
@@ -203,4 +205,3 @@ MonoBehaviour:
   numberOfProjectilesPerShot: 1
   multipleProjectileAngle: 3
   projectileColor: {r: 1, g: 1, b: 1, a: 1}
-  MultiShot: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}

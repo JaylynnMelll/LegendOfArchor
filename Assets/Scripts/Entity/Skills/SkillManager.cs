@@ -22,6 +22,9 @@ public class SkillManager : MonoBehaviour
     /// </summary>
     public void AddToChooseSkillList()
     {
+        // chooseSkill 배열을 초기화  
+        chooseSkill = new Skill[3];
+
         for (int i = 0; i < chooseSkill.Length; i++)
         {
             // 랜덤 스킬을 추가해줄 때 중복되는 스킬이 추가되지 않도록 체크
