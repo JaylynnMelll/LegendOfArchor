@@ -7,6 +7,7 @@ public enum UIState
 {
     Home,
     Game,
+    LevelUp,
     Pause,
     GameOver,
 }
@@ -15,10 +16,12 @@ public class UIManager : MonoBehaviour
 {
     HomeUI homeUI;
     GameUI gameUI;
+    LevelUpUI levelUpUI;
     GameOverUI gameOverUI;
-    private UIState currentState;
-
     PauseUI pauseUI;
+    private UIState currentState;
+    public HPBarPool hpBarPool;
+
     public GameObject damageTextPrefab; // TextMeshPro 프리팹
     public Transform damageTextRoot; // World Space Canvas의 Transform
 
@@ -38,6 +41,8 @@ public class UIManager : MonoBehaviour
         homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
         gameUI.Init(this);
+        levelUpUI = GetComponentInChildren<LevelUpUI>(true);
+        levelUpUI.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
         pauseUI = GetComponentInChildren<PauseUI>(true);
@@ -48,19 +53,32 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void CreateHPBar(Transform target, ResourceController resource, Color color)
+    public void CreatePlayerHPBar(Transform target, ResourceController resource)
     {
-        GameObject hpBar = Instantiate(hpBarPrefab, Vector3.zero, Quaternion.identity, hpBarRoot);
+        if (playerHpBarUI != null) return;
+        GameObject hpBar = Instantiate(hpBarPrefab, hpBarRoot);
+        playerHpBarUI = hpBar.GetComponent<HPBarUI>();
 
-        var follow = hpBar.GetComponent<FollowHPBar>();
-        follow.SetTarget(target);
+        hpBar.GetComponent<FollowHPBar>().SetTarget(target);
+        playerHpBarUI.SetFillColor(Color.green);
+        playerHpBarUI.Init(resource);
+    }
 
-        var hpBarUI = hpBar.GetComponent<HPBarUI>();
-        hpBarUI.SetFillColor(color);
-        hpBarUI.Init(resource);
 
-        if (color == Color.green)
-            playerHpBarUI = hpBarUI;
+    public GameObject CreateEnemyHPBar(Transform target, ResourceController resource)
+    {
+        GameObject hpBar = hpBarPool.GetHPBar(hpBarPrefab);
+        resource.SetHealth(resource.MaxHealth);
+        hpBar.GetComponent<FollowHPBar>().SetTarget(target);
+        hpBar.GetComponent<HPBarUI>().SetFillColor(Color.red);
+        hpBar.GetComponent<HPBarUI>().Init(resource);
+
+        return hpBar;
+    }
+
+    public void ReturnEnemyHPBar(GameObject hpBar)
+    {
+        hpBarPool.ReturnHPBar(hpBar);
     }
     public void DestroyPlayerHPBar()
     {
@@ -106,6 +124,12 @@ public class UIManager : MonoBehaviour
         gameUI.UpdateGold(gold);
     }
 
+    public void PlayerLevelUp(int level)
+    {
+        levelUpUI.ShowLevelUpUI(level);
+        ChangeState(UIState.LevelUp);
+    }
+
     // 경험치 바, 레벨 갱신
     public void ChangePlayerExpAndLevel(float currentExp, float maxExp, int level)
     {
@@ -119,6 +143,7 @@ public class UIManager : MonoBehaviour
         currentState = state;
         homeUI.SetActive(currentState);
         gameUI.SetActive(currentState);
+        levelUpUI.SetActive(currentState);
         pauseUI.SetActive(currentState);
         gameOverUI.SetActive(currentState);
     }

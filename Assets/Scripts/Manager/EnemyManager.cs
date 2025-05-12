@@ -24,20 +24,28 @@ public class EnemyManager : MonoBehaviour
         {
             Vector3 spawnPos = spawnPoint.position;
             GameObject enemy = enemyPool.GetEnemy(enemyType, spawnPos);
-            // 초기화
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
-            NecromancerBossController nbController = enemy.GetComponent<NecromancerBossController>();
-            //
-            if (enemyController == null)
+            // 체력바 생성
+            var resource = enemy.GetComponent<ResourceController>();
+
+            if (resource != null)
             {
-                nbController.InitEnemy(this, gameManager.player.transform);
-                nbController.Reset();
-            }
-            else
-            {
-                enemyController.Init(this, gameManager.player.transform);
-                enemyController.Reset();
+                GameObject hpBar = gameManager.CreateEnemyHPBar(enemy.transform, resource);
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
+                NecromancerBossController nbController = enemy.GetComponent<NecromancerBossController>();
+
+                if (enemyController == null)
+                {
+                    nbController.ConnectedHPBar = hpBar;
+                    nbController.InitEnemy(this, gameManager.player.transform);
+                    nbController.Reset();
+                }
+                else
+                {
+                    enemyController.ConnectedHPBar = hpBar;
+                    enemyController.Init(this, gameManager.player.transform);
+                    enemyController.Reset();
+                }
             }
             aliveEnemyCount++;
         }
@@ -45,8 +53,14 @@ public class EnemyManager : MonoBehaviour
     // 사망한 적을 풀에 반환
     public void RemoveEnemyOnDeath(IEnemy enemy)
     {
-        if(!enemy.IsSummoned)
+        if (!enemy.IsSummoned)
             aliveEnemyCount--;
+
+        if (enemy.ConnectedHPBar != null)
+        {
+            GameManager.instance.ReturnEnemyHPBar(enemy.ConnectedHPBar);
+            enemy.ConnectedHPBar = null;
+        }
 
         enemyPool.ReturnEnemy(enemy.gameObject);
     }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    // ÀÓ½Ã ÀÎÅÍÆäÀÌ½º ±¸Çö
+    // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
     GameObject gameObject { get; set; }
 
     void InitEnemy(EnemyManager enemyManager, Transform player);
 
     bool IsSummoned { get; }
+
+    GameObject ConnectedHPBar { get; set; }
 }
