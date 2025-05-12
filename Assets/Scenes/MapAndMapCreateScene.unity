@@ -12106,7 +12106,7 @@ MonoBehaviour:
   - {fileID: 9214229529407106475, guid: c3f657a4b65877942b76cd84cc549cc2, type: 3}
   - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
   bossEnemies:
-  - {fileID: 8264194638359092396, guid: e8ba93768bdaadb4388f5ec381fa0d4b, type: 3}
+  - {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
 --- !u!1 &1507850383
 GameObject:
   m_ObjectHideFlags: 0
