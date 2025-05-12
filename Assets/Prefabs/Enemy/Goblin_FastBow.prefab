@@ -84,7 +84,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 8975606813784696620}
   m_Layer: 7
   m_Name: Goblin_FastBow
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -305,4 +305,6 @@ MonoBehaviour:
   characterRenderer: {fileID: 8541644184351457633}
   weaponPivot: {fileID: 8615003346092639213}
   WeaponPrefab: {fileID: 4357769163611957157, guid: 5ffc9dee3b8a6054faa1a9cb519a5c5f, type: 3}
+  dieMaterial: {fileID: 2100000, guid: c492775ec99b0224183215a97d3e97e9, type: 2}
+  resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   followRange: 15

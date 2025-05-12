@@ -24,6 +24,9 @@ public class SlimeBossController : BaseController, IEnemy
     private LineRenderer lineRenderer;
     private Animator animator;
 
+    // 임시 인터페이스 구현
+    GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
+
     public void InitEnemy(EnemyManager manager, Transform player)
     {
         target = player;

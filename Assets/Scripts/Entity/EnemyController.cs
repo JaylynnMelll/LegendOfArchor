@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class EnemyController : BaseController, IEnemy
 {
@@ -8,7 +8,9 @@ public class EnemyController : BaseController, IEnemy
 
     [SerializeField] private float followRange = 15f;
 
-    public void InitEnemy(EnemyManager enemyManager, Transform target)
+    GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
+
+    public void Init(EnemyManager enemyManager, Transform target)
     {
         this.enemyManager = enemyManager;
         this.target = target;
@@ -33,7 +35,6 @@ public class EnemyController : BaseController, IEnemy
         Vector2 direction = DirectionToTarget();
 
         isAttacking = false;
-
         if (distance <= followRange)
         {
             lookDirection = direction;
@@ -42,7 +43,7 @@ public class EnemyController : BaseController, IEnemy
             {
                 int layerMaskTarget = weaponHandler.target;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, weaponHandler.WeaponRange * 1.5f,
-                  (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
+                    (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
                 {
@@ -67,5 +68,16 @@ public class EnemyController : BaseController, IEnemy
     {
         base.Died();
         enemyManager.RemoveEnemyOnDeath(this);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+    }
+
+    // 임시구현
+    public void InitEnemy(EnemyManager enemyManager, Transform player)
+    {
+        throw new System.NotImplementedException();
     }
 }

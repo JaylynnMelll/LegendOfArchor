@@ -4,15 +4,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    // 플레이어 스탯 관리
-    public PlayerStats playerStats { get; private set; }
     public PlayerController player { get; private set; }
     private ResourceController _playerResourceController;
 
     [SerializeField] private int currentWaveIndex = 0;
 
     private EnemyManager enemyManager;
+    private StageManager stageManager;
     private UIManager uiManager;
+
+    private EnemyPool enemyPool;
 
     public static bool isFirstLoading = true;
 
@@ -21,17 +22,19 @@ public class GameManager : MonoBehaviour
         instance = this;
         player = FindObjectOfType<PlayerController>();
         player.Init(this);
-        playerStats = PlayerStats.Instance;
 
         uiManager = FindObjectOfType<UIManager>();
-        uiManager.InitPlayerHPBar(player.transform);
 
         _playerResourceController = player.GetComponent<ResourceController>();
         _playerResourceController.RemoveHealthChangeEvent(uiManager.ChangePlayerHP);
         _playerResourceController.AddHealthChangeEvent(uiManager.ChangePlayerHP);
 
+        enemyPool = FindObjectOfType<EnemyPool>();
+
+        stageManager = FindObjectOfType<StageManager>();
+
         enemyManager = GetComponentInChildren<EnemyManager>();
-        enemyManager.Init(this);
+        enemyManager.Init(this, enemyPool);
     }
 
     private void Start()
@@ -49,40 +52,17 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         uiManager.SetPlayGame();
-        StartNextWave();
+        stageManager.Init(enemyManager);
     }
 
-    void StartNextWave()
+    // 스테이지 정보와 적 스폰을 stageManager에 요청
+    public void RequestStageLoad(int stageNumber, bool isBossRoom)
     {
-        currentWaveIndex += 1;
-        // uiManager.ChangeWave(currentWaveIndex);
-        enemyManager.StartWave(1 + currentWaveIndex / 5);
-    }
-
-    // 경험치 및 레벨 UI 업데이트
-    public void UpdateExp()
-    {
-        uiManager.ChangePlayerExpAndLevel(
-            playerStats.Exp,
-            playerStats.MaxExp,
-            playerStats.Level
-            );
-    }
-
-    // 골드 UI 업데이트
-    public void UpdateGold()
-    {
-        uiManager.ChangePlayerGold(playerStats.Gold);
-    }
-
-    public void EndOfWave()
-    {
-        StartNextWave();
+        stageManager.LoadRoom(stageNumber);
     }
 
     public void GameOver()
     {
-        enemyManager.StopWave();
         uiManager.SetGameOver();
     }
 }
