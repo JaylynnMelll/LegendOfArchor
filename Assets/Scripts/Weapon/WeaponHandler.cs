@@ -88,6 +88,8 @@ public class WeaponHandler : MonoBehaviour
         WeaponPower = 1f;
         WeaponSpeed = 1f;
         WeaponRange = 10f;
+        CriticalChance = 0.2f;
+        CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
         KnockbackTime = 0.5f;
     }
