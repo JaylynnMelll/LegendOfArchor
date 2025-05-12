@@ -31,7 +31,14 @@ public class GameManager : MonoBehaviour
 
         // UIManager 찾기
         uiManager = FindObjectOfType<UIManager>();
+
         _playerResourceController = player.GetComponent<ResourceController>();
+        // enemyPool = FindObjectOfType<EnemyPool>();
+
+        // stageManager = FindObjectOfType<StageManager>();
+
+        // enemyManager = GetComponentInChildren<EnemyManager>();
+        // enemyManager.Init(this, enemyPool);
     }
 
     private void Start()
@@ -45,8 +52,8 @@ public class GameManager : MonoBehaviour
         {
             isFirstLoading = false;
         }
-        enemyManager = GetComponentInChildren<EnemyManager>();
-        enemyManager.Init(this);
+        // enemyManager = GetComponentInChildren<EnemyManager>();
+        // enemyManager.Init(this);
     }
 
     public void StartGame()
