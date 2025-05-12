@@ -17485,6 +17485,8 @@ MonoBehaviour:
   characterRenderer: {fileID: 645536254}
   weaponPivot: {fileID: 530684166}
   WeaponPrefab: {fileID: 4357769163611957157, guid: aa6170baf34ae6f4681b0b6f2e42d0c5, type: 3}
+  dieMaterial: {fileID: 0}
+  resetMaterial: {fileID: 0}
 --- !u!114 &1509543277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18752,24 +18754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6c2daff4fd69e4c9834bee2b191471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 9214229529407106475, guid: c3f657a4b65877942b76cd84cc549cc2, type: 3}
-  - {fileID: 8264194638359092396, guid: e8ba93768bdaadb4388f5ec381fa0d4b, type: 3}
-  - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
-  spawnAreas:
-  - serializedVersion: 2
-    x: -7.5
-    y: -4.5
-    width: 4
-    height: 8
-  - serializedVersion: 2
-    x: 3.5
-    y: -4.5
-    width: 4
-    height: 8
-  gizmoColor: {r: 1, g: 0, b: 0, a: 0.3}
-  timeBetweenSpawns: 0.2
-  timeBetweenWaves: 1
+  aliveEnemyCount: 0
 --- !u!4 &1968004583
 Transform:
   m_ObjectHideFlags: 0
