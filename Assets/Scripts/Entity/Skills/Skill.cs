@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Skill의 카테고리를 정의해주는 enum.
+/// </summary>
 public enum SkillCategory
 {
     Attribute,      // 공격력 증가나 방어력 증가와 같은 부스트 스킬들
@@ -11,6 +15,9 @@ public enum SkillCategory
 
 }
 
+/// <summary>
+/// 무기 타입을 정의해주는 enum.
+/// </summary>
 public enum WeaponType
 {
     Melee,
@@ -18,6 +25,9 @@ public enum WeaponType
     Both
 }
 
+/// <summary>
+/// 공격속성 타입을 정의해주는 enum.
+/// </summary>
 public enum ElementType
 {
     None,
@@ -29,6 +39,9 @@ public enum ElementType
     Dark,
 }
 
+/// <summary>
+/// 스킬 발동 조건을 정의해주는 enum.
+/// </summary>
 public enum TriggerType
 {
     Passive,
@@ -40,6 +53,9 @@ public enum TriggerType
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+/// <summary>
+/// Skill Scritable Object를 만들기 위한 기본 틀을 제공해주는 클래스.
+/// </summary>
 [CreateAssetMenu (fileName = "New Skill", menuName = "Skills/New Skill")]
 public class Skill : ScriptableObject
 {
@@ -64,7 +80,7 @@ public class Skill : ScriptableObject
     public float criticalChanceModifier = 0f;
     public float criticalDamageModifier = 0f;
     public float projectileSizeModifier = 0f;    // 투사체 크기 증가 비율
-    public float healthModifier = 0f;
+    public float healththModifier = 0f;
     public float duration = 0f;                  // 제한 시간동안 적용되는 버프에 한해 적용
     public float interval = 0f;                  // 지속시간동안 몇 초마다 적용되는 버프에 한해 적용
     public bool isStackable = false;
@@ -76,10 +92,10 @@ public class Skill : ScriptableObject
     public bool appliesDot;     
     public float dotInterval;                   // 몇 초마다 도트 데미지를 줄 것인지                    
     public float dotPercent;                    // 데미지별 도트 데미지 비율
-    public bool appliesMultiShot;                    // 멀티샷 여부
-    public float delayBetweenShots;            // 멀티샷 간격
-    public bool appliesPiercing;                     // 관통 여부
-    public bool appliesReflective;                   // 반사 여부
+    public bool appliesMultiShot;                // 멀티샷 여부
+    public float delayBetweenShots;             // 멀티샷 간격
+    public bool appliesPiercing;                // 관통 여부
+    public bool appliesReflective;              // 반사 여부
 
     [Header("Elemental Effects")]
     public bool appliesFreeze;                  // 적을 얼릴 것인지

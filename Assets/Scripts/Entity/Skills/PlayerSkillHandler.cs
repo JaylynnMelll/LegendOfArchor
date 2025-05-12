@@ -12,7 +12,7 @@ public class PlayerSkillHandler : MonoBehaviour
     public ProjectileController projectileController;
 
     [Header("Skill Modifiers")]
-    // 스킬과 그 스킬의 스택 수를 저장하는 딕셔너리
+    // 스킬과 그 스킬의 스택 수를 저장하는 리스트
     public List<Skill> acquiredSkills = new List<Skill>();
 
     private float damageMultiplicative = 1f;
@@ -64,7 +64,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     public bool HasThisSkill (Skill skill)
     {
-        return acquiredSkills != null && acquiredSkills.Contains(skill);
+        return acquiredSkills.Contains(skill) || skill != null ? true : false;
     }
 
     public float CalculateFinalDamage(float baseDamage)
@@ -77,6 +77,30 @@ public class PlayerSkillHandler : MonoBehaviour
     {
         float finalAttackSpeed = (baseAttackSpeed * attackSpeedMultiplicative) + (baseAttackSpeed * attackSpeedAdditive);
         return finalAttackSpeed;
+    }
+
+    public float CalculateFinalCriticalChance(float baseCriticalChance)
+    {
+        float finalCriticalChance = (baseCriticalChance * criticalChanceAdditive);
+        return finalCriticalChance;
+    }
+
+    public float CalculateFinalCriticalDamage(float baseCriticalDamage)
+    {
+        float finalCriticalDamage = (baseCriticalDamage * criticalDamageMultiplicative);
+        return finalCriticalDamage;
+    }
+
+    public float CalculateFinalRange(float baseRange)
+    {
+        float finalRange = (baseRange * rangeMultiplicative) + (baseRange * rangeAdditive);
+        return finalRange;
+    }
+
+    public float CalculateFinalHealth(float baseHealth)
+    {
+        float finalHealth = (baseHealth + healthBonus);
+        return finalHealth;
     }
 
     // 한 번 쏠때 발사되는 총알의 개수를 반환하는 메서드 (스킬도 제작)
@@ -118,7 +142,6 @@ public class PlayerSkillHandler : MonoBehaviour
 
     private void ApplyAttributeBoost(Skill skill)
     {
-        //
         damageMultiplicative *= 1 + skill.baseDamageMultiplier;
         damageAdditive += skill.additionalDamagePercent;
 
@@ -131,7 +154,7 @@ public class PlayerSkillHandler : MonoBehaviour
         rangeMultiplicative *= 1 + skill.attackRangeModifier;
         rangeAdditive += skill.attackRangeModifier;
 
-        healthBonus += skill.healthModifier;
+        healthBonus += skill.healththModifier;
     }
 }
 

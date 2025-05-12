@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class RangeWeaponHandler : WeaponHandler
 {
+    [Header("Connected Components")]
+    private ProjectileManager projectileManager;
+    private Skill multishot;
+
     [Header("Ranged Attack Info")]
     [SerializeField] private Transform projectileSpawnPosition;
 
@@ -22,16 +26,13 @@ public class RangeWeaponHandler : WeaponHandler
     public float Spread { get { return bulletSpread; } }
 
     [SerializeField] private int numberOfProjectilesPerShot;
-    public int NumberofProjectilesPerShot { get { return numberOfProjectilesPerShot; } }
+    public int NumberofProjectilesPerShot { get; set; } = 1;
 
     [SerializeField] private float multipleProjectileAngle;
     public float MultipleProjectileAngle { get { return multipleProjectileAngle; } }
 
     [SerializeField] private Color projectileColor;
     public Color ProjectileColor { get { return projectileColor; } }
-
-    private ProjectileManager projectileManager;
-    private Skill multishot;
 
     protected override void Start()
     {
@@ -56,7 +57,8 @@ public class RangeWeaponHandler : WeaponHandler
             Debug.Log("This is an enemy weapon — no PlayerSkillHandler expected.");
         }
     }
-
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Public Methods]
     public override void Attack()
     {
         base.Attack();
@@ -100,6 +102,15 @@ public class RangeWeaponHandler : WeaponHandler
             );
     }
 
+    public override void ResetStats()
+    {
+        base.ResetStats();
+        NumberofProjectilesPerShot = 1;
+
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Private Methods]
     private static Vector2 RotateVector2(Vector2 v, float degree)
     {
         return Quaternion.Euler(0, 0, degree) * v;
@@ -126,5 +137,4 @@ public class RangeWeaponHandler : WeaponHandler
 
         return angles;
     }
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 }

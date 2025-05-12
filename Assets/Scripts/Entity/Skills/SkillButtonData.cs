@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-[System.Serializable]
+/// <summary>
+/// Skill UI에 있는 3개의 버튼에 각각 할당되어
+/// 랜덤으로 선택된 스킬을 UI에 보여주고, 각 스킬의 정보를 저장해주는 스크립트.
+/// </summary>
 public class SkillButtonData : MonoBehaviour
 {
     [Header("Connected Components")]
     [SerializeField] private PlayerSkillHandler playerSkillHandler;
+    [SerializeField] private RangeWeaponHandler rangeWeaponHandler;     // Dynamically assigned
     [SerializeField] private Cooldown cooldown;
 
 
@@ -18,8 +23,19 @@ public class SkillButtonData : MonoBehaviour
     public TextMeshProUGUI skillNameText;
     public Skill assignedSkill;
 
-    
+    [Header("Skill Applying Events")]
+    public UnityEvent ApplyingSkillToStats;
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.1f);
+        rangeWeaponHandler = FindObjectOfType<RangeWeaponHandler>();
+    }
+
+    /// <summary>
+    /// SkillButtonData의 각 버튼에 스킬 정보를 저장해주는 메서드.
+    /// </summary>
+    /// <param name="skill"></param>
     public void SetSkillDataToButton (Skill skill)
     {
         skillIcon.sprite = skill.icon;
@@ -27,21 +43,31 @@ public class SkillButtonData : MonoBehaviour
         assignedSkill = skill;
     }
 
+    /// <summary>
+    /// 스킬을 고르는 버튼을 클릭했을 때 선택한 스킬을 
+    /// Player에게 적용시켜주는 메서드.
+    /// </summary>
     public void AddSkillOnClick()
     {
-        // if a button is pressed once
-        // starts the timer for click delay
-        // while the delay time is not up yet
-        // the button can't be pressed again.
+        // 스킬 버튼이 다시 활성화 되기까지의 쿨다운 시간을 체크
         if (cooldown.IsCoolingDown)
         {
+#if UNITY_EDITOR
             Debug.Log("It's cooling down!");
+#endif
             return;
         }
 
         playerSkillHandler.SkillAcquired(assignedSkill);
+        ApplyingSkillsToStats();
 
-        cooldown.StartCoolingDown();
-        
+        // 쿨다운 시작
+        cooldown.StartCoolingDown();     
+    }
+
+    public void ApplyingSkillsToStats()
+    {
+        Debug.Log("Skills are Applied to Stats!");
+        ApplyingSkillToStats?.Invoke();
     }
 }

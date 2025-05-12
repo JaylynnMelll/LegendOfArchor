@@ -20,6 +20,12 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private float weaponRange = 10f;
     public float WeaponRange { get => weaponRange; set => weaponRange = value; }
 
+    [SerializeField] private float ciriticalChance = 0f;
+    public float CriticalChance { get => ciriticalChance; set => ciriticalChance = value; }
+
+    [SerializeField] private float ciriticalDamage = 1f;
+    public float CriticalDamage { get => ciriticalDamage; set => ciriticalDamage = value; }
+
     public LayerMask target;
 
 
@@ -41,11 +47,13 @@ public class WeaponHandler : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer weaponRenderer;
+    private PlayerSkillHandler playerSkillHandler;
 
     public AudioClip attackSoundClip;
 
     protected virtual void Awake()
     {
+        playerSkillHandler = GetComponentInParent<PlayerSkillHandler>();
         Controller = GetComponentInParent<BaseController>();
         animator = GetComponentInChildren<Animator>();
         weaponRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -71,6 +79,26 @@ public class WeaponHandler : MonoBehaviour
 
         if (attackSoundClip != null)
             SoundManager.PlayClip(attackSoundClip);
+    }
+
+    public virtual void ResetStats()
+    {
+        // Reset weapon stats to default 
+        WeaponSize = 1f;
+        WeaponPower = 1f;
+        WeaponSpeed = 1f;
+        WeaponRange = 10f;
+        KnockbackPower = 0.1f;
+        KnockbackTime = 0.5f;
+    }
+
+    public virtual void ApplyFinalStats(float WeaponPower, float WeaponSpeed, float CriticalChance, float CriticalDamage, float WeaponRange)
+    {
+        WeaponPower = playerSkillHandler.CalculateFinalDamage(WeaponPower);
+        WeaponSpeed = playerSkillHandler.CalculateFinalAttackSpeed(WeaponSpeed);
+        CriticalChance = playerSkillHandler.CalculateFinalCriticalChance(CriticalChance);
+        CriticalDamage = playerSkillHandler.CalculateFinalCriticalDamage(CriticalDamage);
+        WeaponRange = playerSkillHandler.CalculateFinalRange(WeaponRange);
     }
 
     public void AttackAnimation()
