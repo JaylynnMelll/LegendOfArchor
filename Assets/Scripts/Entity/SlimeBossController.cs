@@ -10,7 +10,7 @@ public class SlimeBossController : BaseController, IEnemy
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
     [SerializeField] public int maxSplitCount = 4; // 최대 분열 횟수
-    [SerializeField] private int splitCount = 0; // 현재 분열 횟수
+    [SerializeField] public int splitCount = 0; // 현재 분열 횟수
     [SerializeField] private int splitSpawnCount = 2; // 한 번에 나오는 분열 수
 
 
