@@ -32,11 +32,21 @@ public class EnemyManager : MonoBehaviour
 
             // 초기화
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            enemyController.Init(this, gameManager.player.transform);
+            SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
+
+
+            if (enemyController == null)
+            {
+                sbController.InitEnemy(this, gameManager.player.transform);
+                sbController.Reset();
+            }
+            else
+            {
+                enemyController.Init(this, gameManager.player.transform);
+                enemyController.Reset();
+            }
 
             aliveEnemyCount++;
-
-            enemyController.Reset(); 
         }
         
     }
