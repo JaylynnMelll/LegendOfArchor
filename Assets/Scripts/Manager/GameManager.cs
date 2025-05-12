@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
         {
             isFirstLoading = false;
         }
+        // enemyManager = GetComponentInChildren<EnemyManager>();
+        // enemyManager.Init(this);
     }
 
     public void StartGame()
