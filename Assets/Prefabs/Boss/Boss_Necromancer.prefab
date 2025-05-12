@@ -311,7 +311,7 @@ MonoBehaviour:
   skeletonPrefab: {fileID: 3675070882677843582, guid: 77210e4638b05de49a38fc06aabbd346, type: 3}
   summonInterval: 5
   skeletonCountPerSummon: 3
-  shockwaveEffectPrefab: {fileID: 0}
+  shockwaveEffectPrefab: {fileID: 7733185582974939058, guid: e0eaeb8976bc69044922cbbe22c992c7, type: 3}
   shockwaveCooldown: 8
   projectileAttackInterval: 3
   followRange: 15

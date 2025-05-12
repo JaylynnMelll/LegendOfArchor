@@ -288,6 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   speed: 3
+  rewardGold: 10
+  rewardExp: 5
 --- !u!114 &8975606813784696620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,4 +305,6 @@ MonoBehaviour:
   characterRenderer: {fileID: 8541644184351457633}
   weaponPivot: {fileID: 8615003346092639213}
   WeaponPrefab: {fileID: 2864783522489194586, guid: df679258809fbe440a6d100365766d3f, type: 3}
+  dieMaterial: {fileID: 2100000, guid: c492775ec99b0224183215a97d3e97e9, type: 2}
+  resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   followRange: 15

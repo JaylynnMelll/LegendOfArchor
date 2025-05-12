@@ -19,6 +19,7 @@ public class NecromancerBossController : BaseController, IEnemy
     private RangeWeaponHandler rangeWeaponHandler;
     private ResourceController resourceController;
     private EnemyManager enemyManager;
+    private GameManager gameManager;
     private Transform target;
 
     public bool IsSummoned => false;
@@ -142,6 +143,7 @@ public class NecromancerBossController : BaseController, IEnemy
             yield return new WaitForSeconds(shockwaveCooldown);
             if (isPhaseTwo && shockwaveEffectPrefab != null)
             {
+                Vector2 abovePlayerPos = target.position + Vector3.up * 3f;
                 Instantiate(shockwaveEffectPrefab, transform.position, Quaternion.identity);
                 Debug.Log("충격파 발동");
             }
