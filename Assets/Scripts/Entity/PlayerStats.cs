@@ -17,12 +17,12 @@ public class PlayerStats : MonoBehaviour
     public void AddGold(int amount)
     {
         Gold += amount;
-        Debug.Log($"°ñµå + {amount}, ÇöÀç : {Gold}");
+        Debug.Log($"ï¿½ï¿½ï¿½ + {amount}, ï¿½ï¿½ï¿½ï¿½ : {Gold}");
     }
 
     public void AddExp(int amount)
     {
         Exp += amount;
-        Debug.Log($"°æÇèÄ¡ + {amount}, ÇöÀç : {Exp}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½Ä¡ + {amount}, ï¿½ï¿½ï¿½ï¿½ : {Exp}");
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,9 +36,14 @@ public class EnemyManager : MonoBehaviour
 
             aliveEnemyCount++;
 
-            enemyController.Reset(); 
+            enemyController.Reset();
         }
-        
+        // var resource = spawnedEnemy.GetComponent<ResourceController>();
+
+        // if (resource != null)
+        // {
+        //     gameManager.CreateEnemyHPBar(spawnedEnemy.transform, resource);
+        // }
     }
 
     // 사망한 적을 풀에 반환
