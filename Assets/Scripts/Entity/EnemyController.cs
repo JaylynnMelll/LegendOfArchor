@@ -76,8 +76,9 @@ public class EnemyController : BaseController, IEnemy
     }
 
     // 임시구현
-    public void InitEnemy(EnemyManager enemyManager, Transform player)
+    public void InitEnemy(EnemyManager enemyManager, Transform target)
     {
-        throw new System.NotImplementedException();
+        this.enemyManager = enemyManager;
+        this.target = target;
     }
 }
