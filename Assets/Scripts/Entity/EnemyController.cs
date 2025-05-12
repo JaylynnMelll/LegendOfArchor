@@ -76,8 +76,9 @@ public class EnemyController : BaseController, IEnemy
     }
 
     // �ӽñ���
-    public void InitEnemy(EnemyManager enemyManager, Transform player)
+    public void InitEnemy(EnemyManager enemyManager, Transform target)
     {
-        throw new System.NotImplementedException();
+        this.enemyManager = enemyManager;
+        this.target = target;
     }
 }
