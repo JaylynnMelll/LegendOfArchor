@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
             EnemyController enemyController = enemy.GetComponent<EnemyController>();
             SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
 
-
+            // 
             if (enemyController == null)
             {
                 sbController.InitEnemy(this, gameManager.player.transform);

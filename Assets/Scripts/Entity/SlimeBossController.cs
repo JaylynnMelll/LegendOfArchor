@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlimeBossController : BaseController, IEnemy
 
 {
+    EnemyManager enemyManager;
 
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
@@ -30,6 +31,7 @@ public class SlimeBossController : BaseController, IEnemy
     public void InitEnemy(EnemyManager manager, Transform player)
     {
         target = player;
+        enemyManager = manager;
         StartCoroutine(ChargeRoutine());
     }
     protected override void Awake()
@@ -39,6 +41,7 @@ public class SlimeBossController : BaseController, IEnemy
         resourceController = GetComponent<ResourceController>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
+        
 
         if (lineRenderer != null)
         {
@@ -65,6 +68,8 @@ public class SlimeBossController : BaseController, IEnemy
         else
         {
             base.Died();
+            enemyManager.RemoveEnemyOnDeath(this);
+
         }
     }
 
@@ -88,7 +93,8 @@ public class SlimeBossController : BaseController, IEnemy
             if (splitcontroller != null)
             {
                 // EnemyManager와 플레이어 Transform을 전달하여 초기화
-                splitcontroller.InitEnemy(GetComponentInParent<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
+                // +수정) 부모에게서가 아닌 본인이 직접 enemyManager를 가지게끔 함
+                splitcontroller.InitEnemy(enemyManager, FindObjectOfType<GameManager>().player.transform);
                 splitcontroller.InitSplit(splitCount + 1);
             }
         }
