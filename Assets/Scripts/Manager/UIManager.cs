@@ -8,6 +8,7 @@ public enum UIState
 {
     Home,
     Game,
+    Pause,
     GameOver,
 }
 
@@ -17,18 +18,20 @@ public class UIManager : MonoBehaviour
     HomeUI homeUI;
     GameUI gameUI;
     GameOverUI gameOverUI;
-    HPBarUI hpBarUI;
+    PauseUI pauseUI;
+    public GameObject damageTextPrefab; // TextMeshPro 프리팹
+    public Transform damageTextRoot; // World Space Canvas의 Transform
+
+    private HPBarUI playerHpBarUI;
 
     // 현재 UI 상태
     private UIState currentState;
-
-    // 체력바 프리팹이 붙을 위치
-    private Transform hpBarRoot;
+    public UIState CurrentState => currentState;
 
     // 체력바 프리팹 연결용
     [SerializeField] private GameObject hpBarPrefab;
-
-
+    // 체력바 프리팹이 붙을 위치
+    [SerializeField] private Transform hpBarRoot;
 
     private void Awake()
     {
@@ -39,39 +42,59 @@ public class UIManager : MonoBehaviour
         gameUI.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
-
-        // 체력바가 붙을 위치 찾기
-        hpBarRoot = gameUI.transform.Find("HpBar");
+        pauseUI = GetComponentInChildren<PauseUI>(true);
+        pauseUI.Init(this);
 
         // 처음엔 홈 상태로
         ChangeState(UIState.Home);
     }
 
-    // 플레이어 체력바 UI 생성, 초기화
-    public void InitPlayerHPBar(Transform target)
-    {
-        // 체력바 프리팹 인스턴스화
-        GameObject hpBar = Instantiate(hpBarPrefab, hpBarRoot);
 
-        // 체력바 따라다니게 설정
+    public void CreateHPBar(Transform target, ResourceController resource, Color color)
+    {
+        GameObject hpBar = Instantiate(hpBarPrefab, Vector3.zero, Quaternion.identity, hpBarRoot);
+
         var follow = hpBar.GetComponent<FollowHPBar>();
         follow.SetTarget(target);
 
-        // 체력바 색상 설정
         var hpBarUI = hpBar.GetComponent<HPBarUI>();
-        hpBarUI.SetFillColor(Color.green);
+        hpBarUI.SetFillColor(color);
+        hpBarUI.Init(resource);
 
-        // 초기 체력 수치 설정        
-        var stats = PlayerStats.Instance;
-        hpBarUI.UpdateHP(stats.CurrentHP, stats.MaxHP);
-
-        this.hpBarUI = hpBarUI;// UIManager에서 사용하기위해 사용
+        if (color == Color.green)
+            playerHpBarUI = hpBarUI;
     }
+    public void DestroyPlayerHPBar()
+    {
+        if (playerHpBarUI != null)
+        {
+            Destroy(playerHpBarUI.gameObject); // 완전히 제거
+            playerHpBarUI = null;
+        }
+    }
+    public void ShowDamageText(Vector3 worldPos, int damage)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        GameObject textObj = Instantiate(damageTextPrefab, screenPos, Quaternion.identity, damageTextRoot);
+
+        var damageText = textObj.GetComponent<DamageText>();
+        if (damageText != null)
+        {
+            damageText.Init(damage);
+        }
+    }
+
 
     // 게임중 상태로 전환
     public void SetPlayGame()
     {
         ChangeState(UIState.Game);
+    }
+
+    // 일시정지 상태로 전환
+    public void SetGamePause()
+    {
+        ChangeState(UIState.Pause);
     }
 
     // 게임 오버 상태로 전환
@@ -93,10 +116,10 @@ public class UIManager : MonoBehaviour
     }
 
     // 플레이어 체력 갱신
-    public void ChangePlayerHP(float currentHP, float maxHP)
-    {
-        hpBarUI.UpdateHP(currentHP, maxHP);
-    }
+    // public void ChangeHP(float currentHP, float maxHP)
+    // {
+    //     hpBarUI.UpdateHP(currentHP, maxHP);
+    // }
 
     // 경험치 바, 레벨 갱신
     public void ChangePlayerExpAndLevel(float currentExp, float maxExp, int level)
@@ -111,6 +134,7 @@ public class UIManager : MonoBehaviour
         currentState = state;
         homeUI.SetActive(currentState);
         gameUI.SetActive(currentState);
+        pauseUI.SetActive(currentState);
         gameOverUI.SetActive(currentState);
     }
 }

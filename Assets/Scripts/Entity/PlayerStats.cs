@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
-    public int MaxHP { get; private set; } = 100;
+    public int MaxHP { get; private set; }
     public int CurrentHP { get; private set; }
 
     public int Gold { get; private set; }

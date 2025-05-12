@@ -4,18 +4,29 @@ using TMPro;
 
 public class HPBarUI : BaseUI
 {
-    // [SerializeField] private Slider delayedSlider;
-    // [SerializeField] private Slider immediateSlider;
     [SerializeField] private Slider hpSlider; // 체력바
     [SerializeField] private Slider hpDelayedSlider; // 흰색(잔상) 체력바
     [SerializeField] private Image fillImage; // 체력바 색 설정할 수 있게 이미지 분리
     [SerializeField] private TextMeshProUGUI hpText;
+    private ResourceController resource;
 
 
     private float targetHP = 1f; // 체력비율 0.0f ~ 1.0f
     public float delaySpeed = 5f; // 흰색 체력바가 따라가는 속도
-
-    void Update()
+    public void Init(ResourceController resource)
+    {
+        this.resource = resource;
+        resource.AddHealthChangeEvent(UpdateHP);
+        UpdateHP(resource.CurrentHealth, resource.MaxHealth); // 초기 표시
+    }
+    private void OnDestroy()
+    {
+        if (resource != null)
+        {
+            resource.RemoveHealthChangeEvent(UpdateHP); // 안전하게 해제
+        }
+    }
+    private void Update()
     {
         // 흰색 체력바는 잔상처리 함
         hpDelayedSlider.value = Mathf.Lerp(hpDelayedSlider.value,

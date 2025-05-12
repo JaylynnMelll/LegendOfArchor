@@ -47,7 +47,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Start()
     {
-       
+        
     }
 
     protected virtual void Update()

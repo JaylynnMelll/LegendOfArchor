@@ -17,10 +17,10 @@ public class PlayerController : BaseController
     }
 
     protected override void HandleAction()
-    { 
+    {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        movementDirection = new Vector2(horizontal, vertical).normalized;   
+        movementDirection = new Vector2(horizontal, vertical).normalized;
 
         Vector2 mousePosition = Input.mousePosition;
         Vector2 worldPosition = camera.ScreenToWorldPoint(mousePosition);
@@ -71,6 +71,14 @@ public class PlayerController : BaseController
             return;
 
         isAttacking = inputValue.isPressed;
+    }
+
+    void OnPause()
+    {
+        if (gameManager != null && gameManager.IsGamePlaying())
+        {
+            gameManager.PauseGame();
+        }
     }
 }
 

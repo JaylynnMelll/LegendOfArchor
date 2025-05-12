@@ -81,12 +81,20 @@ public class SlimeBossController : BaseController, IEnemy
             Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 0.5f;
             GameObject split = Instantiate(bossSlimeSplit, spawnPos, Quaternion.identity);
 
+            var resource = split.GetComponent<ResourceController>();
+
             SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
             if (splitcontroller != null)
             {
                 // EnemyManager와 플레이어 Transform을 전달하여 초기화
                 splitcontroller.InitEnemy(GetComponentInParent<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
                 splitcontroller.InitSplit(splitCount + 1);
+            }
+
+            // 체력바 생성
+            if (resource != null)
+            {
+                GameManager.instance.CreateEnemyHPBar(split.transform, resource);
             }
         }
 

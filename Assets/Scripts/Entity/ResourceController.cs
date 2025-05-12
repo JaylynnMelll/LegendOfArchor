@@ -28,11 +28,11 @@ public class ResourceController : MonoBehaviour
         animationHandler = GetComponent<AnimationHandler>();
         slimeBossController = GetComponent<SlimeBossController>();
         enemyController = GetComponent<EnemyController>();
+        CurrentHealth = statHandler.Health;
     }
 
     private void Start()
     {
-        CurrentHealth = statHandler.Health;
     }
 
     private void Update()
@@ -47,14 +47,14 @@ public class ResourceController : MonoBehaviour
         }
     }
 
-    // º¸½º¸ó½ºÅÍ Ã¼·Â ÃÊ±âÈ­ À§ÇØ Ãß°¡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     public void SetHealth(float value)
     {
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
 
-    public bool ChangeHealth (float change)
+    public bool ChangeHealth(float change)
     {
         if (change == 0 || timeSinceLastHealthChange < healthChangeDealy)
         {
@@ -74,6 +74,7 @@ public class ResourceController : MonoBehaviour
 
             if (damageSoundClip != null)
                 SoundManager.PlayClip(damageSoundClip);
+            GameManager.instance.ShowDamageText(transform.position, Mathf.FloorToInt(-change));
         }
 
         if (CurrentHealth <= 0f)
@@ -96,14 +97,16 @@ public class ResourceController : MonoBehaviour
 
     private void Died()
     {
-        if(slimeBossController != null)
-        {
-            slimeBossController.Died();
-        }
-        else if (enemyController != null)
-        {
-            baseController?.Died();
-        }
+        // if (slimeBossController != null)
+        // {
+        //     slimeBossController.Died();
+        // }
+        // else if (enemyController != null)
+        // {
+        //     baseController?.Died();
+        // }
+        baseController?.Died();
+
     }
 }
 

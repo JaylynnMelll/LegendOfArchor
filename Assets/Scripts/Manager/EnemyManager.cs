@@ -84,9 +84,17 @@ public class EnemyManager : MonoBehaviour
 
         // 적 생성 및 리스트에 추가
         GameObject spawnedEnemy = Instantiate(randomPrefab, new Vector3(randomPosition.x, randomPosition.y), Quaternion.identity);
-        
+
+        var resource = spawnedEnemy.GetComponent<ResourceController>();
+
+        if (resource != null)
+        {
+            gameManager.CreateEnemyHPBar(spawnedEnemy.transform, resource);
+        }
+
+
         IEnemy enemy = spawnedEnemy.GetComponent<IEnemy>();
-        if (enemy != null )
+        if (enemy != null)
         {
             enemy.InitEnemy(this, gameManager.player.transform);
             activeEnemies.Add(enemy);
