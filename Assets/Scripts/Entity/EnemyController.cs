@@ -43,7 +43,7 @@ public class EnemyController : BaseController, IEnemy
             {
                 int layerMaskTarget = weaponHandler.target;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, weaponHandler.WeaponRange * 1.5f,
-                    (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
+                (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
                 {
@@ -75,9 +75,10 @@ public class EnemyController : BaseController, IEnemy
         base.Reset();
     }
 
-    // ÀÓ½Ã±¸Çö
-    public void InitEnemy(EnemyManager enemyManager, Transform player)
+    // ï¿½Ó½Ã±ï¿½ï¿½ï¿½
+    public void InitEnemy(EnemyManager enemyManager, Transform target)
     {
-        throw new System.NotImplementedException();
+        this.enemyManager = enemyManager;
+        this.target = target;
     }
 }

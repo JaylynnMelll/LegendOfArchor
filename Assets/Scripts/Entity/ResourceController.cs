@@ -26,10 +26,10 @@ public class ResourceController : MonoBehaviour
         necromancerBossController = GetComponent<NecromancerBossController>();
         enemyController = GetComponent<EnemyController>();
         playerController = GetComponent<PlayerController>();
+        CurrentHealth = statHandler.Health;
     }
     private void Start()
     {
-        CurrentHealth = statHandler.Health;
     }
     private void Update()
     {
@@ -42,12 +42,13 @@ public class ResourceController : MonoBehaviour
             }
         }
     }
-    // 보스몬스터 체력 초기화 위해 추가
+
     public void SetHealth(float value)
     {
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
+
     public bool ChangeHealth(float change)
     {
         if (change == 0 || timeSinceLastHealthChange < healthChangeDealy)
@@ -64,6 +65,7 @@ public class ResourceController : MonoBehaviour
             animationHandler.Damage();
             if (damageSoundClip != null)
                 SoundManager.PlayClip(damageSoundClip);
+            GameManager.instance.ShowDamageText(transform.position, Mathf.FloorToInt(-change));
         }
         if (CurrentHealth <= 0f)
         {
