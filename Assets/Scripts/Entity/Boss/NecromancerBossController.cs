@@ -10,6 +10,7 @@ public class NecromancerBossController : BaseController, IEnemy
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private float summonInterval = 5f;
     [SerializeField] private int skeletonCountPerSummon = 3;
+    [SerializeField] private GameObject summonEffectPrefab;
     [Header("�����")]
     [SerializeField] private GameObject shockwaveEffectPrefab;
     [SerializeField] private float shockwaveCooldown = 8f;
@@ -117,9 +118,17 @@ public class NecromancerBossController : BaseController, IEnemy
         while (true)
         {
             yield return new WaitForSeconds(summonInterval);
+
             for (int i = 0; i < skeletonCountPerSummon; i++)
             {
                 Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
+
+                // 마법진 이펙트
+                GameObject effect = Instantiate(summonEffectPrefab, spawnPos, Quaternion.identity);
+
+                // 스켈레톤 소환 딜레이
+                yield return new WaitForSeconds(0.3f);
+
                 GameObject skeleton = Instantiate(skeletonPrefab, spawnPos, Quaternion.identity);
 
                 summonedSkeletons.Add(skeleton);

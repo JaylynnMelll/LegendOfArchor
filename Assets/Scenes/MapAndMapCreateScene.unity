@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e26487c2c6e01c42a3e9e6a16c466d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveText: {fileID: 1898871589}
+  pauseButton: {fileID: 0}
   levelText: {fileID: 0}
   goldText: {fileID: 0}
   expSlider: {fileID: 0}
@@ -1457,8 +1457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bbec280d3c1034980034a2505a1171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBarPool: {fileID: 0}
   damageTextPrefab: {fileID: 0}
   damageTextRoot: {fileID: 0}
+  skillManager: {fileID: 0}
   hpBarPrefab: {fileID: 0}
   hpBarRoot: {fileID: 0}
 --- !u!1 &931464220
@@ -1511,8 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa951dc3673b4045be13fdaea9c29d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 1857607048}
-  exitButton: {fileID: 1386374010}
+  selectWeaponPanel: {fileID: 0}
 --- !u!1 &1082358551
 GameObject:
   m_ObjectHideFlags: 0
@@ -6579,7 +6580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartButton: {fileID: 509212698}
-  exitButton: {fileID: 1507850385}
+  mainMenuButton: {fileID: 0}
 --- !u!1 &1211468015
 GameObject:
   m_ObjectHideFlags: 0
@@ -12125,9 +12126,8 @@ MonoBehaviour:
   normalEnemies:
   - {fileID: 9214229529407106475, guid: c3f657a4b65877942b76cd84cc549cc2, type: 3}
   - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
-  bossEnemies:
-  - {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
-  - {fileID: 8264194638359092396, guid: dc6e46d2379c6f941a721bcc6d7f9293, type: 3}
+  slimeBossPrefab: {fileID: 0}
+  necromancerBossPrefab: {fileID: 0}
 --- !u!1 &1507850383
 GameObject:
   m_ObjectHideFlags: 0
@@ -12379,6 +12379,18 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 4357769163611957157, guid: aa6170baf34ae6f4681b0b6f2e42d0c5, type: 3}
   dieMaterial: {fileID: 2100000, guid: c492775ec99b0224183215a97d3e97e9, type: 2}
   resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
+  dodgeDistance: 3
+  dodgeDuration: 0.2
+  dodgeCooldown: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyProjectileLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1509543277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12421,6 +12433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthChangeDealy: 0.5
   damageSoundClip: {fileID: 8300000, guid: 2d990c30223183940b4508814acd9b9a, type: 3}
+  _maxHealth: 10
 --- !u!114 &1509543280
 MonoBehaviour:
   m_ObjectHideFlags: 0

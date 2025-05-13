@@ -262,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthChangeDealy: 0.5
   damageSoundClip: {fileID: 8300000, guid: 97e08ac843dafec47a1b70d405afc318, type: 3}
+  _maxHealth: 10
 --- !u!114 &8229532385340906254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +312,7 @@ MonoBehaviour:
   skeletonPrefab: {fileID: 3675070882677843582, guid: 77210e4638b05de49a38fc06aabbd346, type: 3}
   summonInterval: 8
   skeletonCountPerSummon: 3
+  summonEffectPrefab: {fileID: 1793387824243165137, guid: b68b7ace2a11a174e9dbb199b897b6f6, type: 3}
   shockwaveEffectPrefab: {fileID: 7733185582974939058, guid: e0eaeb8976bc69044922cbbe22c992c7, type: 3}
   shockwaveCooldown: 8
   projectileAttackInterval: 3
