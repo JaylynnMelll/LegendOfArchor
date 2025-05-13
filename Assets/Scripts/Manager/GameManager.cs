@@ -44,20 +44,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         CreatePlayerHPBar(); // 플레이어 체력바 생성
-        if (!isFirstLoading)
-        {
-            StartGame();
-        }
-        else
-        {
-            isFirstLoading = false;
-        }
-    }
-
-    public void StartGame()
-    {
-        uiManager.SetPlayGame(); // UI 상태 Game으로 설정
         stageManager.Init(enemyManager);
+        if (isFirstLoading)
+            isFirstLoading = false;
     }
 
     // 체력바 생성
