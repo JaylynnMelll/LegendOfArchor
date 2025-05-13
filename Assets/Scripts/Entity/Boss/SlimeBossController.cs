@@ -128,7 +128,10 @@ public class SlimeBossController : BaseController, IEnemy
         enemyManager.aliveEnemyCount--;
         enemyManager.RemoveEnemyOnDeath(this);
         Destroy(gameObject); // 분열 전 슬라임 제거
-    }
+
+        if (currentWarningBox != null)
+            Destroy(currentWarningBox); // 경고 박스 제거
+    }
 
     public void InitSplit(int newSplitCount)
     {
