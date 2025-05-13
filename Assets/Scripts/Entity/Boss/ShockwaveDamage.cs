@@ -92,7 +92,7 @@ public class ShockwaveDamage : MonoBehaviour
         }
 
         // 카메라 흔들림
-        CameraShaker.Instance?.Shake(shakeIntensity, shakeDuration);
+        PlayerCamera.Instance?.Shake(shakeIntensity, shakeDuration);
 
         Destroy(gameObject);
     }
