@@ -16,14 +16,17 @@ public class SlimeBossController : BaseController, IEnemy
     [SerializeField] private float chargeSpeed = 10f; // 몸통박치기 속도
     [SerializeField] private float chargeDuration = 1f; // 돌진 지속 시간
     [SerializeField] private float chargeCooldown = 3f; // 돌진 간격
+    [SerializeField] private GameObject chargeWarningBoxPrefab;
+    private GameObject currentWarningBox;
 
     private bool isCharging = false;
     private Transform target; // 플레이어 추적
 
     private EnemyManager enemyManager;
 
-    private LineRenderer lineRenderer;
     private Animator animator;
+
+    private Coroutine chargeCoroutine;
 
     public bool IsSummoned => isSummoned;
     public bool isSummoned = false;
@@ -35,7 +38,10 @@ public class SlimeBossController : BaseController, IEnemy
     {
         target = player;
         enemyManager = manager;
-        StartCoroutine(ChargeRoutine());
+        if (chargeCoroutine == null)
+        {
+            chargeCoroutine = StartCoroutine(ChargeRoutine());
+        }
     }
 
     public void SummonCheck()
@@ -46,16 +52,8 @@ public class SlimeBossController : BaseController, IEnemy
     {
         base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
-        lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
 
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-            lineRenderer.positionCount = 2;
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-        }
     }
 
     protected override void FixedUpdate()
@@ -77,6 +75,15 @@ public class SlimeBossController : BaseController, IEnemy
             enemyManager.RemoveEnemyOnDeath(this);
             base.Died();
             base.OnDeathComplete();
+
+            if (chargeCoroutine != null)
+            {
+                StopCoroutine(chargeCoroutine);
+                chargeCoroutine = null;
+            }
+
+            if (currentWarningBox != null)
+                Destroy(currentWarningBox);
         }
     }
 
@@ -139,7 +146,10 @@ public class SlimeBossController : BaseController, IEnemy
         statHandler.Speed += 0.5f;
 
         // 분열 이후 돌진패턴 시작
-        StartCoroutine(ChargeRoutine());
+        if (chargeCoroutine == null)
+        {
+            chargeCoroutine = StartCoroutine(ChargeRoutine());
+        }
 
     }
 
@@ -155,23 +165,41 @@ public class SlimeBossController : BaseController, IEnemy
 
             Debug.Log("돌진 시작");
 
-            // 돌진 예고선 표시
-            Vector2 direction = (target.position - transform.position).normalized;
+            // 돌진 경고 박스 표시
+            Vector2 direction = (target.position - transform.position).normalized;
             Vector2 start = transform.position;
-            Vector2 end = start + direction * 5f;
 
-            if (lineRenderer != null)
+            // 돌진 거리
+            float chargeRange = 10f;
+
+            // 슬라임 스케일 반영
+            float slimeScaleY = transform.localScale.y;
+            float slimeScaleX = transform.localScale.x;
+
+            // 박스 중심 = 돌진 거리의 절반 지점
+            Vector2 center = start + direction * (chargeRange / 2f);
+
+            // 회전 각도 계산
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            if (chargeWarningBoxPrefab != null)
             {
-                lineRenderer.SetPosition(0, start);
-                lineRenderer.SetPosition(1, end);
-                lineRenderer.startColor = new Color(1, 0, 0, 0.6f);
-                lineRenderer.endColor = new Color(1, 0, 0, 0.1f);
-                lineRenderer.enabled = true;
+                currentWarningBox = Instantiate(chargeWarningBoxPrefab, center, Quaternion.identity);
+
+                // 방향으로 회전
+                currentWarningBox.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                // 스케일 조정: 길이 = 돌진 거리, 높이 = 슬라임 크기 기반
+                float width = chargeRange;
+                float height = 1f * slimeScaleY;  // 원한다면 1.2f 등으로 살짝 더 키워도 OK
+
+                currentWarningBox.transform.localScale = new Vector3(width, height, 1f);
             }
 
             yield return new WaitForSeconds(0.8f); // 예고 시간
 
-            if (lineRenderer != null) lineRenderer.enabled = false;
+            if (currentWarningBox != null)
+                Destroy(currentWarningBox);
 
             // 애니메이션 트리거 추가 예정
             // animator?.SetTrigger("ChargeStart");
