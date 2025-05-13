@@ -47,13 +47,14 @@ public class WeaponHandler : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer weaponRenderer;
-    private PlayerSkillHandler playerSkillHandler;
+    protected PlayerSkillHandler playerSkillHandler;
 
     public AudioClip attackSoundClip;
 
     protected virtual void Awake()
     {
-        playerSkillHandler = GetComponentInParent<PlayerSkillHandler>();
+        playerSkillHandler = FindObjectOfType<PlayerSkillHandler>();
+        Debug.Log(playerSkillHandler.gameObject.name);
         Controller = GetComponentInParent<BaseController>();
         animator = GetComponentInChildren<Animator>();
         weaponRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -81,20 +82,20 @@ public class WeaponHandler : MonoBehaviour
             SoundManager.PlayClip(attackSoundClip);
     }
 
-    public virtual void ResetStats()
+    public virtual void ResetWeaponStats()
     {
         // Reset weapon stats to default 
         WeaponSize = 1f;
         WeaponPower = 1f;
         WeaponSpeed = 1f;
-        WeaponRange = 10f;
+        WeaponRange = 1f;
         CriticalChance = 0.2f;
         CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
         KnockbackTime = 0.5f;
     }
 
-    public virtual void ApplyFinalStats()
+    public virtual void ApplyFinalWeaponStats()
     {
         WeaponPower = playerSkillHandler.CalculateFinalDamage(WeaponPower);
         WeaponSpeed = playerSkillHandler.CalculateFinalAttackSpeed(WeaponSpeed);

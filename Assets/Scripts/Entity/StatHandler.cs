@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatHandler : MonoBehaviour
 {
-    [Range(1, 100)][SerializeField] private int health = 10;
+    [Range(1, 100)][SerializeField] private int health = 100;
     public int Health
     {
         get => health;

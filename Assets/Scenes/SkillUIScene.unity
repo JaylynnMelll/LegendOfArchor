@@ -208,10 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDataBase: {fileID: 241887092}
-  chooseSkill:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  resourceController: {fileID: 1509543279}
+  chooseSkill: []
 --- !u!4 &241887094
 Transform:
   m_ObjectHideFlags: 0
@@ -3428,8 +3426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e26487c2c6e01c42a3e9e6a16c466d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveText: {fileID: 1898871589}
-  hpSlider: {fileID: 1166240963}
+  pauseButton: {fileID: 0}
+  levelText: {fileID: 0}
+  goldText: {fileID: 0}
+  expSlider: {fileID: 0}
+  expFillSpeed: 3
 --- !u!1 &645536252
 GameObject:
   m_ObjectHideFlags: 0
@@ -4478,6 +4479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bbec280d3c1034980034a2505a1171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBarPool: {fileID: 0}
+  damageTextPrefab: {fileID: 0}
+  damageTextRoot: {fileID: 0}
+  hpBarPrefab: {fileID: 0}
+  hpBarRoot: {fileID: 0}
 --- !u!1 &856954580
 GameObject:
   m_ObjectHideFlags: 0
@@ -5419,8 +5425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa951dc3673b4045be13fdaea9c29d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 1857607048}
-  exitButton: {fileID: 1386374010}
 --- !u!1 &944288140
 GameObject:
   m_ObjectHideFlags: 0
@@ -10904,7 +10908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartButton: {fileID: 509212698}
-  exitButton: {fileID: 1507850385}
+  mainMenuButton: {fileID: 0}
 --- !u!1 &1211468015
 GameObject:
   m_ObjectHideFlags: 0
@@ -16473,7 +16477,7 @@ MonoBehaviour:
   skillIcon: {fileID: 1801669010}
   skillNameText: {fileID: 1106442644}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1386374008
@@ -16655,7 +16659,7 @@ MonoBehaviour:
   skillIcon: {fileID: 856954582}
   skillNameText: {fileID: 1581871731}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1507850383
@@ -18127,21 +18131,9 @@ MonoBehaviour:
   skillIcon: {fileID: 289383153}
   skillNameText: {fileID: 1678458299}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1941601476
 GameObject:
   m_ObjectHideFlags: 0

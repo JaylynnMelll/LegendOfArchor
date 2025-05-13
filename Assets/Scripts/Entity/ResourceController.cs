@@ -13,8 +13,8 @@ public class ResourceController : MonoBehaviour
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
 
-    private int _maxHealth = 100; // 최대 체력
-    public int MaxHealth
+    [SerializeField] private float _maxHealth;
+    public float MaxHealth
     {
         get { return _maxHealth; }
         set
@@ -26,6 +26,7 @@ public class ResourceController : MonoBehaviour
     private NecromancerBossController necromancerBossController;
     private EnemyController enemyController;
     private PlayerController playerController;
+    private PlayerSkillHandler playerSkillHandler;
     private void Awake()
     {
         baseController = GetComponent<BaseController>();
@@ -35,7 +36,8 @@ public class ResourceController : MonoBehaviour
         necromancerBossController = GetComponent<NecromancerBossController>();
         enemyController = GetComponent<EnemyController>();
         playerController = GetComponent<PlayerController>();
-        CurrentHealth = statHandler.Health;
+        playerSkillHandler = GetComponent<PlayerSkillHandler>();
+        MaxHealth = CurrentHealth = statHandler.Health;
     }
     private void Start()
     {
@@ -54,10 +56,16 @@ public class ResourceController : MonoBehaviour
 
     public void SetHealth(float value)
     {
+        MaxHealth = value;
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
 
+    public void SetMaxHealth(float value)
+    {
+        MaxHealth = value;
+        OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
+    }
     public bool ChangeHealth(float change)
     {
         var playerController = GetComponent<PlayerController>();
@@ -114,5 +122,16 @@ public class ResourceController : MonoBehaviour
         {
             baseController?.Died();
         }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    public void HPReset()
+    {
+        MaxHealth = 100;
+    }
+
+    public void HPBoost()
+    {
+        MaxHealth = (int)playerSkillHandler.CalculateFinalHealth(MaxHealth);
     }
 }

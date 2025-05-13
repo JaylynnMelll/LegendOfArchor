@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject damageTextPrefab; // TextMeshPro 프리팹
     public Transform damageTextRoot; // World Space Canvas의 Transform
+    public SkillManager skillManager;
 
     private HPBarUI playerHpBarUI;
 
@@ -32,6 +33,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject hpBarPrefab;
     // 체력바 프리팹이 붙을 위치
     [SerializeField] private Transform hpBarRoot;
+
+    [SerializeField] private PlayerSkillHandler playerSkillHandler;
 
     private void Awake()
     {
@@ -104,6 +107,7 @@ public class UIManager : MonoBehaviour
     // 일시정지 상태로 전환
     public void SetGamePause()
     {
+        pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.acquiredSkills);
         ChangeState(UIState.Pause);
     }
 

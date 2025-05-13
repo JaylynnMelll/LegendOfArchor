@@ -309,6 +309,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180526526}
   m_CullTransparentMesh: 1
+--- !u!1 &286251004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 286251005}
+  - component: {fileID: 286251006}
+  m_Layer: 5
+  m_Name: SkillIconContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &286251005
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286251004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 326499854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &286251006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286251004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 150, y: 150}
+  m_Spacing: {x: 20, y: 20}
+  m_Constraint: 1
+  m_ConstraintCount: 5
 --- !u!1 &326499853
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +403,7 @@ RectTransform:
   - {fileID: 1151695838}
   - {fileID: 804339621}
   - {fileID: 935235972}
+  - {fileID: 286251005}
   m_Father: {fileID: 825627560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -364,6 +425,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resumeButton: {fileID: 804339622}
   mainMenuButton: {fileID: 935235973}
+  skillIconPrefab: {fileID: 2286615449767398013, guid: 3fc6524875ddb4074a14844f692fecaa, type: 3}
+  iconRoot: {fileID: 286251005}
 --- !u!1 &441839453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1151,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
@@ -1171,18 +1233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33198a31ac7c31e418732700a763cff5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,6 +2907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthChangeDealy: 0.5
   damageSoundClip: {fileID: 0}
+  _maxHealth: 10
 --- !u!1 &626782768
 GameObject:
   m_ObjectHideFlags: 0
@@ -4274,8 +4325,10 @@ MonoBehaviour:
   hpBarPool: {fileID: 1396540436}
   damageTextPrefab: {fileID: 4005676080295698521, guid: ecadc2e2022b84b1b954ef29509a1ee7, type: 3}
   damageTextRoot: {fileID: 645079967}
+  skillManager: {fileID: 1764842113165123942}
   hpBarPrefab: {fileID: 6547687815608930663, guid: 58f7035872957479b8431e819135ad45, type: 3}
   hpBarRoot: {fileID: 1185192251}
+  playerSkillHandler: {fileID: 1509543282}
 --- !u!1 &867924531
 GameObject:
   m_ObjectHideFlags: 0
@@ -10599,7 +10652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1207136047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16367,6 +16420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthChangeDealy: 0.5
   damageSoundClip: {fileID: 8300000, guid: 2d990c30223183940b4508814acd9b9a, type: 3}
+  _maxHealth: 10
 --- !u!114 &1509543280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16426,6 +16480,7 @@ MonoBehaviour:
   meleeWeaponHandler: {fileID: 0}
   projectileController: {fileID: 0}
   acquiredSkills: []
+  trackingList: []
 --- !u!1 &1570742230
 GameObject:
   m_ObjectHideFlags: 0
@@ -17965,14 +18020,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 4536943838724569476}
   skillIcon: {fileID: 4430864684450903144}
   skillNameText: {fileID: 1744898999023125581}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyHPBoost:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyMultiShot:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1744898999023125581
@@ -18077,6 +18141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDataBase: {fileID: 3736914277136018618}
+  resourceController: {fileID: 1509543279}
+  playerSkillHandler: {fileID: 1509543282}
   chooseSkill:
   - {fileID: 0}
   - {fileID: 0}
@@ -18434,14 +18500,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 7549580896530798413}
   skillIcon: {fileID: 2692644274610119334}
   skillNameText: {fileID: 6226123993347556018}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyHPBoost:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyMultiShot:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3624055647903216436
@@ -19581,14 +19656,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 5056773713127916460}
   skillIcon: {fileID: 4827990408487087749}
   skillNameText: {fileID: 6407922343831560586}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyHPBoost:
+    m_PersistentCalls:
+      m_Calls: []
+  ApplyMultiShot:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8084137517849265588

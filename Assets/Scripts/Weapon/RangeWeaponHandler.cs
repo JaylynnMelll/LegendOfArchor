@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,7 +11,7 @@ public class RangeWeaponHandler : WeaponHandler
 {
     [Header("Connected Components")]
     private ProjectileManager projectileManager;
-    private Skill multishot;
+    [SerializeField] private Skill multishot;
 
     [Header("Ranged Attack Info")]
     [SerializeField] private Transform projectileSpawnPosition;
@@ -26,8 +28,19 @@ public class RangeWeaponHandler : WeaponHandler
     [SerializeField] private float bulletSpread;
     public float Spread { get { return bulletSpread; } }
 
-    [SerializeField] private int numberOfProjectilesPerShot;
-    public int NumberofProjectilesPerShot { get; set; } = 1;
+    [SerializeField] private int numberOfProjectilesPerShot = 1;
+    public int NumberofProjectilesPerShot
+    {
+        get { return numberOfProjectilesPerShot; }
+        set
+        {
+            numberOfProjectilesPerShot = value;
+            if (numberOfProjectilesPerShot < 1)
+            {
+                numberOfProjectilesPerShot = 1;
+            }
+        }
+    }
 
     [SerializeField] private float multipleProjectileAngle;
     public float MultipleProjectileAngle { get { return multipleProjectileAngle; } }
@@ -70,24 +83,67 @@ public class RangeWeaponHandler : WeaponHandler
             );
     }
 
-    public override void ResetStats()
+    public override void ResetWeaponStats()
     {
         WeaponSize = 0.7f;
         WeaponPower = 5;
         WeaponSpeed = 10f;
         WeaponRange = 10f;
         CriticalChance = 0.2f;
-        CriticalChance = 1.5f;
+        CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
         KnockbackTime = 0.5f;
-        NumberofProjectilesPerShot = 1;
-
     }
 
-    public override void ApplyFinalStats()
+    public override void ApplyFinalWeaponStats()
     {
-        base.ApplyFinalStats();
+        base.ApplyFinalWeaponStats();
     }
+
+    public float DamageCalculator()
+    {
+        // return the critical damage or normal damage
+        float critChance = Random.Range(0f, 1f);
+
+        if (critChance <= CriticalChance)
+        {
+            return WeaponPower * CriticalDamage;
+        }
+        else
+        {
+            return WeaponPower;
+        }
+    }
+
+    public void MultiShot()
+    {
+        if (playerSkillHandler.trackingList != null)
+        {
+            RuntimeSkill multishotSkill = playerSkillHandler.trackingList.Find(s => s.skill.skillID == multishot.skillID);
+
+            if (multishotSkill == null) return;
+
+            if (multishotSkill.currentStacks <= multishot.maxStacks)
+            {
+                NumberofProjectilesPerShot += 1;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    public void ConsecutiveShot()
+    {
+        Attack();
+    }
+
+    public void biggerArrow()
+    {
+
+    }
+
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Private Methods]

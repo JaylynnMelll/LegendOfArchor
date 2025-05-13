@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6358263627384955903}
   - component: {fileID: 2864783522489194586}
   m_Layer: 0
-  m_Name: P_Axe_EquipWeapon
+  m_Name: E_Mace_EquipWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,11 +50,9 @@ MonoBehaviour:
   weaponPower: 3
   weaponSpeed: 1
   weaponRange: 1.2
-  ciriticalChance: 0
-  ciriticalDamage: 1
   target:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isOnKnockback: 0
   knockbackPower: 0.1
   knockbackTime: 0.5
@@ -134,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 120
-  m_Sprite: {fileID: 21300000, guid: e8e8f62540e6e1740a0577a26e58b896, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4f5729a5054b1c45817ef3725ad106b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
