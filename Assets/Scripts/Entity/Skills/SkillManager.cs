@@ -10,6 +10,7 @@ public class SkillManager : MonoBehaviour
 {
     [Header("Connected Components")]
     [SerializeField] private SkillDataBase skillDataBase;
+    [SerializeField] private ResourceController resourceController;
 
     /// <summary>
     /// skillDataBase에서 랜덤으로 선택된 스킬 데이터중 3개를 선택하여 저장하는 배열.
@@ -55,5 +56,10 @@ public class SkillManager : MonoBehaviour
         {
             chooseSkill[i] = null;
         }
+    }
+
+    public void HPBoost()
+    {
+
     }
 }

@@ -5,17 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Skill UI�� �ִ� 3���� ��ư�� ���� �Ҵ�Ǿ�
-/// �������� ���õ� ��ų�� UI�� �����ְ�, �� ��ų�� ������ �������ִ� ��ũ��Ʈ.
-/// </summary>
 public class SkillButtonData : MonoBehaviour
 {
     [Header("Connected Components")]
     [SerializeField] private PlayerSkillHandler playerSkillHandler;
     [SerializeField] private RangeWeaponHandler rangeWeaponHandler;     // Dynamically assigned
     [SerializeField] private Cooldown cooldown;
-
 
     [Header("UI Components")]
     public Button button;
@@ -24,8 +19,10 @@ public class SkillButtonData : MonoBehaviour
     public Skill assignedSkill;
 
     [Header("Skill Applying Events")]
-    public UnityEvent ApplyingSkillToStats;
+    public UnityEvent ApplySkillToStats;
 
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Unity Lifecycle]
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.1f);
@@ -35,18 +32,16 @@ public class SkillButtonData : MonoBehaviour
         if (rangeWeaponHandler != null)
         {
             // Prevention of multiple event calls on scene reload
-            ApplyingSkillToStats.RemoveAllListeners();
+            ApplySkillToStats.RemoveAllListeners();
 
-            // ApplyingSKillToStats�̺�Ʈ�� �޼��� �߰� (Dynamically assigned)
-            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ResetStats);
-            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ApplyFinalStats);
+            // Subscribing methods to ApplyingSKillToStats() events (Dynamically assigned)
+            ApplySkillToStats.AddListener(rangeWeaponHandler.ResetStats);
+            ApplySkillToStats.AddListener(rangeWeaponHandler.ApplyFinalStats);
         }
     }
 
-    /// <summary>
-    /// SkillButtonData�� �� ��ư�� ��ų ������ �������ִ� �޼���.
-    /// </summary>
-    /// <param name="skill"></param>
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Public Methods]
     public void SetSkillDataToButton(Skill skill)
     {
         skillIcon.sprite = skill.icon;
@@ -54,13 +49,8 @@ public class SkillButtonData : MonoBehaviour
         assignedSkill = skill;
     }
 
-    /// <summary>
-    /// ��ų�� ������ ��ư�� Ŭ������ �� ������ ��ų�� 
-    /// Player���� ��������ִ� �޼���.
-    /// </summary>
     public void AddSkillOnClick()
     {
-        // ��ų ��ư�� �ٽ� Ȱ��ȭ �Ǳ������ ��ٿ� �ð��� üũ
         if (cooldown.IsCoolingDown)
         {
 #if UNITY_EDITOR
@@ -73,13 +63,12 @@ public class SkillButtonData : MonoBehaviour
         ApplyingSkillsToStats();
         GameManager.instance.SkillAdded();
 
-        // ��ٿ� ����
         cooldown.StartCoolingDown();
     }
 
     public void ApplyingSkillsToStats()
     {
         Debug.Log("Skills are Applied to Stats!");
-        ApplyingSkillToStats?.Invoke();
+        ApplySkillToStats?.Invoke();
     }
 }

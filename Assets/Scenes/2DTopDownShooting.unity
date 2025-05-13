@@ -16245,7 +16245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b04f5d3d4ecb6444bbaedf0bc0774b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  health: 100
   speed: 3
   rewardGold: 10
   rewardExp: 5
@@ -17916,7 +17916,7 @@ MonoBehaviour:
   skillIcon: {fileID: 4430864684450903144}
   skillNameText: {fileID: 1744898999023125581}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1744898999023125581
@@ -18021,6 +18021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDataBase: {fileID: 3736914277136018618}
+  resourceController: {fileID: 0}
   chooseSkill:
   - {fileID: 0}
   - {fileID: 0}
@@ -18397,7 +18398,7 @@ MonoBehaviour:
   skillIcon: {fileID: 2692644274610119334}
   skillNameText: {fileID: 6226123993347556018}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3624055647903216436
@@ -18438,7 +18439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ca8f30f66fb449aa054788decdff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillList:
+  runTimeskillList:
   - {fileID: 11400000, guid: 80a859142042e8b44b3ec77dcc059bbb, type: 2}
   - {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
@@ -19614,7 +19615,7 @@ MonoBehaviour:
   skillIcon: {fileID: 4827990408487087749}
   skillNameText: {fileID: 6407922343831560586}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8084137517849265588

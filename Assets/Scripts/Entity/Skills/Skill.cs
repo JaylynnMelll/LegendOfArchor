@@ -12,7 +12,6 @@ public enum SkillCategory
     DeathEffect,    // 적 처치시 발동하는 스킬들
     WeaponMod,      // 무기 관련 스킬들 (멀티샷, 옆으로도 나가는 화살, 관통, 반사 등등)
     Special         // 특수 스킬들
-
 }
 
 /// <summary>
