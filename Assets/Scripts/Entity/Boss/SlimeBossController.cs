@@ -20,7 +20,6 @@ public class SlimeBossController : BaseController, IEnemy
     private bool isCharging = false;
     private Transform target; // 플레이어 추적
 
-    private ResourceController resourceController;
     private LineRenderer lineRenderer;
     private Animator animator;
 
@@ -44,7 +43,6 @@ public class SlimeBossController : BaseController, IEnemy
     {
         base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
-        resourceController = GetComponent<ResourceController>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
 

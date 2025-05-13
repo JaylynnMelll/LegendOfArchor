@@ -17,7 +17,6 @@ public class NecromancerBossController : BaseController, IEnemy
     [SerializeField] private float projectileAttackInterval = 3f;
     [SerializeField] private float followRange = 15f;
     private RangeWeaponHandler rangeWeaponHandler;
-    private ResourceController resourceController;
     private EnemyManager enemyManager;
     private GameManager gameManager;
     private Transform target;
@@ -39,7 +38,6 @@ public class NecromancerBossController : BaseController, IEnemy
     protected override void Awake()
     {
         base.Awake();
-        resourceController = GetComponent<ResourceController>();
         rangeWeaponHandler = GetComponentInChildren<RangeWeaponHandler>();
     }
     private void Update()

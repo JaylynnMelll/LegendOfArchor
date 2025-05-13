@@ -30,7 +30,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private Material dieMaterial;
     [SerializeField] private Material resetMaterial;
 
-    ResourceController resourceController;
+    protected ResourceController resourceController;
 
     // 리셋 작업을 위한 초기 상태 저장
     private Vector2 initialMovementDirection = Vector2.zero;   // 초기 이동 방향
