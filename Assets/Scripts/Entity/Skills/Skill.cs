@@ -12,7 +12,6 @@ public enum SkillCategory
     DeathEffect,    // 적 처치시 발동하는 스킬들
     WeaponMod,      // 무기 관련 스킬들 (멀티샷, 옆으로도 나가는 화살, 관통, 반사 등등)
     Special         // 특수 스킬들
-
 }
 
 /// <summary>
@@ -51,6 +50,15 @@ public enum TriggerType
     TimedBuff
 }
 
+public enum SkillID
+{
+    AttackBoost,
+    AttackSpeedBoost,
+    CriticalMaster,
+    HPBoost,
+    MultiShot,
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 /// <summary>
@@ -65,26 +73,49 @@ public class Skill : ScriptableObject
     public Sprite icon;
 
     [Header("Classification")]
+    public SkillID skillID;                
     public SkillCategory category;
     public WeaponType weaponType;
     public ElementType elemenType;
     public TriggerType triggerType;
 
     [Header("Effect Details")]
-    public float baseDamageMultiplier = 1f;
-    [Range(0.01f, 1f)]
+    
+    // Damage
+    [Range(0f, 1f)]
     public float additionalDamagePercent = 0f;
-    public float attakSpeedModifier = 0f;
-    public float attackRangeModifier = 0f;       // 공격 범위 증가 비율
-    [Range(0.01f, 1f)]
-    public float criticalChanceModifier = 0f;
-    public float criticalDamageModifier = 0f;
-    public float projectileSizeModifier = 0f;    // 투사체 크기 증가 비율
-    public float healththModifier = 0f;
-    public float duration = 0f;                  // 제한 시간동안 적용되는 버프에 한해 적용
-    public float interval = 0f;                  // 지속시간동안 몇 초마다 적용되는 버프에 한해 적용
+    public float baseDamageMultiplier = 0f;
+
+    // Attack Speed
+    [Range(0f, 1f)]
+    public float additionalAttakSpeedPercent = 0f;
+    public float baseAttackSpeedMultiplier = 0f;
+
+    // Attack Range
+    [Range(0f, 1f)]
+    public float additionalAttackRangePercent = 0f;
+    public float baseAttackRangeMultiplier = 0f;
+  
+
+    // Critical Hit
+    [Range(0f, 1f)]
+    public float additionalCriticalChancePercent = 0f;
+    public float criticalDamageMultiplier = 0f;
+
+    // Projectile Size
+    [Range(0f, 1f)]
+    public float additionalProjectileSizePercent = 0f;    
+    public float baseProjectileSizeMultiplier= 0f;
+
+    // HP
+    [Range(0f, 1f)]
+    public float additionalHealthPercent = 0f;
+    public float baseHealthMultiplier = 0f;     
+
+    public float duration = 0f;                 
+    public float interval = 0f;                 
     public bool isStackable = false;
-    public int maxStacks = 1;                    // 스택이 쌓일 수 있는 최대치
+    public int maxStacks = 1;                   
 
     [Header("Special Parameters")]
     // 도트뎀 관련

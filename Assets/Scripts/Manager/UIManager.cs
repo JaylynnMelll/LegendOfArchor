@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject damageTextPrefab; // TextMeshPro 프리팹
     public Transform damageTextRoot; // World Space Canvas의 Transform
+    public SkillManager skillManager;
 
     private HPBarUI playerHpBarUI;
 
