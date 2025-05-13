@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
     // 체력바 프리팹이 붙을 위치
     [SerializeField] private Transform hpBarRoot;
 
+    [SerializeField] private PlayerSkillHandler playerSkillHandler;
+
     private void Awake()
     {
         gameUI = GetComponentInChildren<GameUI>(true);
@@ -105,6 +107,7 @@ public class UIManager : MonoBehaviour
     // 일시정지 상태로 전환
     public void SetGamePause()
     {
+        pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.acquiredSkills);
         ChangeState(UIState.Pause);
     }
 

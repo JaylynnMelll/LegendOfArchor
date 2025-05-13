@@ -13,7 +13,7 @@ public class ResourceController : MonoBehaviour
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
 
-    [SerializeField] private float _maxHealth = 10; // �ִ� ü��
+    [SerializeField] private float _maxHealth;
     public float MaxHealth
     {
         get { return _maxHealth; }
@@ -58,6 +58,12 @@ public class ResourceController : MonoBehaviour
     {
         MaxHealth = value;
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
+        OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
+    }
+
+    public void SetMaxHealth(float value)
+    {
+        MaxHealth = value;
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
     public bool ChangeHealth(float change)
