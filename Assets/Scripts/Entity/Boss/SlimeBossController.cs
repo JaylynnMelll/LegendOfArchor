@@ -22,6 +22,7 @@ public class SlimeBossController : BaseController, IEnemy
 
     private ResourceController resourceController;
     private EnemyManager enemyManager;
+
     private LineRenderer lineRenderer;
     private Animator animator;
 
@@ -46,7 +47,6 @@ public class SlimeBossController : BaseController, IEnemy
     {
         base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
-        resourceController = GetComponent<ResourceController>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
 
