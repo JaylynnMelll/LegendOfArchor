@@ -24,6 +24,8 @@ public class NecromancerBossController : BaseController, IEnemy
 
     public bool IsSummoned => false;
 
+    private List<GameObject> summonedSkeletons = new();
+
     // �ӽ� �������̽� ����
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
@@ -119,6 +121,9 @@ public class NecromancerBossController : BaseController, IEnemy
             {
                 Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
                 GameObject skeleton = Instantiate(skeletonPrefab, spawnPos, Quaternion.identity);
+
+                summonedSkeletons.Add(skeleton);
+
                 IEnemy enemy = skeleton.GetComponent<IEnemy>();
                 if (enemy != null)
                 {
@@ -151,6 +156,21 @@ public class NecromancerBossController : BaseController, IEnemy
     public override void Died()
     {
         base.Died();
+
+        foreach (var skeleton in summonedSkeletons)
+        {
+            if (skeleton != null)
+            {
+                ResourceController resourceController = skeleton.GetComponent<ResourceController>();
+                if (resourceController != null)
+                    resourceController.ChangeHealth(-999);
+                else
+                    Destroy(skeleton);
+            }
+        }
+
+        summonedSkeletons.Clear();
+
         base.OnDeathComplete();
     }
 }
