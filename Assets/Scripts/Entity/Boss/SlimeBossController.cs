@@ -21,6 +21,7 @@ public class SlimeBossController : BaseController, IEnemy
     private Transform target; // 플레이어 추적
 
     private ResourceController resourceController;
+    private EnemyManager enemyManager;
     private LineRenderer lineRenderer;
     private Animator animator;
 
@@ -33,12 +34,13 @@ public class SlimeBossController : BaseController, IEnemy
     public void InitEnemy(EnemyManager manager, Transform player)
     {
         target = player;
+        enemyManager = manager;
         StartCoroutine(ChargeRoutine());
     }
 
     public void SummonCheck()
     {
-        isSummoned = true;
+        isSummoned = false;
     }
     protected override void Awake()
     {
@@ -72,6 +74,8 @@ public class SlimeBossController : BaseController, IEnemy
         }
         else
         {
+            enemyManager.aliveEnemyCount--;
+            enemyManager.RemoveEnemyOnDeath(this);
             base.Died();
             base.OnDeathComplete();
         }
@@ -99,11 +103,14 @@ public class SlimeBossController : BaseController, IEnemy
             if (splitcontroller != null)
             {
                 // EnemyManager와 플레이어 Transform을 전달하여 초기화
-                splitcontroller.InitEnemy(GetComponentInParent<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
+                splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
                 splitcontroller.InitSplit(splitCount + 1);
             }
+            enemyManager.aliveEnemyCount++;
         }
 
+        enemyManager.aliveEnemyCount--;
+        enemyManager.RemoveEnemyOnDeath(this);
         Destroy(gameObject); // 분열 전 슬라임 제거
     }
 

@@ -88,8 +88,6 @@ public class EnemyManager : MonoBehaviour
     // 사망한 적을 풀에 반환
     public void RemoveEnemyOnDeath(IEnemy enemy)
     {
-        if (!enemy.IsSummoned)
-            aliveEnemyCount--;
 
         if (enemy.ConnectedHPBar != null)
         {
@@ -97,7 +95,12 @@ public class EnemyManager : MonoBehaviour
             enemy.ConnectedHPBar = null;
         }
 
-        enemyPool.ReturnEnemy(enemy.gameObject);
+        if(enemy.gameObject.TryGetComponent<EnemyController>(out _))
+        {
+            enemyPool.ReturnEnemy(enemy.gameObject);
+            aliveEnemyCount--;
+        }
+        
     }
     // aliveEnemyCount가 0 이하일 때 true를 반환한다.
     public bool IsAllEnemyCleared() => aliveEnemyCount <= 0;

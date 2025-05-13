@@ -110,7 +110,7 @@ public class NecromancerBossController : BaseController, IEnemy
     {
         isPhaseTwo = true;
         // 2������ ����
-        Debug.Log("��ũ�θǼ� ����: 2������ ����");
+        Debug.Log("��ũ�θㅁㅇǼ� ����: 2������ ����");
     }
     private IEnumerator SummonSkeletons()
     {
@@ -154,5 +154,6 @@ public class NecromancerBossController : BaseController, IEnemy
     {
         base.Died();
         base.OnDeathComplete();
+        enemyManager.RemoveEnemyOnDeath(this);
     }
 }

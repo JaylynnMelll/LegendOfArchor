@@ -12,9 +12,6 @@ public class EnemyPool : MonoBehaviour
     [SerializeField] private GameObject slimeBossPrefab;
     [SerializeField] private GameObject necromancerBossPrefab;
 
-
-    private int bossIndex = 0; // 순차적 소환용 인덱스
-
     // 적 관리 딕셔너리
     private Dictionary<GameObject, Queue<GameObject>> enemyPools = new();
 

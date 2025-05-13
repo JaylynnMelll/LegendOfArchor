@@ -86,28 +86,34 @@ public class StageManager : MonoBehaviour
             Debug.LogWarning("SpawnPoints 오브젝트를 찾을 수 없습니다.");
         }
 
-        // 보스 스테이지라면 보스 타입도 함께 전달
-        if(isBoss)
-        {
-            BossType bossType = (currentStage % 10 == 0) ? BossType.Necromancer : BossType.Slime;
-            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage, bossType);
-        }
-
-        else
-        {
-            // 적 생성 요청
-            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage);
-        }
-
+        // 조금 기다렸다가 적을 생성
+        StartCoroutine(DelayedSpawnEnemies(spawnPoints, isBoss, stage));
 
         // 포탈 비활성화
         portal.gameObject.SetActive(false);
 
-        // 클리어 조건 감시 시작
-        StartCoroutine(CheckRoomClear());
-
         // 포탈에 닿았을 때 호출할 함수
         portal.OnPlayerEnterPortal = NextStage;
+    }
+
+    // 적을 조금 기다렸다가 생성하는 코루틴
+    private IEnumerator DelayedSpawnEnemies(List<Transform> spawnPoints, bool isBoss, int stage)
+    {
+        // 원하는 지연 시간
+        yield return new WaitForSeconds(0.5f); 
+
+        if (isBoss)
+        {
+            BossType bossType = (stage % 10 == 0) ? BossType.Necromancer : BossType.Slime;
+            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage, bossType);
+        }
+        else
+        {
+            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage);
+        }
+
+        // 클리어 감시 시작
+        StartCoroutine(CheckRoomClear());
     }
 
     // 1초마다 Enemy가 모두 사라졌는지 감시하는 코루틴
@@ -126,14 +132,14 @@ public class StageManager : MonoBehaviour
     // 클리어 시 포탈 활성화
     public void ActivatePortal()
     {
-        // 보스룸이냐 아니냐에 따라 포탈 크기 변화
+        // 보스룸이냐 아니냐에 따라 포탈 위치 변화
         if(currentStage % 5 == 0)
         {
             portal.transform.position = new Vector3(0, 8f, 0);
         }
         else
         {
-            portal.transform.position = new Vector3(0, 4f, 0);
+            portal.transform.position = new Vector3(0, 3f, 0);
         }
         portal.gameObject.SetActive(true);
     }
@@ -141,6 +147,13 @@ public class StageManager : MonoBehaviour
     // 다음 스테이지로 이동
     private void NextStage()
     {
+        StartCoroutine(LoadNextStageWithDelay());
+    }
+
+    // 포탈 진입 후 지연 시간
+    private IEnumerator LoadNextStageWithDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
         currentStage++;
         LoadRoom(currentStage);
     }
