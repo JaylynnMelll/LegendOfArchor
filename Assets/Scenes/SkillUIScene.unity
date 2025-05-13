@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ca8f30f66fb449aa054788decdff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillList:
+  runTimeskillList:
   - {fileID: 11400000, guid: 80a859142042e8b44b3ec77dcc059bbb, type: 2}
   - {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
@@ -16466,12 +16466,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  rangeWeaponHandler: {fileID: 0}
   cooldown:
     cooldownTime: 1
   button: {fileID: 2018661114}
   skillIcon: {fileID: 1801669010}
   skillNameText: {fileID: 1106442644}
   assignedSkill: {fileID: 0}
+  ApplyingSkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1386374008
 GameObject:
   m_ObjectHideFlags: 0
@@ -16644,12 +16648,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  rangeWeaponHandler: {fileID: 0}
   cooldown:
     cooldownTime: 1
   button: {fileID: 1271814912}
   skillIcon: {fileID: 856954582}
   skillNameText: {fileID: 1581871731}
   assignedSkill: {fileID: 0}
+  ApplyingSkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1507850383
 GameObject:
   m_ObjectHideFlags: 0
@@ -18112,12 +18120,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  rangeWeaponHandler: {fileID: 0}
   cooldown:
     cooldownTime: 1
   button: {fileID: 944288142}
   skillIcon: {fileID: 289383153}
   skillNameText: {fileID: 1678458299}
   assignedSkill: {fileID: 0}
+  ApplyingSkillToStats:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1941601476
 GameObject:
   m_ObjectHideFlags: 0

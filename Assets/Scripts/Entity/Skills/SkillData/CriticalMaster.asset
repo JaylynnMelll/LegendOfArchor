@@ -27,11 +27,10 @@ MonoBehaviour:
   criticalChanceModifier: 0.1
   criticalDamageModifier: 0.4
   projectileSizeModifier: 0
-  healthModifier: 0
+  healththModifier: 0
   duration: 0
   interval: 0
   isStackable: 1
-  currentStacks: 0
   maxStacks: 3
   appliesDot: 0
   dotInterval: 0

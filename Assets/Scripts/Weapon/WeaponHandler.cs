@@ -20,10 +20,10 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private float weaponRange = 10f;
     public float WeaponRange { get => weaponRange; set => weaponRange = value; }
 
-    [SerializeField] private float ciriticalChance = 0f;
+    [SerializeField] private float ciriticalChance =0.2f;
     public float CriticalChance { get => ciriticalChance; set => ciriticalChance = value; }
 
-    [SerializeField] private float ciriticalDamage = 1f;
+    [SerializeField] private float ciriticalDamage = 1.5f;
     public float CriticalDamage { get => ciriticalDamage; set => ciriticalDamage = value; }
 
     public LayerMask target;
@@ -88,11 +88,13 @@ public class WeaponHandler : MonoBehaviour
         WeaponPower = 1f;
         WeaponSpeed = 1f;
         WeaponRange = 10f;
+        CriticalChance = 0.2f;
+        CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
         KnockbackTime = 0.5f;
     }
 
-    public virtual void ApplyFinalStats(float WeaponPower, float WeaponSpeed, float CriticalChance, float CriticalDamage, float WeaponRange)
+    public virtual void ApplyFinalStats()
     {
         WeaponPower = playerSkillHandler.CalculateFinalDamage(WeaponPower);
         WeaponSpeed = playerSkillHandler.CalculateFinalAttackSpeed(WeaponSpeed);

@@ -9,17 +9,12 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     [Header("Connected Components")]
-    public SkillDataBase skillDataBase;
+    [SerializeField] private SkillDataBase skillDataBase;
 
     /// <summary>
     /// skillDataBase에서 랜덤으로 선택된 스킬 데이터중 3개를 선택하여 저장하는 배열.
     /// </summary>
     [SerializeField] public Skill[] chooseSkill = new Skill[3];
-
-    private void Awake()
-    {
-
-    }
 
     /// <summary>
     /// skilldatabase의 스킬리스트에서 랜덤한 인덱스의 스킬을 3개 선택하여 
@@ -29,17 +24,18 @@ public class SkillManager : MonoBehaviour
     {
         // chooseSkill 배열을 초기화
         chooseSkill = new Skill[3];
+
         for (int i = 0; i < chooseSkill.Length; i++)
         {
             // 랜덤 스킬을 추가해줄 때 중복되는 스킬이 추가되지 않도록 체크
             while (true)
             {
-                int randomIndex = Random.Range(0, skillDataBase.skillList.Count);
+                int randomIndex = Random.Range(0, skillDataBase.runTimeskillList.Count);
                 if (chooseSkill[i] == null)
                 {
-                    if (!chooseSkill.Contains(skillDataBase.skillList[randomIndex]))
+                    if (!chooseSkill.Contains(skillDataBase.runTimeskillList[randomIndex]))
                     {
-                        chooseSkill[i] = skillDataBase.skillList[randomIndex];
+                        chooseSkill[i] = skillDataBase.runTimeskillList[randomIndex];
                         break;
                     }
                     else

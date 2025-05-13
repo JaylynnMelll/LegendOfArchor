@@ -30,6 +30,17 @@ public class SkillButtonData : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         rangeWeaponHandler = FindObjectOfType<RangeWeaponHandler>();
+        Debug.Log("RangeWeaponHandler found and assigned to SkillButtonData.");
+
+        if (rangeWeaponHandler != null)
+        {
+            // Prevention of multiple event calls on scene reload
+            ApplyingSkillToStats.RemoveAllListeners();
+
+            // ApplyingSKillToStats이벤트에 메서드 추가 (Dynamically assigned)
+            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ResetStats);
+            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ApplyFinalStats);
+        }
     }
 
     /// <summary>

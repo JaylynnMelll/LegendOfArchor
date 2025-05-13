@@ -12,7 +12,16 @@ public class ResourceController : MonoBehaviour
     private Action<float, float> OnChangeHealth;
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
-    public float MaxHealth => statHandler.Health;
+
+    private int _maxHealth = 100; // 최대 체력
+    public int MaxHealth
+    {
+        get { return _maxHealth; }
+        set
+        {
+            _maxHealth = value;
+        }
+    }
     private SlimeBossController slimeBossController;
     private NecromancerBossController necromancerBossController;
     private EnemyController enemyController;

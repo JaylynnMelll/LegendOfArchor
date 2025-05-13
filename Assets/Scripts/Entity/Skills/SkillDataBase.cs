@@ -7,5 +7,5 @@ using UnityEngine;
 /// </summary>
 public class SkillDataBase : MonoBehaviour
 {
-    public List<Skill> skillList = new List<Skill>();
+    public List<Skill> runTimeskillList = new List<Skill>();
 }

@@ -33,11 +33,11 @@ public class BaseController : MonoBehaviour
     ResourceController resourceController;
 
     // 리셋 작업을 위한 초기 상태 저장
-    private Vector2 initialMovementDirection = Vector2.zero;  // 초기 이동 방향
-    private Vector2 initialLookDirection = Vector2.right;     // 초기 시선 방향
+    private Vector2 initialMovementDirection = Vector2.zero;   // 초기 이동 방향
+    private Vector2 initialLookDirection = Vector2.right;      // 초기 시선 방향
     private bool initialIsAttacking = false;                   // 초기 공격 상태
     private float initialHealth;                               // 초기 체력
-    private float initialKnockbackDuration = 0.5f;               // 초기 넉백 시간
+    private float initialKnockbackDuration = 0.5f;             // 초기 넉백 시간
 
     // -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
