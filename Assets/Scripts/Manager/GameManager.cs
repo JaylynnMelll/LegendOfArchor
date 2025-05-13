@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -105,9 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        Time.timeScale = 0;
-        uiManager.ChangeState(UIState.Home);
-        // 사운스 설정 추가 예정
+        SceneManager.LoadScene("StartScene");
     }
 
     // 경험치 및 레벨 UI 업데이트
