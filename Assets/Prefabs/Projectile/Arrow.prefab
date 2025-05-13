@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5952800658696605442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6803430921232624248}
   - component: {fileID: 7651400024025454270}
   - component: {fileID: 8732819653614434560}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7306529666375924532}
   - component: {fileID: 4808731294112574408}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
