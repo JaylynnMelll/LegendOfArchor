@@ -50,6 +50,8 @@ MonoBehaviour:
   weaponPower: 3
   weaponSpeed: 1
   weaponRange: 1.2
+  ciriticalChance: 0
+  ciriticalDamage: 1
   target:
     serializedVersion: 2
     m_Bits: 0

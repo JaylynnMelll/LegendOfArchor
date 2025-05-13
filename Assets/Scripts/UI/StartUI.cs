@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class StartUI : MonoBehaviour
 {
-    // [SerializeField] private Button startButton;
-    // [SerializeField] private Button exitButton;
-// 
+    [SerializeField] private GameObject selectWeaponPanel;
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("2DTopDownShooting");
+        selectWeaponPanel.SetActive(true);
 
+    }
+
+    public void OnClickCancelPanelButton()
+    {
+        selectWeaponPanel.SetActive(false);
     }
 
     public void OnClickExitButton()

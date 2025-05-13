@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6358263627384955903}
   - component: {fileID: 2864783522489194586}
   m_Layer: 0
-  m_Name: 'E_Mace_EquipWeapon  '
+  m_Name: E_Mace_EquipWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
