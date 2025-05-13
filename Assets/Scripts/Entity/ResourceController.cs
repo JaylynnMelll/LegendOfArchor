@@ -13,7 +13,7 @@ public class ResourceController : MonoBehaviour
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
 
-    [SerializeField] private int _maxHealth = 10; // 최대 체력
+    [SerializeField] private int _maxHealth; // 최대 체력
     public int MaxHealth
     {
         get { return _maxHealth; }

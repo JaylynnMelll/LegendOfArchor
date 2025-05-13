@@ -90,7 +90,7 @@ public class RangeWeaponHandler : WeaponHandler
         WeaponSpeed = 10f;
         WeaponRange = 10f;
         CriticalChance = 0.2f;
-        CriticalChance = 1.5f;
+        CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
         KnockbackTime = 0.5f;
     }
@@ -98,6 +98,21 @@ public class RangeWeaponHandler : WeaponHandler
     public override void ApplyFinalWeaponStats()
     {
         base.ApplyFinalWeaponStats();
+    }
+
+    public float DamageCalculator()
+    {
+        // return the critical damage or normal damage
+        float critChance = Random.Range(0f, 1f);
+
+        if (critChance <= CriticalChance)
+        {
+            return WeaponPower * CriticalDamage;
+        }
+        else
+        {
+            return WeaponPower;
+        }
     }
 
     public void MultiShot()
@@ -118,6 +133,17 @@ public class RangeWeaponHandler : WeaponHandler
             }
         }
     }
+
+    public void ConsecutiveShot()
+    {
+        Attack();
+    }
+
+    public void biggerArrow()
+    {
+
+    }
+
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Private Methods]
