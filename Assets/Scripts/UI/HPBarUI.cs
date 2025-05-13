@@ -13,19 +13,21 @@ public class HPBarUI : BaseUI
 
     private float targetHP = 1f; // 체력비율 0.0f ~ 1.0f
     public float delaySpeed = 5f; // 흰색 체력바가 따라가는 속도
+
+    private void Awake()
+    {
+        // 초기화 (풀링 대비)
+        hpSlider.value = 1f;
+        hpDelayedSlider.value = 1f;
+        hpText.text = string.Empty;
+    }
     public void Init(ResourceController resource)
     {
         this.resource = resource;
         resource.AddHealthChangeEvent(UpdateHP);
         UpdateHP(resource.CurrentHealth, resource.MaxHealth); // 초기 표시
     }
-    private void OnDestroy()
-    {
-        if (resource != null)
-        {
-            resource.RemoveHealthChangeEvent(UpdateHP); // 안전하게 해제
-        }
-    }
+
     private void Update()
     {
         // 흰색 체력바는 잔상처리 함
@@ -47,6 +49,22 @@ public class HPBarUI : BaseUI
     public void SetFillColor(Color color)
     {
         fillImage.color = color;
+    }
+
+    public void ResetHPBar()
+    {
+        // 리소스 언바인딩
+        if (resource != null)
+        {
+            resource.RemoveHealthChangeEvent(UpdateHP);
+            resource = null;
+        }
+
+        // 상태 초기화
+        hpSlider.value = 1f;
+        hpDelayedSlider.value = 1f;
+        targetHP = 1f;
+        hpText.text = string.Empty;
     }
 
     // UI 상태

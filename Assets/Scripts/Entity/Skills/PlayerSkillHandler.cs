@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -14,6 +16,8 @@ public class PlayerSkillHandler : MonoBehaviour
     [Header("Skill Modifiers")]
     // 스킬과 그 스킬의 스택 수를 저장하는 리스트
     public List<Skill> acquiredSkills = new List<Skill>();
+    // runtime에서 acquiredSkills에 추가된 스킬들의 스택을 관리하기 위한 리스트
+    private List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
 
     private float damageMultiplicative = 1f;
     private float damageAdditive = 0f;
@@ -35,26 +39,33 @@ public class PlayerSkillHandler : MonoBehaviour
     // [Public Methods]
     public void SkillAcquired(Skill skill)
     {
-        if (!acquiredSkills.Contains(skill))
+        // acquiredSkills에 있는 스킬에 붙어있는 runtimeSkill을 찾기 위한 코드
+        RuntimeSkill runtimeSkill = trackingList.Find(s => s.skill == skill);
+
+        // 1. acquiredSkills에 해당 스킬이 없고, runtimeSkill이 null일 경우
+        if (!acquiredSkills.Contains(skill) && runtimeSkill == null)
         {
+            // 01) acquiredSkills에 스킬을 추가
             acquiredSkills.Add(skill);
-            skill.currentStacks += 1; 
+            // 02) acquiredSkills에 추가된 스킬을 trackingList에 추가
+            runtimeSkill = new RuntimeSkill(skill);
+            trackingList.Add(runtimeSkill); 
+            runtimeSkill.AddStack();
             ApplySkillEffect(skill);
 #if UNITY_EDITOR
             Debug.Log($"Learned new skill! : {skill.skillName}");
 #endif
-
         }
-        else if (acquiredSkills.Contains(skill) && skill.currentStacks < skill.maxStacks)
+        // 2. currentStacks이 maxStacks보다 작고 acquiredSkills에 해당 스킬이 있고, runtimeSkill이 null이 아닐 경우
+        else if (runtimeSkill.AddStack())
         {
-            acquiredSkills.Add(skill);
-            skill.currentStacks += 1;
             ApplySkillEffect(skill);
 #if UNITY_EDITOR
-            Debug.Log($"{skill.skillName} stacked! Now at {skill.currentStacks} stacks.");
+            Debug.Log($"{skill.skillName} stacked! Now at {runtimeSkill.currentStacks} stacks.");
 #endif
         }
-        else
+        // 3. currentStacks이 maxStacks보다 크고 acquiredSkills에 해당 스킬이 있고, runtimeSkill이 null이 아닐 경우
+        else if (runtimeSkill.AddStack())
         {
 #if UNITY_EDITOR
             Debug.Log($"{skill.skillName} is already at max stacks.");
@@ -64,7 +75,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     public bool HasThisSkill (Skill skill)
     {
-        return acquiredSkills.Contains(skill) || skill != null ? true : false;
+        return skill != null && acquiredSkills.Contains(skill); 
     }
 
     public float CalculateFinalDamage(float baseDamage)
@@ -142,7 +153,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     private void ApplyAttributeBoost(Skill skill)
     {
-        damageMultiplicative *= 1 + skill.baseDamageMultiplier;
+        damageMultiplicative *= skill.baseDamageMultiplier;
         damageAdditive += skill.additionalDamagePercent;
 
         attackSpeedMultiplicative *= 1 + skill.attakSpeedModifier;

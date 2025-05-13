@@ -8,23 +8,24 @@ using UnityEngine.UI;
 public class GameOverUI : BaseUI
 {
     [SerializeField] private Button restartButton;
-    [SerializeField] private Button exitButton;
+    [SerializeField] private Button mainMenuButton;
 
     public override void Init(UIManager uiManager)
     {
         base.Init(uiManager);
         restartButton.onClick.AddListener(OnClickRestartButton);
-        exitButton.onClick.AddListener(OnClickExitButton);
+        mainMenuButton.onClick.AddListener(OnClickMainMenuButton);
     }
 
     public void OnClickRestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
-    public void OnClickExitButton()
+    public void OnClickMainMenuButton()
     {
-        Application.Quit();
+        SceneManager.LoadScene("StartScene");
     }
 
     protected override UIState GetUIState()

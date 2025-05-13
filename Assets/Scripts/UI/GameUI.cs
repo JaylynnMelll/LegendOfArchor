@@ -7,18 +7,24 @@ using UnityEngine.UI;
 
 public class GameUI : BaseUI
 {
-    [SerializeField] private TextMeshProUGUI waveText; // 웨이브 텍스트 삭제?예정
+    [SerializeField] private Button pauseButton; // 정지 버튼
     [SerializeField] private TextMeshProUGUI levelText; // 플레이어 레벨 텍스트
     [SerializeField] private TextMeshProUGUI goldText; // 플레이어 골드 텍스트
     [SerializeField] private Slider expSlider; // 겸험치 게이지
     [SerializeField] private float expFillSpeed = 3f; // 경험치 게이지 채워지는 속도
     private float targetExp;
 
+    public override void Init(UIManager uiManager)
+    {
+        base.Init(uiManager);
+        pauseButton.onClick.AddListener(OnClickPauseButton);
+    }
     private void Start()
     {
         UpdateLevel(1); // 초기 레벨 : 1
         UpdateExpSlider(0); // 초기 경험치 게이지 0%
     }
+
     private void Update()
     {
         // 현재 경험치와 목표 경험치 차이가 적으면 업데이트 중단
@@ -31,6 +37,11 @@ public class GameUI : BaseUI
         {
             expSlider.value = targetExp;
         }
+    }
+
+    public void OnClickPauseButton()
+    {
+        GameManager.instance.PauseGame();
     }
 
     // 경험치 게이지 업데이트

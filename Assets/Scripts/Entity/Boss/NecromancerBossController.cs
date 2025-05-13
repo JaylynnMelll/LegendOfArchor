@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 public class NecromancerBossController : BaseController, IEnemy
 {
-    [Header("ÆäÀÌÁî ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private int phaseTwoHealthThreshold = 50;
     private bool isPhaseTwo = false;
-    [Header("½ºÄÌ·¹Åæ ¼ÒÈ¯")]
+    [Header("ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½È¯")]
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private float summonInterval = 5f;
     [SerializeField] private int skeletonCountPerSummon = 3;
-    [Header("Ãæ°ÝÆÄ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private GameObject shockwaveEffectPrefab;
     [SerializeField] private float shockwaveCooldown = 8f;
-    [Header("Åõ»çÃ¼ ¹ß»ç")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß»ï¿½")]
     [SerializeField] private float projectileAttackInterval = 3f;
     [SerializeField] private float followRange = 15f;
     private RangeWeaponHandler rangeWeaponHandler;
     private ResourceController resourceController;
     private EnemyManager enemyManager;
+    private GameManager gameManager;
     private Transform target;
+    public GameObject ConnectedHPBar { get; set; }
 
     public bool IsSummoned => false;
 
-    // ÀÓ½Ã ÀÎÅÍÆäÀÌ½º ±¸Çö
+    // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
     public void InitEnemy(EnemyManager manager, Transform player)
@@ -58,12 +60,12 @@ public class NecromancerBossController : BaseController, IEnemy
                 {
                     lookDirection = (target.position - transform.position).normalized;
                 }
-                Debug.Log("Åõ»çÃ¼ ¹ß»ç");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ß»ï¿½");
                 rangeWeaponHandler.Attack();
             }
             else
             {
-                Debug.LogWarning("rangeWeaponHandler°¡ ¼³Á¤µÇÁö ¾ÊÀ½");
+                Debug.LogWarning("rangeWeaponHandlerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
         }
     }
@@ -107,8 +109,8 @@ public class NecromancerBossController : BaseController, IEnemy
     private void EnterPhaseTwo()
     {
         isPhaseTwo = true;
-        // 2ÆäÀÌÁî ÁøÀÔ
-        Debug.Log("³×Å©·Î¸Ç¼­ º¸½º: 2ÆäÀÌÁî µ¹ÀÔ");
+        // 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å©ï¿½Î¸Ç¼ï¿½ ï¿½ï¿½ï¿½ï¿½: 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
     private IEnumerator SummonSkeletons()
     {
@@ -124,13 +126,13 @@ public class NecromancerBossController : BaseController, IEnemy
                 {
                     enemy.InitEnemy(enemyManager, target);
 
-                    // ¼ÒÈ¯¸ó½ºÅÍ·Î Ã¼Å©
+                    // ï¿½ï¿½È¯ï¿½ï¿½ï¿½Í·ï¿½ Ã¼Å©
                     EnemyController enemyController = skeleton.GetComponent<EnemyController>();
                     enemyController.SummonCheck();
                 }
                 else
                 {
-                    Debug.LogWarning($"½ºÄÌ·¹Åæ ÇÁ¸®ÆÕ¿¡ IEnemy¸¦ ±¸ÇöÇÑ ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù: {skeleton.name}");
+                    Debug.LogWarning($"ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ IEnemyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: {skeleton.name}");
                 }
             }
         }
@@ -142,8 +144,9 @@ public class NecromancerBossController : BaseController, IEnemy
             yield return new WaitForSeconds(shockwaveCooldown);
             if (isPhaseTwo && shockwaveEffectPrefab != null)
             {
+                Vector2 abovePlayerPos = target.position + Vector3.up * 3f;
                 Instantiate(shockwaveEffectPrefab, transform.position, Quaternion.identity);
-                Debug.Log("Ãæ°ÝÆÄ ¹ßµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½");
             }
         }
     }

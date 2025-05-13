@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,18 +36,28 @@ public class EnemyManager : MonoBehaviour
 
                 enemy = enemyPool.GetBossEnemy(bossType.Value, spawnPos);
 
-                // 보스 초기화
-                SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
-                NecromancerBossController nbController = enemy.GetComponent<NecromancerBossController>();
+                // 체력바 생성
+                var resource = enemy.GetComponent<ResourceController>();
 
-                if (sbController != null)
+                if(resource != null)
                 {
-                    sbController.InitEnemy(this, gameManager.player.transform);
-                }
-                else if (nbController != null)
-                {
-                    nbController.InitEnemy(this, gameManager.player.transform);
-                }
+                    GameObject hpBar = gameManager.CreateEnemyHPBar(enemy.transform, resource);
+                    // 보스 초기화
+                    SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
+                    NecromancerBossController nbController = enemy.GetComponent<NecromancerBossController>();
+
+                    if (sbController != null)
+                    {
+                        sbController.ConnectedHPBar = hpBar;
+                        sbController.InitEnemy(this, gameManager.player.transform);
+                    }
+                    else if (nbController != null)
+                    {
+                        nbController.ConnectedHPBar = hpBar;
+                        nbController.InitEnemy(this, gameManager.player.transform);
+                    }
+                }      
+                
             }
 
             else
@@ -55,15 +65,23 @@ public class EnemyManager : MonoBehaviour
                 // 일반 적 소환
                 // 초기화
                 enemy = enemyPool.GetEnemy(spawnPos);
-                EnemyController enemyController = enemy.GetComponent<EnemyController>();
 
-                if (enemyController != null)
+                // 체력바 생성
+                var resource = enemy.GetComponent<ResourceController>();
+
+                if(resource != null)
                 {
-                    enemyController.Init(this, gameManager.player.transform);
-                    enemyController.Reset();
+                    GameObject hpBar = gameManager.CreateEnemyHPBar(enemy.transform, resource);
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+                    if (enemyController != null)
+                    {
+                        enemyController.ConnectedHPBar = hpBar;
+                        enemyController.Init(this, gameManager.player.transform);
+                        enemyController.Reset();
+                    }
                 }
             }
-
             aliveEnemyCount++;
         }
     }
@@ -73,18 +91,13 @@ public class EnemyManager : MonoBehaviour
         if (!enemy.IsSummoned)
             aliveEnemyCount--;
 
-        if (enemy is SlimeBossController sb)
+        if (enemy.ConnectedHPBar != null)
         {
-            
+            GameManager.instance.ReturnEnemyHPBar(enemy.ConnectedHPBar);
+            enemy.ConnectedHPBar = null;
         }
-        else if (enemy is NecromancerBossController nb)
-        {
-            
-        }
-        else
-        {
-            enemyPool.ReturnEnemy(enemy.gameObject);
-        }
+
+        enemyPool.ReturnEnemy(enemy.gameObject);
     }
     // aliveEnemyCount가 0 이하일 때 true를 반환한다.
     public bool IsAllEnemyCleared() => aliveEnemyCount <= 0;

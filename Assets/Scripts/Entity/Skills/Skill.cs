@@ -84,7 +84,6 @@ public class Skill : ScriptableObject
     public float duration = 0f;                  // 제한 시간동안 적용되는 버프에 한해 적용
     public float interval = 0f;                  // 지속시간동안 몇 초마다 적용되는 버프에 한해 적용
     public bool isStackable = false;
-    public int currentStacks = 0;                // 현재 스택 수치
     public int maxStacks = 1;                    // 스택이 쌓일 수 있는 최대치
 
     [Header("Special Parameters")]
