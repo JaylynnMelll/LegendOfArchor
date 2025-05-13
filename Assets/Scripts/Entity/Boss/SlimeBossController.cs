@@ -20,7 +20,6 @@ public class SlimeBossController : BaseController, IEnemy
     private bool isCharging = false;
     private Transform target; // 플레이어 추적
 
-    //private ResourceController resourceController;
     private EnemyManager enemyManager;
 
     private LineRenderer lineRenderer;
@@ -105,6 +104,7 @@ public class SlimeBossController : BaseController, IEnemy
                 GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
 
                 SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
+
                 if (splitcontroller != null)
                 {
                     splitcontroller.ConnectedHPBar = hpBar;
