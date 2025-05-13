@@ -13,8 +13,8 @@ public class ResourceController : MonoBehaviour
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
 
-    [SerializeField] private int _maxHealth = 10; // ÃÖ´ë Ã¼·Â
-    public int MaxHealth
+    [SerializeField] private float _maxHealth = 10; // ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½
+    public float MaxHealth
     {
         get { return _maxHealth; }
         set
@@ -37,7 +37,7 @@ public class ResourceController : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         playerController = GetComponent<PlayerController>();
         playerSkillHandler = GetComponent<PlayerSkillHandler>();
-        CurrentHealth = statHandler.Health;
+        MaxHealth = CurrentHealth = statHandler.Health;
     }
     private void Start()
     {
@@ -56,6 +56,7 @@ public class ResourceController : MonoBehaviour
 
     public void SetHealth(float value)
     {
+        MaxHealth = value;
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
