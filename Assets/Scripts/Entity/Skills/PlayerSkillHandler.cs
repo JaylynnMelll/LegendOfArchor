@@ -19,19 +19,20 @@ public class PlayerSkillHandler : MonoBehaviour
     // runtime에서 acquiredSkills에 추가된 스킬들의 스택을 관리하기 위한 리스트
     private List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
 
-    private float damageMultiplicative = 1f;
     private float damageAdditive = 0f;
+    private float damageMultiplicative = 1f;
 
-    private float attackSpeedMultiplicative = 1f;
     private float attackSpeedAdditive = 0f;
+    private float attackSpeedMultiplicative = 1f;
 
     private float criticalChanceAdditive = 0f;
     private float criticalDamageMultiplicative = 1f;
 
-    private float rangeMultiplicative = 1f;
     private float rangeAdditive = 0f;
+    private float rangeMultiplicative = 1f;
 
-    private float healthBonus = 0f;
+    private float healthBonusAdditive = 0f;
+    private float healthBonusMultiplicative = 1f;
 
     private ElementType currentElement = ElementType.None;
 
@@ -81,6 +82,7 @@ public class PlayerSkillHandler : MonoBehaviour
     public float CalculateFinalDamage(float baseDamage)
     {
         float finalDamage = (baseDamage * damageMultiplicative) + (baseDamage * damageAdditive);
+        Debug.Log("Successfully calculated final damage: " + finalDamage);
         return finalDamage;
     }
 
@@ -110,7 +112,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     public float CalculateFinalHealth(float baseHealth)
     {
-        float finalHealth = (baseHealth + healthBonus);
+        float finalHealth = (baseHealth * healthBonusMultiplicative) + (baseHealth * healthBonusAdditive);
         return finalHealth;
     }
 
@@ -153,19 +155,20 @@ public class PlayerSkillHandler : MonoBehaviour
 
     private void ApplyAttributeBoost(Skill skill)
     {
-        damageMultiplicative *= skill.baseDamageMultiplier;
         damageAdditive += skill.additionalDamagePercent;
+        damageMultiplicative *= skill.baseDamageMultiplier;
 
-        attackSpeedMultiplicative *= 1 + skill.attakSpeedModifier;
-        attackSpeedAdditive += skill.attakSpeedModifier;
+        attackSpeedAdditive += skill.additionalattakSpeedPercent;
+        attackSpeedMultiplicative *= skill.baseAttackSpeedMultiplier;
 
-        criticalChanceAdditive += skill.criticalChanceModifier;
-        criticalDamageMultiplicative *= 1 + skill.criticalDamageModifier;
+        criticalChanceAdditive += skill.additionalCriticalChancePercent;
+        criticalDamageMultiplicative *= skill.criticalDamageMultiplier;
 
-        rangeMultiplicative *= 1 + skill.attackRangeModifier;
-        rangeAdditive += skill.attackRangeModifier;
+        rangeAdditive += skill.additionalAttackRangePercent;
+        rangeMultiplicative *= skill.baseAttackRangeMultiplier;
 
-        healthBonus += skill.healththModifier;
+        healthBonusAdditive += skill.additionalHealthPercent;
+        healthBonusMultiplicative *= skill.baseHealthMultiplier;
     }
 }
 

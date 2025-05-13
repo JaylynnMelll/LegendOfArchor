@@ -9,7 +9,9 @@ public class SkillButtonData : MonoBehaviour
 {
     [Header("Connected Components")]
     [SerializeField] private PlayerSkillHandler playerSkillHandler;
-    [SerializeField] private RangeWeaponHandler rangeWeaponHandler;     // Dynamically assigned
+    [SerializeField] private SkillManager skillManager;
+    [SerializeField] private Transform weaponPivot;
+    [SerializeField] private RangeWeaponHandler rangeWeaponHandler;
     [SerializeField] private Cooldown cooldown;
 
     [Header("UI Components")]
@@ -22,12 +24,10 @@ public class SkillButtonData : MonoBehaviour
     public UnityEvent ApplySkillToStats;
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-    // [Unity Lifecycle]
-    private IEnumerator Start()
+    // [Unity LifeCycle]
+    public void Init()
     {
-        yield return new WaitForSeconds(0.1f);
-        rangeWeaponHandler = FindObjectOfType<RangeWeaponHandler>();
-        Debug.Log("RangeWeaponHandler found and assigned to SkillButtonData.");
+        GrabWeaponScript();
 
         if (rangeWeaponHandler != null)
         {
@@ -70,5 +70,21 @@ public class SkillButtonData : MonoBehaviour
     {
         Debug.Log("Skills are Applied to Stats!");
         ApplySkillToStats?.Invoke();
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Private Methods]
+    private void GrabWeaponScript()
+    {
+        if (weaponPivot.childCount > 0)
+        {
+            Transform weapon = weaponPivot.GetChild(0);
+            rangeWeaponHandler = weapon.GetComponent<RangeWeaponHandler>();
+            Debug.Log("Weapon script grabbed successfully.");
+        }
+        else
+        {
+            Debug.LogError("No weapon found in the weapon pivot.");
+        }
     }
 }

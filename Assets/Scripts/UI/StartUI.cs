@@ -8,7 +8,7 @@ public class StartUI : MonoBehaviour
 {
     // [SerializeField] private Button startButton;
     // [SerializeField] private Button exitButton;
-// 
+    // 
     public void OnClickStartButton()
     {
         SceneManager.LoadScene("2DTopDownShooting");

@@ -70,20 +70,42 @@ public class Skill : ScriptableObject
     public TriggerType triggerType;
 
     [Header("Effect Details")]
-    public float baseDamageMultiplier = 1f;
+    
+    // Damage
     [Range(0.01f, 1f)]
     public float additionalDamagePercent = 0f;
-    public float attakSpeedModifier = 0f;
-    public float attackRangeModifier = 0f;       // 공격 범위 증가 비율
+    public float baseDamageMultiplier = 1f;
+
+    // Attack Speed
     [Range(0.01f, 1f)]
-    public float criticalChanceModifier = 0f;
-    public float criticalDamageModifier = 0f;
-    public float projectileSizeModifier = 0f;    // 투사체 크기 증가 비율
-    public float healththModifier = 0f;
-    public float duration = 0f;                  // 제한 시간동안 적용되는 버프에 한해 적용
-    public float interval = 0f;                  // 지속시간동안 몇 초마다 적용되는 버프에 한해 적용
+    public float additionalattakSpeedPercent = 0f;
+    public float baseAttackSpeedMultiplier = 1f;
+
+    // Attack Range
+    [Range(0.01f, 1f)]
+    public float additionalAttackRangePercent = 0f;
+    public float baseAttackRangeMultiplier = 1f;
+  
+
+    // Critical Hit
+    [Range(0.01f, 1f)]
+    public float additionalCriticalChancePercent = 0f;
+    public float criticalDamageMultiplier = 1f;
+
+    // Projectile Size
+    [Range(0.01f, 1f)]
+    public float additionalProjectileSizePercent = 0f;    
+    public float baseProjectileSizeMultiplier= 1f;
+
+    // HP
+    [Range(0.01f, 1f)]
+    public float additionalHealthPercent = 0f;
+    public float baseHealthMultiplier = 1f;     
+
+    public float duration = 0f;                 
+    public float interval = 0f;                 
     public bool isStackable = false;
-    public int maxStacks = 1;                    // 스택이 쌓일 수 있는 최대치
+    public int maxStacks = 1;                   
 
     [Header("Special Parameters")]
     // 도트뎀 관련

@@ -17,17 +17,21 @@ MonoBehaviour:
     \uC99D\uAC00\uB294 \uD569\uC5F0\uC0B0\uC73C\uB85C \uC801\uC6A9\uB41C\uB2E4"
   icon: {fileID: 21300000, guid: d1b4e48e76596c54189086d9a4b3f592, type: 3}
   category: 0
-  weaponType: 0
+  weaponType: 2
   elemenType: 0
   triggerType: 0
-  baseDamageMultiplier: 1
   additionalDamagePercent: 0.3
-  attakSpeedModifier: 0
-  attackRangeModifier: 0
-  criticalChanceModifier: 0
-  criticalDamageModifier: 0
-  projectileSizeModifier: 0
-  healththModifier: 0
+  baseDamageMultiplier: 1
+  additionalattakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 1
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 1
+  additionalCriticalChancePercent: 0
+  criticalDamageMultiplier: 1
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 1
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 1
   duration: 0
   interval: 0
   isStackable: 1

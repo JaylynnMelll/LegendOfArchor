@@ -18,21 +18,24 @@ MonoBehaviour:
     % \uD558\uB77D\uD55C\uB2E4. \uCD5C\uB300 3 \uBC88\uAE4C\uC9C0 \uC801\uC6A9 \uAC00\uB2A5\uD558\uB2E4."
   icon: {fileID: 21300000, guid: 3f8b3a2e78c970545835e892f7723398, type: 3}
   category: 3
-  weaponType: 0
+  weaponType: 1
   elemenType: 0
   triggerType: 0
-  baseDamageMultiplier: 0.9
   additionalDamagePercent: 0.01
-  attakSpeedModifier: -0.15
-  attackRangeModifier: 0
-  criticalChanceModifier: 0
-  criticalDamageModifier: 0
-  projectileSizeModifier: 0
-  healthModifier: 0
+  baseDamageMultiplier: 0.9
+  additionalattakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 1
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 1
+  additionalCriticalChancePercent: 0
+  criticalDamageMultiplier: 1
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 1
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 1
   duration: 0
   interval: 0
   isStackable: 1
-  currentStacks: 0
   maxStacks: 3
   appliesDot: 0
   dotInterval: 0

@@ -11,6 +11,7 @@ public class SkillManager : MonoBehaviour
     [Header("Connected Components")]
     [SerializeField] private SkillDataBase skillDataBase;
     [SerializeField] private ResourceController resourceController;
+    [SerializeField] private PlayerSkillHandler playerSkillHandler;
 
     /// <summary>
     /// skillDataBase에서 랜덤으로 선택된 스킬 데이터중 3개를 선택하여 저장하는 배열.
@@ -18,8 +19,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] public Skill[] chooseSkill = new Skill[3];
 
     /// <summary>
-    /// skilldatabase의 스킬리스트에서 랜덤한 인덱스의 스킬을 3개 선택하여 
-    /// chooseSkill 배열에 추가해주는 매서드
+    /// Choose 3 skills at random index from skilDataBase and add them to the chooseSkill array.
     /// </summary>
     public void AddToChooseSkillList()
     {
@@ -60,6 +60,6 @@ public class SkillManager : MonoBehaviour
 
     public void HPBoost()
     {
-
+      
     }
 }

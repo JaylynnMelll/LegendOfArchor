@@ -30,7 +30,7 @@ public class BaseController : MonoBehaviour
     [SerializeField] private Material dieMaterial;
     [SerializeField] private Material resetMaterial;
 
-    ResourceController resourceController;
+    ResourceController baseResourceController;
 
     // 리셋 작업을 위한 초기 상태 저장
     private Vector2 initialMovementDirection = Vector2.zero;   // 초기 이동 방향
@@ -46,7 +46,7 @@ public class BaseController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();
-        resourceController = GetComponent<ResourceController>();
+        baseResourceController = GetComponent<ResourceController>();
 
         Initialize();
 
@@ -194,7 +194,7 @@ public class BaseController : MonoBehaviour
         lookDirection = initialLookDirection;
         isAttacking = initialIsAttacking;
         //statHandler.Health = (int)initialHealth;
-        resourceController.CurrentHealth = initialHealth;
+        baseResourceController.CurrentHealth = initialHealth;
         knockbackDuration = initialKnockbackDuration;
 
         // Rigidbody 초기화: 초기 이동 방향으로 설정

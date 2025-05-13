@@ -87,7 +87,7 @@ public class WeaponHandler : MonoBehaviour
         WeaponSize = 1f;
         WeaponPower = 1f;
         WeaponSpeed = 1f;
-        WeaponRange = 10f;
+        WeaponRange = 1f;
         CriticalChance = 0.2f;
         CriticalDamage = 1.5f;
         KnockbackPower = 0.1f;
