@@ -22,12 +22,14 @@ public class PlayerController : BaseController
 
     private Camera camera;
     private GameManager gameManager;
+    private Animator animator;
 
     public void Init(GameManager gameManager)
     {
         this.gameManager = gameManager;
         camera = Camera.main;
         playerCollider = GetComponent<Collider2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected override void HandleAction()
@@ -68,6 +70,7 @@ public class PlayerController : BaseController
         if (dodgeDirection == Vector2.zero) dodgeDirection = Vector2.right;
 
         // 구르기 애니메이션 추가 예정
+        animator?.SetTrigger("Dodge");
 
         SetCollisionWithEnemies(false); // 무적
 
