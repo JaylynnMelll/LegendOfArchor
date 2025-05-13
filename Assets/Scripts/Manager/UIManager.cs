@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
         pauseUI = GetComponentInChildren<PauseUI>(true);
         pauseUI.Init(this);
 
-        // 처음엔 홈 상태로
         ChangeState(UIState.Game);
     }
 
