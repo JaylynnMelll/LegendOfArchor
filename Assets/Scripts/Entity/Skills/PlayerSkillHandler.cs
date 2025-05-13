@@ -17,7 +17,7 @@ public class PlayerSkillHandler : MonoBehaviour
     // 스킬과 그 스킬의 스택 수를 저장하는 리스트
     public List<Skill> acquiredSkills = new List<Skill>();
     // runtime에서 acquiredSkills에 추가된 스킬들의 스택을 관리하기 위한 리스트
-    private List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
+    public List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
 
     private float damageAdditive = 0f;
     private float damageMultiplicative = 1f;
@@ -51,6 +51,7 @@ public class PlayerSkillHandler : MonoBehaviour
             // 02) acquiredSkills에 추가된 스킬을 trackingList에 추가
             runtimeSkill = new RuntimeSkill(skill);
             trackingList.Add(runtimeSkill); 
+
             runtimeSkill.AddStack();
             ApplySkillEffect(skill);
 #if UNITY_EDITOR
@@ -156,19 +157,19 @@ public class PlayerSkillHandler : MonoBehaviour
     private void ApplyAttributeBoost(Skill skill)
     {
         damageAdditive += skill.additionalDamagePercent;
-        damageMultiplicative *= skill.baseDamageMultiplier;
+        damageMultiplicative *= 1 + skill.baseDamageMultiplier;
 
-        attackSpeedAdditive += skill.additionalattakSpeedPercent;
-        attackSpeedMultiplicative *= skill.baseAttackSpeedMultiplier;
+        attackSpeedAdditive += skill.additionalAttakSpeedPercent;
+        attackSpeedMultiplicative *= 1 + skill.baseAttackSpeedMultiplier;
 
         criticalChanceAdditive += skill.additionalCriticalChancePercent;
-        criticalDamageMultiplicative *= skill.criticalDamageMultiplier;
+        criticalDamageMultiplicative *= 1 + skill.criticalDamageMultiplier;
 
         rangeAdditive += skill.additionalAttackRangePercent;
-        rangeMultiplicative *= skill.baseAttackRangeMultiplier;
+        rangeMultiplicative *= 1 + skill.baseAttackRangeMultiplier;
 
         healthBonusAdditive += skill.additionalHealthPercent;
-        healthBonusMultiplicative *= skill.baseHealthMultiplier;
+        healthBonusMultiplicative *= 1 + skill.baseHealthMultiplier;
     }
 }
 

@@ -17922,9 +17922,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
-  skillManager: {fileID: 0}
+  skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 4536943838724569476}
@@ -17932,6 +17933,9 @@ MonoBehaviour:
   skillNameText: {fileID: 1744898999023125581}
   assignedSkill: {fileID: 0}
   ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1744898999023125581
@@ -18407,9 +18411,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
-  skillManager: {fileID: 0}
+  skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 7549580896530798413}
@@ -18417,6 +18422,9 @@ MonoBehaviour:
   skillNameText: {fileID: 6226123993347556018}
   assignedSkill: {fileID: 0}
   ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3624055647903216436
@@ -19626,9 +19634,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
-  skillManager: {fileID: 0}
+  skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 5056773713127916460}
@@ -19636,6 +19645,9 @@ MonoBehaviour:
   skillNameText: {fileID: 6407922343831560586}
   assignedSkill: {fileID: 0}
   ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8084137517849265588

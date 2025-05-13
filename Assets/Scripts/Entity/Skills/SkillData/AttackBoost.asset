@@ -20,16 +20,16 @@ MonoBehaviour:
   weaponType: 2
   elemenType: 0
   triggerType: 0
-  additionalDamagePercent: 0.3
-  baseDamageMultiplier: 1
-  additionalattakSpeedPercent: 0
-  baseAttackSpeedMultiplier: 1
+  additionalDamagePercent: 0.5
+  baseDamageMultiplier: 0
+  additionalAttakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 0
   additionalAttackRangePercent: 0
-  baseAttackRangeMultiplier: 1
+  baseAttackRangeMultiplier: 0
   additionalCriticalChancePercent: 0
-  criticalDamageMultiplier: 1
+  criticalDamageMultiplier: 0
   additionalProjectileSizePercent: 0
-  baseProjectileSizeMultiplier: 1
+  baseProjectileSizeMultiplier: 0
   additionalHealthPercent: 0
   baseHealthMultiplier: 1
   duration: 0

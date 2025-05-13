@@ -57,9 +57,4 @@ public class SkillManager : MonoBehaviour
             chooseSkill[i] = null;
         }
     }
-
-    public void HPBoost()
-    {
-      
-    }
 }

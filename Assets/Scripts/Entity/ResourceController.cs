@@ -13,7 +13,7 @@ public class ResourceController : MonoBehaviour
     private float timeSinceLastHealthChange = float.MaxValue;
     public float CurrentHealth { get; set; }
 
-    private int _maxHealth = 10; // 최대 체력
+    [SerializeField] private int _maxHealth = 10; // 최대 체력
     public int MaxHealth
     {
         get { return _maxHealth; }
@@ -26,6 +26,7 @@ public class ResourceController : MonoBehaviour
     private NecromancerBossController necromancerBossController;
     private EnemyController enemyController;
     private PlayerController playerController;
+    private PlayerSkillHandler playerSkillHandler;
     private void Awake()
     {
         baseController = GetComponent<BaseController>();
@@ -35,6 +36,7 @@ public class ResourceController : MonoBehaviour
         necromancerBossController = GetComponent<NecromancerBossController>();
         enemyController = GetComponent<EnemyController>();
         playerController = GetComponent<PlayerController>();
+        playerSkillHandler = GetComponent<PlayerSkillHandler>();
         CurrentHealth = statHandler.Health;
     }
     private void Start()
@@ -57,7 +59,6 @@ public class ResourceController : MonoBehaviour
         CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
-
     public bool ChangeHealth(float change)
     {
         var playerController = GetComponent<PlayerController>();
@@ -114,5 +115,16 @@ public class ResourceController : MonoBehaviour
         {
             baseController?.Died();
         }
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    public void HPReset()
+    {
+        MaxHealth = 100;
+    }
+
+    public void HPBoost()
+    {
+        MaxHealth = (int)playerSkillHandler.CalculateFinalHealth(MaxHealth);
     }
 }

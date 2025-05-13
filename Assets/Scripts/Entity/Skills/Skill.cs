@@ -50,6 +50,15 @@ public enum TriggerType
     TimedBuff
 }
 
+public enum SkillID
+{
+    AttackBoost,
+    AttackSpeedBoost,
+    CriticalMaster,
+    HPBoost,
+    MultiShot,
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 /// <summary>
@@ -64,6 +73,7 @@ public class Skill : ScriptableObject
     public Sprite icon;
 
     [Header("Classification")]
+    public SkillID skillID;                
     public SkillCategory category;
     public WeaponType weaponType;
     public ElementType elemenType;
@@ -72,35 +82,35 @@ public class Skill : ScriptableObject
     [Header("Effect Details")]
     
     // Damage
-    [Range(0.01f, 1f)]
+    [Range(0f, 1f)]
     public float additionalDamagePercent = 0f;
-    public float baseDamageMultiplier = 1f;
+    public float baseDamageMultiplier = 0f;
 
     // Attack Speed
-    [Range(0.01f, 1f)]
-    public float additionalattakSpeedPercent = 0f;
-    public float baseAttackSpeedMultiplier = 1f;
+    [Range(0f, 1f)]
+    public float additionalAttakSpeedPercent = 0f;
+    public float baseAttackSpeedMultiplier = 0f;
 
     // Attack Range
-    [Range(0.01f, 1f)]
+    [Range(0f, 1f)]
     public float additionalAttackRangePercent = 0f;
-    public float baseAttackRangeMultiplier = 1f;
+    public float baseAttackRangeMultiplier = 0f;
   
 
     // Critical Hit
-    [Range(0.01f, 1f)]
+    [Range(0f, 1f)]
     public float additionalCriticalChancePercent = 0f;
-    public float criticalDamageMultiplier = 1f;
+    public float criticalDamageMultiplier = 0f;
 
     // Projectile Size
-    [Range(0.01f, 1f)]
+    [Range(0f, 1f)]
     public float additionalProjectileSizePercent = 0f;    
-    public float baseProjectileSizeMultiplier= 1f;
+    public float baseProjectileSizeMultiplier= 0f;
 
     // HP
-    [Range(0.01f, 1f)]
+    [Range(0f, 1f)]
     public float additionalHealthPercent = 0f;
-    public float baseHealthMultiplier = 1f;     
+    public float baseHealthMultiplier = 0f;     
 
     public float duration = 0f;                 
     public float interval = 0f;                 
