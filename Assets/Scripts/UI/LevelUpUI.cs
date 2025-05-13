@@ -23,6 +23,12 @@ public class LevelUpUI : BaseUI
     }
     public void ShowLevelUpUI(int level)
     {
+        foreach (SkillButtonData skillButton in skillButtons)
+        {
+            skillButton.Init();
+            Debug.Log("SkillButtonData initialized.");
+        }
+
         PrintLevelText(level);
         ShowRandomThreeSkills();
     }

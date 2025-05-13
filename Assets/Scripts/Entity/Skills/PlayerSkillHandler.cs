@@ -17,21 +17,22 @@ public class PlayerSkillHandler : MonoBehaviour
     // 스킬과 그 스킬의 스택 수를 저장하는 리스트
     public List<Skill> acquiredSkills = new List<Skill>();
     // runtime에서 acquiredSkills에 추가된 스킬들의 스택을 관리하기 위한 리스트
-    private List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
+    public List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
 
-    private float damageMultiplicative = 1f;
     private float damageAdditive = 0f;
+    private float damageMultiplicative = 1f;
 
-    private float attackSpeedMultiplicative = 1f;
     private float attackSpeedAdditive = 0f;
+    private float attackSpeedMultiplicative = 1f;
 
     private float criticalChanceAdditive = 0f;
     private float criticalDamageMultiplicative = 1f;
 
-    private float rangeMultiplicative = 1f;
     private float rangeAdditive = 0f;
+    private float rangeMultiplicative = 1f;
 
-    private float healthBonus = 0f;
+    private float healthBonusAdditive = 0f;
+    private float healthBonusMultiplicative = 1f;
 
     private ElementType currentElement = ElementType.None;
 
@@ -50,6 +51,7 @@ public class PlayerSkillHandler : MonoBehaviour
             // 02) acquiredSkills에 추가된 스킬을 trackingList에 추가
             runtimeSkill = new RuntimeSkill(skill);
             trackingList.Add(runtimeSkill); 
+
             runtimeSkill.AddStack();
             ApplySkillEffect(skill);
 #if UNITY_EDITOR
@@ -81,6 +83,7 @@ public class PlayerSkillHandler : MonoBehaviour
     public float CalculateFinalDamage(float baseDamage)
     {
         float finalDamage = (baseDamage * damageMultiplicative) + (baseDamage * damageAdditive);
+        Debug.Log("Successfully calculated final damage: " + finalDamage);
         return finalDamage;
     }
 
@@ -110,7 +113,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     public float CalculateFinalHealth(float baseHealth)
     {
-        float finalHealth = (baseHealth + healthBonus);
+        float finalHealth = (baseHealth * healthBonusMultiplicative) + (baseHealth * healthBonusAdditive);
         return finalHealth;
     }
 
@@ -153,19 +156,20 @@ public class PlayerSkillHandler : MonoBehaviour
 
     private void ApplyAttributeBoost(Skill skill)
     {
-        damageMultiplicative *= skill.baseDamageMultiplier;
         damageAdditive += skill.additionalDamagePercent;
+        damageMultiplicative *= 1 + skill.baseDamageMultiplier;
 
-        attackSpeedMultiplicative *= 1 + skill.attakSpeedModifier;
-        attackSpeedAdditive += skill.attakSpeedModifier;
+        attackSpeedAdditive += skill.additionalAttakSpeedPercent;
+        attackSpeedMultiplicative *= 1 + skill.baseAttackSpeedMultiplier;
 
-        criticalChanceAdditive += skill.criticalChanceModifier;
-        criticalDamageMultiplicative *= 1 + skill.criticalDamageModifier;
+        criticalChanceAdditive += skill.additionalCriticalChancePercent;
+        criticalDamageMultiplicative *= 1 + skill.criticalDamageMultiplier;
 
-        rangeMultiplicative *= 1 + skill.attackRangeModifier;
-        rangeAdditive += skill.attackRangeModifier;
+        rangeAdditive += skill.additionalAttackRangePercent;
+        rangeMultiplicative *= 1 + skill.baseAttackRangeMultiplier;
 
-        healthBonus += skill.healththModifier;
+        healthBonusAdditive += skill.additionalHealthPercent;
+        healthBonusMultiplicative *= 1 + skill.baseHealthMultiplier;
     }
 }
 

@@ -4261,6 +4261,7 @@ MonoBehaviour:
   hpBarPool: {fileID: 1396540436}
   damageTextPrefab: {fileID: 4005676080295698521, guid: ecadc2e2022b84b1b954ef29509a1ee7, type: 3}
   damageTextRoot: {fileID: 645079967}
+  skillManager: {fileID: 1764842113165123942}
   hpBarPrefab: {fileID: 6547687815608930663, guid: 58f7035872957479b8431e819135ad45, type: 3}
   hpBarRoot: {fileID: 1185192251}
 --- !u!1 &867924531
@@ -17952,14 +17953,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 4536943838724569476}
   skillIcon: {fileID: 4430864684450903144}
   skillNameText: {fileID: 1744898999023125581}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1744898999023125581
@@ -18064,6 +18071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDataBase: {fileID: 3736914277136018618}
+  resourceController: {fileID: 1509543279}
+  playerSkillHandler: {fileID: 1509543282}
   chooseSkill:
   - {fileID: 0}
   - {fileID: 0}
@@ -18421,14 +18430,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 7549580896530798413}
   skillIcon: {fileID: 2692644274610119334}
   skillNameText: {fileID: 6226123993347556018}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3624055647903216436
@@ -19568,14 +19583,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSkillHandler: {fileID: 1509543282}
+  skillManager: {fileID: 1764842113165123942}
+  weaponPivot: {fileID: 530684166}
   rangeWeaponHandler: {fileID: 0}
+  resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
   button: {fileID: 5056773713127916460}
   skillIcon: {fileID: 4827990408487087749}
   skillNameText: {fileID: 6407922343831560586}
   assignedSkill: {fileID: 0}
-  ApplyingSkillToStats:
+  ApplySkillToStats:
+    m_PersistentCalls:
+      m_Calls: []
+  HPBoost:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8084137517849265588

@@ -1,21 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Skill UI�� �ִ� 3���� ��ư�� ���� �Ҵ�Ǿ�
-/// �������� ���õ� ��ų�� UI�� �����ְ�, �� ��ų�� ������ �������ִ� ��ũ��Ʈ.
-/// </summary>
 public class SkillButtonData : MonoBehaviour
 {
     [Header("Connected Components")]
     [SerializeField] private PlayerSkillHandler playerSkillHandler;
-    [SerializeField] private RangeWeaponHandler rangeWeaponHandler;     // Dynamically assigned
+    [SerializeField] private SkillManager skillManager;
+    [SerializeField] private Transform weaponPivot;
+    [SerializeField] private RangeWeaponHandler rangeWeaponHandler;
+    [SerializeField] private ResourceController resourceController;
     [SerializeField] private Cooldown cooldown;
-
 
     [Header("UI Components")]
     public Button button;
@@ -24,29 +23,44 @@ public class SkillButtonData : MonoBehaviour
     public Skill assignedSkill;
 
     [Header("Skill Applying Events")]
-    public UnityEvent ApplyingSkillToStats;
+    public UnityEvent ApplySkillToStats;
+    public UnityEvent ApplyHPBoost;
+    public UnityEvent ApplyMultiShot;
 
-    private IEnumerator Start()
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Unity LifeCycle]
+    public void Init()
     {
-        yield return new WaitForSeconds(0.1f);
-        rangeWeaponHandler = FindObjectOfType<RangeWeaponHandler>();
-        Debug.Log("RangeWeaponHandler found and assigned to SkillButtonData.");
+        GrabWeaponScript();
 
+        // Event for applying skills to ranged weapon stats
         if (rangeWeaponHandler != null)
         {
             // Prevention of multiple event calls on scene reload
-            ApplyingSkillToStats.RemoveAllListeners();
+            ApplySkillToStats.RemoveAllListeners();
 
-            // ApplyingSKillToStats�̺�Ʈ�� �޼��� �߰� (Dynamically assigned)
-            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ResetStats);
-            ApplyingSkillToStats.AddListener(rangeWeaponHandler.ApplyFinalStats);
+            // Subscribing methods to ApplyingSKillToStats() events (Dynamically assigned)
+            ApplySkillToStats.AddListener(rangeWeaponHandler.ResetWeaponStats);
+            ApplySkillToStats.AddListener(rangeWeaponHandler.ApplyFinalWeaponStats);
+
+            ApplyMultiShot.RemoveAllListeners();
+            ApplyMultiShot.AddListener(rangeWeaponHandler.MultiShot);
         }
+
+        // Event for applying skills to player stats
+        if (resourceController != null)
+        {
+            ApplyHPBoost.RemoveAllListeners();
+
+            ApplyHPBoost.AddListener(resourceController.HPReset);
+            ApplyHPBoost.AddListener(resourceController.HPBoost);
+        }
+
+        Debug.Log("SkillButtonData initialized successfully.");
     }
 
-    /// <summary>
-    /// SkillButtonData�� �� ��ư�� ��ų ������ �������ִ� �޼���.
-    /// </summary>
-    /// <param name="skill"></param>
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Public Methods]
     public void SetSkillDataToButton(Skill skill)
     {
         skillIcon.sprite = skill.icon;
@@ -54,13 +68,8 @@ public class SkillButtonData : MonoBehaviour
         assignedSkill = skill;
     }
 
-    /// <summary>
-    /// ��ų�� ������ ��ư�� Ŭ������ �� ������ ��ų�� 
-    /// Player���� ��������ִ� �޼���.
-    /// </summary>
     public void AddSkillOnClick()
     {
-        // ��ų ��ư�� �ٽ� Ȱ��ȭ �Ǳ������ ��ٿ� �ð��� üũ
         if (cooldown.IsCoolingDown)
         {
 #if UNITY_EDITOR
@@ -73,13 +82,43 @@ public class SkillButtonData : MonoBehaviour
         ApplyingSkillsToStats();
         GameManager.instance.SkillAdded();
 
-        // ��ٿ� ����
         cooldown.StartCoolingDown();
     }
 
     public void ApplyingSkillsToStats()
     {
-        Debug.Log("Skills are Applied to Stats!");
-        ApplyingSkillToStats?.Invoke();
+        switch (assignedSkill.skillID)
+        {
+            case SkillID.HPBoost:
+                ApplyHPBoost?.Invoke();
+                break;
+
+            case SkillID.MultiShot:
+                ApplySkillToStats?.Invoke();
+                ApplyMultiShot?.Invoke();
+                break;
+
+            default:
+                ApplySkillToStats?.Invoke();
+                break;
+        }
+        
+        Debug.Log("Skill applied to stats: " + assignedSkill.name);
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+    // [Private Methods]
+    private void GrabWeaponScript()
+    {
+        if (weaponPivot.childCount > 0)
+        {
+            Transform weapon = weaponPivot.GetChild(0);
+            rangeWeaponHandler = weapon.GetComponent<RangeWeaponHandler>();
+            Debug.Log("Weapon script grabbed successfully.");
+        }
+        else
+        {
+            Debug.LogError("No weapon found in the weapon pivot.");
+        }
     }
 }

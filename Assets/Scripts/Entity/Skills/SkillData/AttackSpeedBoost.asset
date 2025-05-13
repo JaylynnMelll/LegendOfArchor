@@ -15,22 +15,27 @@ MonoBehaviour:
   skillName: "\uACF5\uACA9 \uC18D\uB3C4 \uBD80\uC2A4\uD2B8"
   skillDescription: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 25 % \uC99D\uAC00\uD55C\uB2E4.
     \uACF5\uACA9 \uC18D\uB3C4 \uBD80\uC2A4\uD2B8\uB97C 4 \uBC88 \uBA39\uC73C\uBA74
-    \uACF5\uACA9\uC18D\uB3C4\uAC00 2 \uBC30\uAC00 \uB418\uC5B4 \uBA40\uD2F0\uC0F7\uC744
+    \uACF5\uACA9\uC18D\uB3C4\uAC00 2 \uBC30\uAC00 \uB418\uC5B4 \uC5F0\uC18D\uC0F7\uC744
     \uBA39\uC740 \uAC83\uACFC \uB3D9\uC77C\uD55C \uC18D\uB3C4\uB85C \uACF5\uACA9\uD560
     \uC218 \uC788\uB2E4."
   icon: {fileID: 21300000, guid: 2e423d3562da286409b3743e3716941e, type: 3}
+  skillID: 1
   category: 0
   weaponType: 2
   elemenType: 0
   triggerType: 0
-  baseDamageMultiplier: 1
   additionalDamagePercent: 0
-  attakSpeedModifier: 0.25
-  attackRangeModifier: 0
-  criticalChanceModifier: 0
-  criticalDamageModifier: 0
-  projectileSizeModifier: 0
-  healththModifier: 0
+  baseDamageMultiplier: 0
+  additionalAttakSpeedPercent: 0.5
+  baseAttackSpeedMultiplier: 0
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 0
+  additionalCriticalChancePercent: 0
+  criticalDamageMultiplier: 0
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 0
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 1
   duration: 0
   interval: 0
   isStackable: 1
