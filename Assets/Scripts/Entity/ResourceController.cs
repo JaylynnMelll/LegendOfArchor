@@ -60,6 +60,12 @@ public class ResourceController : MonoBehaviour
 
     public bool ChangeHealth(float change)
     {
+        var playerController = GetComponent<PlayerController>();
+        if (change < 0 && playerController != null && playerController.IsDodging)
+        {
+            return false;
+        }
+
         if (change == 0 || timeSinceLastHealthChange < healthChangeDealy)
         {
             return false;

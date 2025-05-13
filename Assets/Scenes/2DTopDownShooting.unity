@@ -16221,6 +16221,18 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 4357769163611957157, guid: aa6170baf34ae6f4681b0b6f2e42d0c5, type: 3}
   dieMaterial: {fileID: 0}
   resetMaterial: {fileID: 0}
+  dodgeDistance: 2.5
+  dodgeDuration: 0.3
+  dodgeCooldown: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  enemyProjectileLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1509543277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17916,7 +17928,7 @@ MonoBehaviour:
   skillIcon: {fileID: 4430864684450903144}
   skillNameText: {fileID: 1744898999023125581}
   assignedSkill: {fileID: 0}
-  ApplySkillToStats:
+  ApplyingSkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1744898999023125581
@@ -18021,7 +18033,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDataBase: {fileID: 3736914277136018618}
-  resourceController: {fileID: 0}
   chooseSkill:
   - {fileID: 0}
   - {fileID: 0}
@@ -18398,7 +18409,7 @@ MonoBehaviour:
   skillIcon: {fileID: 2692644274610119334}
   skillNameText: {fileID: 6226123993347556018}
   assignedSkill: {fileID: 0}
-  ApplySkillToStats:
+  ApplyingSkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3624055647903216436
@@ -18440,11 +18451,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runTimeskillList:
+  - {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
   - {fileID: 11400000, guid: 80a859142042e8b44b3ec77dcc059bbb, type: 2}
   - {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
   - {fileID: 11400000, guid: 503370163369423469de712800273213, type: 2}
-  - {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
 --- !u!222 &3768147191921394301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19615,7 +19626,7 @@ MonoBehaviour:
   skillIcon: {fileID: 4827990408487087749}
   skillNameText: {fileID: 6407922343831560586}
   assignedSkill: {fileID: 0}
-  ApplySkillToStats:
+  ApplyingSkillToStats:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &8084137517849265588
@@ -19803,8 +19814,8 @@ MonoBehaviour:
   normalEnemies:
   - {fileID: 9214229529407106475, guid: c3f657a4b65877942b76cd84cc549cc2, type: 3}
   - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
-  bossEnemies:
-  - {fileID: 8264194638359092396, guid: e8ba93768bdaadb4388f5ec381fa0d4b, type: 3}
+  slimeBossPrefab: {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
+  necromancerBossPrefab: {fileID: 8264194638359092396, guid: dc6e46d2379c6f941a721bcc6d7f9293, type: 3}
 --- !u!114 &8952490859823448957
 MonoBehaviour:
   m_ObjectHideFlags: 0

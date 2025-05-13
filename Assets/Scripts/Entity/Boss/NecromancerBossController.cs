@@ -153,6 +153,6 @@ public class NecromancerBossController : BaseController, IEnemy
     public override void Died()
     {
         base.Died();
-        enemyManager.RemoveEnemyOnDeath(this);
+        base.OnDeathComplete();
     }
 }

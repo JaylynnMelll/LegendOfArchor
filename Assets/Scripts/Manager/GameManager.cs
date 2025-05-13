@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private StageManager stageManager;
     private UIManager uiManager;
     private EnemyPool enemyPool;
+    private BossPool bossPool;
 
     public static bool isFirstLoading = true; // 첫 실행 여부
 
@@ -33,10 +34,13 @@ public class GameManager : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
 
         _playerResourceController = player.GetComponent<ResourceController>();
+
+        // Pool 찾기
         enemyPool = FindObjectOfType<EnemyPool>();
+        bossPool = FindObjectOfType<BossPool>();
 
         enemyManager = GetComponentInChildren<EnemyManager>();
-        enemyManager.Init(this, enemyPool);
+        enemyManager.Init(this, enemyPool, bossPool);
         stageManager = FindObjectOfType<StageManager>();
 
     }

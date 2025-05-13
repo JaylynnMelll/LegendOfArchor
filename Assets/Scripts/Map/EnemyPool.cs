@@ -3,39 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// 적 타입
-public enum EnemyType { Normal, Boss }
-
 public class EnemyPool : MonoBehaviour
 {
-    [Header("프리팹 목록")]
+    [Header("일반 몬스터 프리팹 목록")]
     [SerializeField] private GameObject[] normalEnemies;
-    [SerializeField] private GameObject[] bossEnemies;
 
+    [Header("보스 프리팹 목록")]
+    [SerializeField] private GameObject slimeBossPrefab;
+    [SerializeField] private GameObject necromancerBossPrefab;
+
+
+    private int bossIndex = 0; // 순차적 소환용 인덱스
+
+    // 적 관리 딕셔너리
     private Dictionary<GameObject, Queue<GameObject>> enemyPools = new();
 
     // 적 꺼내기
-    public GameObject GetEnemy(EnemyType type, Vector3 spawnPos)
+    public GameObject GetEnemy(Vector3 spawnPos)
     {
-        GameObject[] sourceArray = (type == EnemyType.Normal) ? normalEnemies : bossEnemies;
-
-        if (sourceArray.Length == 0)
+        if (normalEnemies.Length == 0)
         {
-            Debug.LogWarning($"EnemyType {type}에 등록된 프리팹이 없습니다.");
+            Debug.LogWarning("일반 몬스터에 등록된 프리팹이 없습니다.");
             return null;
         }
 
-        // 정해진 타입 내에서 랜덤으로 꺼낸다
-        GameObject prefab = sourceArray[Random.Range(0, sourceArray.Length)];
+        // 일반 몬스터 프리팹 중 랜덤 선택
+        GameObject prefab = normalEnemies[Random.Range(0, normalEnemies.Length)];
+        return GetPublicEnemy(prefab, spawnPos);
+    }
 
-        if (!enemyPools.ContainsKey(prefab))
+    // 보스 꺼내기
+    public GameObject GetBossEnemy(BossType bossType, Vector3 spawnPos)
+    {
+        GameObject bossPrefab = GetBossPrefab(bossType);
+        if (bossPrefab == null)
+        {
+            Debug.LogError($"BossType {bossType}에 해당하는 프리팹이 없습니다.");
+            return null;
+        }
+
+        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
+        boss.SetActive(true);
+        return boss;
+    }
+
+    // BossType에 따라 프리팹 반환
+    private GameObject GetBossPrefab(BossType bossType)
+    {
+        return bossType switch
+        {
+            BossType.Slime => slimeBossPrefab,
+            BossType.Necromancer => necromancerBossPrefab,
+            _ => null
+        };
+    }
+
+    // 적을 풀에서 꺼내거나 새로 생성하는 공통 함수
+    private GameObject GetPublicEnemy(GameObject prefab, Vector3 spawnPos)
+    {
+        if(!enemyPools.ContainsKey(prefab))
             enemyPools[prefab] = new Queue<GameObject>();
 
         Queue<GameObject> pool = enemyPools[prefab];
-
         GameObject enemy;
 
-        if (pool.Count > 0)
+        if(pool.Count > 0)
         {
             enemy = pool.Dequeue();
         }
@@ -49,6 +81,7 @@ public class EnemyPool : MonoBehaviour
         enemy.SetActive(true);
         return enemy;
     }
+
 
     // 적 반환
     public void ReturnEnemy(GameObject enemy)
@@ -66,7 +99,7 @@ public class EnemyPool : MonoBehaviour
     // 이름 기반 프리팹 찾기
     private GameObject FindMatchingPrefab(GameObject enemyInstance)
     {
-        foreach (var prefab in normalEnemies.Concat(bossEnemies))
+        foreach (var prefab in normalEnemies)
         {
             if (enemyInstance.name.Contains(prefab.name))
                 return prefab;

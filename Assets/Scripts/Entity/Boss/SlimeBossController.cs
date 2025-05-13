@@ -73,6 +73,7 @@ public class SlimeBossController : BaseController, IEnemy
         else
         {
             base.Died();
+            base.OnDeathComplete();
         }
     }
 

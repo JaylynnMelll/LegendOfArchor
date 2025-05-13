@@ -86,8 +86,19 @@ public class StageManager : MonoBehaviour
             Debug.LogWarning("SpawnPoints 오브젝트를 찾을 수 없습니다.");
         }
 
-        // 적 생성 요청
-        enemyManager.SpawnEnemy(spawnPoints, isBoss, stage);
+        // 보스 스테이지라면 보스 타입도 함께 전달
+        if(isBoss)
+        {
+            BossType bossType = (currentStage % 10 == 0) ? BossType.Necromancer : BossType.Slime;
+            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage, bossType);
+        }
+
+        else
+        {
+            // 적 생성 요청
+            enemyManager.SpawnEnemy(spawnPoints, isBoss, stage);
+        }
+
 
         // 포탈 비활성화
         portal.gameObject.SetActive(false);
