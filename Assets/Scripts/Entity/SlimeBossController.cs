@@ -5,12 +5,11 @@ using UnityEngine;
 public class SlimeBossController : BaseController, IEnemy
 
 {
-    EnemyManager enemyManager;
-
+    public GameObject ConnectedHPBar { get; set; }
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
-    [SerializeField] public int maxSplitCount = 4; // 최대 분열 횟수
-    [SerializeField] public int splitCount = 0; // 현재 분열 횟수
+    [SerializeField] private int maxSplitCount = 4; // 최대 분열 횟수
+    [SerializeField] private int splitCount = 0; // 현재 분열 횟수
     [SerializeField] private int splitSpawnCount = 2; // 한 번에 나오는 분열 수
 
 
@@ -25,8 +24,6 @@ public class SlimeBossController : BaseController, IEnemy
     private LineRenderer lineRenderer;
     private Animator animator;
 
-    private BossPool bossPool;
-
     public bool IsSummoned => isSummoned;
     public bool isSummoned = false;
 
@@ -35,9 +32,7 @@ public class SlimeBossController : BaseController, IEnemy
 
     public void InitEnemy(EnemyManager manager, Transform player)
     {
-        bossPool = FindObjectOfType<BossPool>();
         target = player;
-        enemyManager = manager;
         StartCoroutine(ChargeRoutine());
     }
 
@@ -52,7 +47,6 @@ public class SlimeBossController : BaseController, IEnemy
         resourceController = GetComponent<ResourceController>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
-        
 
         if (lineRenderer != null)
         {
@@ -79,14 +73,7 @@ public class SlimeBossController : BaseController, IEnemy
         else
         {
             base.Died();
-            enemyManager.RemoveEnemyOnDeath(this);
-
-            // 사망 시 풀로 반환
-            if(bossPool != null)
-            {
-                bossPool.ReturnBoss(BossType.Slime, gameObject, splitCount);
-            }
-
+            base.OnDeathComplete();
         }
     }
 
@@ -104,43 +91,20 @@ public class SlimeBossController : BaseController, IEnemy
         for (int i = 0; i < splitSpawnCount; i++)
         {
             Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 0.5f;
-
-            // 풀에서 가져온다
-            if(bossPool == null)
-            {
-                Debug.LogError("BossPool을 찾을 수 없습니다.");
-                return;
-            }
-
-            GameObject split = bossPool.GetBoss(BossType.Slime, splitCount + 1);
-            if (split == null) return;
-
-            split.transform.position = spawnPos;
-            split.transform.rotation = Quaternion.identity;
-            split.SetActive(true);
-
-            SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
-
-            if(splitcontroller != null)
-            {
-                splitcontroller.InitEnemy(enemyManager, GameManager.instance.player.transform);
-                // 분열 카운트 증가
-                splitcontroller.InitSplit(splitCount + 1);
-            }
+            GameObject split = Instantiate(bossSlimeSplit, spawnPos, Quaternion.identity);
 
             var resource = split.GetComponent<ResourceController>();
 
-            if (resource != null)
+            SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
+            if (splitcontroller != null)
             {
-                GameManager.instance.CreateEnemyHPBar(split.transform, resource);
+                // EnemyManager와 플레이어 Transform을 전달하여 초기화
+                splitcontroller.InitEnemy(GetComponentInParent<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
+                splitcontroller.InitSplit(splitCount + 1);
             }
         }
 
-        // BossPool에 자신을 반환
-        if(bossPool != null)
-        {
-            bossPool.ReturnBoss(BossType.Slime, gameObject, splitCount);
-        }
+        Destroy(gameObject); // 분열 전 슬라임 제거
     }
 
     public void InitSplit(int newSplitCount)

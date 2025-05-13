@@ -8,6 +8,13 @@ public class EnemyPool : MonoBehaviour
     [Header("일반 몬스터 프리팹 목록")]
     [SerializeField] private GameObject[] normalEnemies;
 
+    [Header("보스 프리팹 목록")]
+    [SerializeField] private GameObject slimeBossPrefab;
+    [SerializeField] private GameObject necromancerBossPrefab;
+
+
+    private int bossIndex = 0; // 순차적 소환용 인덱스
+
     // 적 관리 딕셔너리
     private Dictionary<GameObject, Queue<GameObject>> enemyPools = new();
 
@@ -23,6 +30,32 @@ public class EnemyPool : MonoBehaviour
         // 일반 몬스터 프리팹 중 랜덤 선택
         GameObject prefab = normalEnemies[Random.Range(0, normalEnemies.Length)];
         return GetPublicEnemy(prefab, spawnPos);
+    }
+
+    // 보스 꺼내기
+    public GameObject GetBossEnemy(BossType bossType, Vector3 spawnPos)
+    {
+        GameObject bossPrefab = GetBossPrefab(bossType);
+        if (bossPrefab == null)
+        {
+            Debug.LogError($"BossType {bossType}에 해당하는 프리팹이 없습니다.");
+            return null;
+        }
+
+        GameObject boss = Instantiate(bossPrefab, spawnPos, Quaternion.identity);
+        boss.SetActive(true);
+        return boss;
+    }
+
+    // BossType에 따라 프리팹 반환
+    private GameObject GetBossPrefab(BossType bossType)
+    {
+        return bossType switch
+        {
+            BossType.Slime => slimeBossPrefab,
+            BossType.Necromancer => necromancerBossPrefab,
+            _ => null
+        };
     }
 
     // 적을 풀에서 꺼내거나 새로 생성하는 공통 함수

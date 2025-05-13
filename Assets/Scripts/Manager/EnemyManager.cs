@@ -7,7 +7,6 @@ public class EnemyManager : MonoBehaviour
 {
     private GameManager gameManager;
     private EnemyPool enemyPool;
-    private BossPool bossPool;
 
     // 남아있는 적의 수
     public int aliveEnemyCount = 0;
@@ -15,7 +14,6 @@ public class EnemyManager : MonoBehaviour
     {
         this.gameManager = gameManager;
         this.enemyPool = enemyPool;
-        this.bossPool = bossPool;
     }
     // 스테이지가 진행될 때마다 호출되는 적 생성 메서드
     // 생성 위치, 보스 스테이지인지의 여부, 스테이지 번호를 받아온다
@@ -36,8 +34,7 @@ public class EnemyManager : MonoBehaviour
                     continue;
                 }
 
-                int splitCount = 0;
-                enemy = bossPool.GetBoss(bossType.Value, splitCount, spawnPos);
+                enemy = enemyPool.GetBossEnemy(bossType.Value, spawnPos);
 
                 // 보스 초기화
                 SlimeBossController sbController = enemy.GetComponent<SlimeBossController>();
@@ -46,12 +43,10 @@ public class EnemyManager : MonoBehaviour
                 if (sbController != null)
                 {
                     sbController.InitEnemy(this, gameManager.player.transform);
-                    sbController.Reset();
                 }
                 else if (nbController != null)
                 {
                     nbController.InitEnemy(this, gameManager.player.transform);
-                    nbController.Reset();
                 }
             }
 
@@ -80,11 +75,11 @@ public class EnemyManager : MonoBehaviour
 
         if (enemy is SlimeBossController sb)
         {
-            bossPool.ReturnBoss(BossType.Slime, sb.gameObject, sb.splitCount);
+            
         }
         else if (enemy is NecromancerBossController nb)
         {
-            bossPool.ReturnBoss(BossType.Necromancer, nb.gameObject, 0);
+            
         }
         else
         {
