@@ -220,6 +220,18 @@ public class SlimeBossController : BaseController, IEnemy
             _rigidbody.velocity = Vector2.zero;
             isCharging = false;
 
+            // 충돌 다시 활성화
+            Collider2D myCollider = GetComponent<Collider2D>();
+            Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, 5f, LayerMask.GetMask("Enemy"));
+
+            foreach (var col in nearbyEnemies)
+            {
+                if (col != myCollider)
+                {
+                    Physics2D.IgnoreCollision(myCollider, col, false);
+                }
+            }
+
             // 애니메이션 트리거 추가 예정
             // animator?.SetTrigger("ChargeEnd");
         }
@@ -228,6 +240,12 @@ public class SlimeBossController : BaseController, IEnemy
     // 충돌 피해 판정 메서드
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isCharging && collision.collider.CompareTag("Enemy"))
+        {
+            // 돌진 중 슬라임끼리 충돌 무시
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider, true);
+        }
+
         if (isCharging && collision.collider.CompareTag("Player"))
         {
             var playerResource = collision.collider.GetComponent<ResourceController>();
