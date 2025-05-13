@@ -16221,6 +16221,18 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 4357769163611957157, guid: aa6170baf34ae6f4681b0b6f2e42d0c5, type: 3}
   dieMaterial: {fileID: 0}
   resetMaterial: {fileID: 0}
+  dodgeDistance: 2.5
+  dodgeDuration: 0.3
+  dodgeCooldown: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  enemyProjectileLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1509543277
 MonoBehaviour:
   m_ObjectHideFlags: 0

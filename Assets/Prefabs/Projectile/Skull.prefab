@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5081310978090759210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4942958020934697610}
   - component: {fileID: 6046283788892299112}
   - component: {fileID: 5470463625502968074}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2543568526200301438}
   - component: {fileID: 2408270037071328802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
