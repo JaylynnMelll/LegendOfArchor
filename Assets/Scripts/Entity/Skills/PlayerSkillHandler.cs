@@ -16,6 +16,7 @@ public class PlayerSkillHandler : MonoBehaviour
     [Header("Skill Modifiers")]
     // 스킬과 그 스킬의 스택 수를 저장하는 리스트
     public List<Skill> acquiredSkills = new List<Skill>();
+
     // runtime에서 acquiredSkills에 추가된 스킬들의 스택을 관리하기 위한 리스트
     public List<RuntimeSkill> trackingList = new List<RuntimeSkill>(); 
 
@@ -95,7 +96,7 @@ public class PlayerSkillHandler : MonoBehaviour
 
     public float CalculateFinalCriticalChance(float baseCriticalChance)
     {
-        float finalCriticalChance = (baseCriticalChance * criticalChanceAdditive);
+        float finalCriticalChance = (baseCriticalChance + criticalChanceAdditive);
         return finalCriticalChance;
     }
 

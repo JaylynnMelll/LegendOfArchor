@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthChangeDealy: 0.5
   damageSoundClip: {fileID: 8300000, guid: 97e08ac843dafec47a1b70d405afc318, type: 3}
+  _maxHealth: 50
 --- !u!114 &6083102738487934914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +199,7 @@ MonoBehaviour:
   chargeSpeed: 10
   chargeDuration: 1
   chargeCooldown: 3
+  isSummoned: 0
 --- !u!120 &3946617864243962720
 LineRenderer:
   serializedVersion: 2
