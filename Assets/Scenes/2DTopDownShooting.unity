@@ -19101,10 +19101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalRooms:
   - {fileID: 5066307822751259844, guid: 5da63598d4c6aeb4ca30b1be16331cfc, type: 3}
-  - {fileID: 5066307822751259844, guid: 2311a38223264dd458a2f51aa80603b9, type: 3}
-  - {fileID: 5066307822751259844, guid: 34555e62dbfc92e438d4d5a48e5a9ad8, type: 3}
-  - {fileID: 5066307822751259844, guid: ccbfc535338c01f4d91832faaeb719f2, type: 3}
-  - {fileID: 5066307822751259844, guid: fa287b7da21f2ae4195b63afff43756e, type: 3}
   bossRooms:
   - {fileID: 5066307822751259844, guid: 085102681337e8c41886127834d09f0e, type: 3}
 --- !u!224 &5993668390872419098

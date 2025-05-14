@@ -27,7 +27,7 @@ public class ResourceController : MonoBehaviour
     private EnemyController enemyController;
     private PlayerController playerController;
     private PlayerSkillHandler playerSkillHandler;
-    private void Awake()
+    protected virtual void Awake()
     {
         baseController = GetComponent<BaseController>();
         statHandler = GetComponent<StatHandler>();
@@ -37,7 +37,17 @@ public class ResourceController : MonoBehaviour
         enemyController = GetComponent<EnemyController>();
         playerController = GetComponent<PlayerController>();
         playerSkillHandler = GetComponent<PlayerSkillHandler>();
-        MaxHealth = CurrentHealth = statHandler.Health;
+
+        if(statHandler != null)
+        {
+            MaxHealth = CurrentHealth = statHandler.Health;
+        }
+
+        else
+        {
+            // SetHealth()를 통해 미리 세팅된 값이 있다면 유지
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        }
     }
     private void Start()
     {
@@ -104,7 +114,7 @@ public class ResourceController : MonoBehaviour
     {
         OnChangeHealth -= action;
     }
-    private void Died()
+    protected virtual void Died()
     {
         if (slimeBossController != null)
         {
