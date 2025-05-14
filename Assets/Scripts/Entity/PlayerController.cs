@@ -30,34 +30,34 @@ public class PlayerController : BaseController
         playerCollider = GetComponent<Collider2D>();
     }
 
-    protected override void HandleAction()
-    {
-        if (isDodging) return;
+    // protected override void HandleAction()
+    // {
+    //     if (isDodging) return;
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        movementDirection = new Vector2(horizontal, vertical).normalized;
+    //     // float horizontal = Input.GetAxisRaw("Horizontal");
+    //     // float vertical = Input.GetAxisRaw("Vertical");
+    //     // movementDirection = new Vector2(horizontal, vertical).normalized;
 
-        Vector2 mousePosition = Input.mousePosition;
-        Vector2 worldPosition = camera.ScreenToWorldPoint(mousePosition);
-        lookDirection = (worldPosition - (Vector2)transform.position);
+    //     // Vector2 mousePosition = Input.mousePosition;
+    //     // Vector2 worldPosition = camera.ScreenToWorldPoint(mousePosition);
+    //     // lookDirection = (worldPosition - (Vector2)transform.position);
 
-        if (lookDirection.magnitude < 0.9f)
-        {
-            lookDirection = Vector2.zero;
-        }
-        else
-        {
-            lookDirection = lookDirection.normalized;
-        }
+    //     // if (lookDirection.magnitude < 0.9f)
+    //     // {
+    //     //     lookDirection = Vector2.zero;
+    //     // }
+    //     // else
+    //     // {
+    //     //     lookDirection = lookDirection.normalized;
+    //     // }
 
-        isAttacking = Input.GetMouseButton(0);
+    //     // isAttacking = Input.GetMouseButton(0);
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isDodging && Time.time >= lastDodgeTime + dodgeCooldown)
-        {
-            StartCoroutine(Dodge());
-        }
-    }
+    //     // if (Input.GetKeyDown(KeyCode.Space) && !isDodging && Time.time >= lastDodgeTime + dodgeCooldown)
+    //     // {
+    //     //     StartCoroutine(Dodge());
+    //     // }
+    // }
 
     private IEnumerator Dodge()
     {
@@ -67,20 +67,20 @@ public class PlayerController : BaseController
         dodgeDirection = movementDirection != Vector2.zero ? movementDirection : lookDirection;
         if (dodgeDirection == Vector2.zero) dodgeDirection = Vector2.right;
 
-        // ±¸¸£±â ¾Ö´Ï¸ÞÀÌ¼Ç Ãß°¡ ¿¹Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        SetCollisionWithEnemies(false); // ¹«Àû
+        SetCollisionWithEnemies(false); // ï¿½ï¿½ï¿½ï¿½
 
-        // µµ¾à ÁöÁ¡ °è»ê ·ÎÁ÷
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector2 start = transform.position;
         Vector2 direction = dodgeDirection.normalized;
         Vector2 targetPos = start + direction * dodgeDistance;
 
-        // Àå¾Ö¹° °¨Áö(º®)
+        // ï¿½ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½)
         RaycastHit2D hit = Physics2D.Raycast(start, direction, dodgeDistance, obstacleMask);
         if (hit.collider != null)
         {
-            targetPos = hit.point; // Ãæµ¹ À§Ä¡±îÁö ÀÌµ¿
+            targetPos = hit.point; // ï¿½æµ¹ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         }
 
         float elapsed = 0f;
@@ -125,6 +125,17 @@ public class PlayerController : BaseController
             lookDirection = lookDirection.normalized;
         }
     }
+    void OnDodge()
+    {
+        if (isDodging)
+        {
+            return;
+        }
+        else if (!isDodging && Time.time >= lastDodgeTime + dodgeCooldown)
+        {
+            StartCoroutine(Dodge());
+        }
+    }
 
     void OnFire(InputValue inputValue)
     {
@@ -133,6 +144,7 @@ public class PlayerController : BaseController
 
         isAttacking = inputValue.isPressed;
     }
+
 
     void OnPause()
     {
