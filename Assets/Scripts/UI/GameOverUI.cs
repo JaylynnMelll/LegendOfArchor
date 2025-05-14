@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class GameOverUI : BaseUI
 {
     [SerializeField] private Button restartButton;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private TextMeshProUGUI TotalClearedStageNums;
 
     public override void Init(UIManager uiManager)
     {
@@ -26,6 +28,11 @@ public class GameOverUI : BaseUI
     public void OnClickMainMenuButton()
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+    public void SetTotalClearedStageNums(int stageNumber)
+    {
+        TotalClearedStageNums.text = $"{stageNumber:D2}";
     }
 
     protected override UIState GetUIState()

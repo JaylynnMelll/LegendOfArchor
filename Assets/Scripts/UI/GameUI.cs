@@ -13,6 +13,7 @@ public class GameUI : BaseUI
     [SerializeField] private TextMeshProUGUI StageNumberText; // 현재 스테이지 텍스트
     [SerializeField] private Slider expSlider; // 겸험치 게이지
     [SerializeField] private float expFillSpeed = 3f; // 경험치 게이지 채워지는 속도
+    [SerializeField] private GameOverUI gameOverUI; // 게임 오버 UI
     private float targetExp;
 
     public override void Init(UIManager uiManager)
@@ -65,7 +66,8 @@ public class GameUI : BaseUI
 
     public void UpdateStageNumber(int stageNumber)
     {
-        StageNumberText.text = $"{stageNumber}";
+        StageNumberText.text = $"{stageNumber:D2}";
+        gameOverUI.SetTotalClearedStageNums(stageNumber);
     }
 
     protected override UIState GetUIState()
