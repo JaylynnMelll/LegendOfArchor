@@ -191,7 +191,8 @@ MonoBehaviour:
   dieMaterial: {fileID: 2100000, guid: c492775ec99b0224183215a97d3e97e9, type: 2}
   resetMaterial: {fileID: 2100000, guid: e47fb541704dc3e44a1ddee49a6f9116, type: 2}
   bossSlimeSplit: {fileID: 1853731775948942785}
-  bossSlimeSplitEffect: {fileID: 0}
+  bossSlimeSplitEffect: {fileID: 4496123836007199419, guid: 7ab597523d93dde4e878586f14213020, type: 3}
+  splitSound: {fileID: 8300000, guid: 1f8601531f79faf45975100fa922e104, type: 3}
   maxSplitCount: 4
   splitCount: 0
   splitSpawnCount: 2

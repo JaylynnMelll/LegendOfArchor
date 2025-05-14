@@ -16297,6 +16297,7 @@ GameObject:
   - component: {fileID: 1509543280}
   - component: {fileID: 1509543281}
   - component: {fileID: 1509543282}
+  - component: {fileID: 1509543283}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -16526,6 +16527,18 @@ MonoBehaviour:
   projectileController: {fileID: 0}
   acquiredSkills: []
   trackingList: []
+--- !u!114 &1509543283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509543272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90c95d93d4098b498f9681085c879ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1570742230
 GameObject:
   m_ObjectHideFlags: 0
