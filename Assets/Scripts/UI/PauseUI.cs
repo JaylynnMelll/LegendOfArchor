@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,8 @@ public class PauseUI : BaseUI
 
     [SerializeField] private Transform iconRoot; // 스킬 아이콘 들어갈 위치
 
+    private List<GameObject> skillIconPool = new List<GameObject>();
+
 
 
     public override void Init(UIManager uiManager)
@@ -25,19 +29,42 @@ public class PauseUI : BaseUI
     }
 
     // 획득한 스킬 아이콘 보여주는 함수
-    public void ShowAcquiredSkillIcons(List<Skill> acquiredSkills)
+    public void ShowAcquiredSkillIcons(List<RuntimeSkill> trackingList)
     {
-        // 전달 받은 스킬 아이콘 리스트가지고 아이콘 생성
-        foreach (Skill skill in acquiredSkills)
+        // 기존 오브젝트 비활성화
+        foreach (var skillIcon in skillIconPool)
+            skillIcon.SetActive(false);
+
+        // 필요한 만큼 재사용 또는 새로 생성
+        for (int i = 0; i < trackingList.Count; i++)
         {
-            // 스킬 아이콘 프리팹을 복제하여 iconRoot 위치로 생성
-            GameObject skillIcon = Instantiate(skillIconPrefab, iconRoot);
-            // 스킬아이콘 가져오기
-            Image image = skillIcon.GetComponent<Image>();
-            if (image != null)
+            RuntimeSkill runtimeSkill = trackingList[i];
+            GameObject skillIcon;
+
+            // 풀에 있는 오브젝트 재사용
+            if (i < skillIconPool.Count)
             {
-                image.sprite = skill.icon;
+                skillIcon = skillIconPool[i];
             }
+            // 필요한 수보다 풀이 작을 경우, 생성
+            else
+            {
+                skillIcon = Instantiate(skillIconPrefab, iconRoot);
+                skillIconPool.Add(skillIcon);
+            }
+
+            // 아이콘 오브젝트 활성화
+            skillIcon.SetActive(true);
+
+            // 아이콘 이미지 설정
+            var iconImage = skillIcon.GetComponent<Image>();
+            if (iconImage != null)
+                iconImage.sprite = runtimeSkill.skill.icon;
+
+            // 스택 텍스트 설정 (2이상인 경우에만 표시)
+            var text = skillIcon.GetComponentInChildren<TextMeshProUGUI>();
+            if (text != null)
+                text.text = (runtimeSkill.currentStacks > 1) ? $"X {runtimeSkill.currentStacks}" : "";
         }
     }
 

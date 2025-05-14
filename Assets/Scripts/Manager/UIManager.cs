@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
     // 일시정지 상태로 전환
     public void SetGamePause()
     {
-        pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.acquiredSkills);
+        pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.trackingList);
         ChangeState(UIState.Pause);
     }
 
