@@ -30,7 +30,7 @@ public class NecromancerBossController : BaseController, IEnemy
     // �ӽ� �������̽� ����
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
-    public void InitEnemy(EnemyManager manager, Transform player)
+    public void InitEnemy(EnemyManager manager, Transform player, bool isSplitSpawn = false)
     {
         enemyManager = manager;
         target = player;

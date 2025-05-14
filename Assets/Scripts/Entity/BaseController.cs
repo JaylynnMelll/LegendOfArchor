@@ -183,9 +183,6 @@ public class BaseController : MonoBehaviour
         }
     }
 
-    // 내가 몰랐떤 이유: 내가 한 게 아님(내 스크립트가 아님)
-    // 유니티 내부 Sprite가 애니메이터가 < 색을 못바꿔 ?.?
-
     // 리셋 함수
     public virtual void Reset()
     {

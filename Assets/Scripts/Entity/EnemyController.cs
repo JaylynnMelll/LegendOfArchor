@@ -22,7 +22,7 @@ public class EnemyController : BaseController, IEnemy
     }
 
     // �ӽñ���
-    public void InitEnemy(EnemyManager enemyManager, Transform target)
+    public void InitEnemy(EnemyManager enemyManager, Transform target, bool isSplitSpawn = false)
     {
         this.enemyManager = enemyManager;
         this.target = target;

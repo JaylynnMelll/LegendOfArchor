@@ -32,19 +32,24 @@ public class SlimeBossController : BaseController, IEnemy
     public bool IsSummoned => isSummoned;
     public bool isSummoned = false;
 
+    // 이 슬라임인지 분열체인지 판별(InitEnemy 때문에)
+    private bool isSplitSpawn = false;
+
     // 임시 인터페이스 구현
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
-    public void InitEnemy(EnemyManager manager, Transform player)
+    public void InitEnemy(EnemyManager manager, Transform player, bool isSplitSpawn = false)
     {
         target = player;
         enemyManager = manager;
 
         // 스테이지에 비례해 적의 체력이 늘어남
-        if (StageManager.instance.currentStage >= 2)
+        // Split 내부 호출로는 체력이 증가하지 않게끔 함
+        if (!isSplitSpawn && StageManager.instance.currentStage >= 2)
         {
             statHandler.Health = statHandler.Health + StageManager.instance.currentStage;
-            resourceController.SetHealth(statHandler.Health);     
+            resourceController.SetHealth(statHandler.Health);
+            Debug.Log($"InitEnemy 이후 체력: {statHandler.Health}");
         }
 
         if (chargeCoroutine == null)
@@ -122,27 +127,22 @@ public class SlimeBossController : BaseController, IEnemy
             Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 0.5f;
             GameObject split = Instantiate(bossSlimeSplit, spawnPos, Quaternion.identity);
 
-            // 체력바 생성
-            var resource = split.GetComponent<ResourceController>();
-
-            if (resource != null)
-            {
-                GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
-
                 SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
 
                 if (splitcontroller != null)
                 {
-                    splitcontroller.ConnectedHPBar = hpBar;
-
                     // EnemyManager와 플레이어 Transform을 전달하여 초기화
-                    splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
+                    splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform, true);
+
                     splitcontroller.InitSplit(splitCount + 1);
+
+                    // 체력바 생성
+                    var resource = split.GetComponent<ResourceController>();
+                    GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
+                    splitcontroller.ConnectedHPBar = hpBar;
                 }
                 enemyManager.aliveEnemyCount++;
-            }
-
-        }
+         }
 
         enemyManager.aliveEnemyCount--;
         enemyManager.RemoveEnemyOnDeath(this);
@@ -154,6 +154,7 @@ public class SlimeBossController : BaseController, IEnemy
 
     public void InitSplit(int newSplitCount)
     {
+        Debug.Log($"InitSplit 이전 체력: {statHandler.Health}");
         this.splitCount = newSplitCount;
 
         // 체력 줄이기
