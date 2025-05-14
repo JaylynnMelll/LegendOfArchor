@@ -98,7 +98,7 @@ public class SkillButtonData : MonoBehaviour
                 ApplyMultiShot?.Invoke();
                 break;
 
-            case SkillID.BounceShot:
+            case SkillID.BouncingShot:
                 break;
 
             default:

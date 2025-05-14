@@ -8,7 +8,8 @@ public enum WhoShotIt
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private LayerMask levelCollisionLayer;
-    [SerializeField] private Skill bounceShot;
+    [SerializeField] private Skill bouncingShot;
+    [SerializeField] private Skill piercingShot;
     [SerializeField] private WhoShotIt whoShotIt;
     private PlayerSkillHandler playerSkillHandler;
     private RangeWeaponHandler rangeWeaponHandler;
@@ -59,9 +60,9 @@ public class ProjectileController : MonoBehaviour
         if (levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer)))
         {
             // º®¹Ý»ç ½ºÅ³À» È¹µæÇÑ °æ¿ì
-            if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(bounceShot))
+            if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(bouncingShot))
             {
-                BounceShotApplied(collision);
+                BouncingShotApplied(collision);
             }
             else
             {
@@ -87,8 +88,11 @@ public class ProjectileController : MonoBehaviour
                     }
                 }
             }
-
-            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
+            // °üÅë¼¦ ½ºÅ³À» È¹µæÇÑ °æ¿ì
+            if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(piercingShot))
+                PiercingShotApplied(collision);
+            else
+                DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
         }
     }
 
@@ -114,7 +118,7 @@ public class ProjectileController : MonoBehaviour
         isReady = true;
     }
 
-    private void BounceShotApplied(Collider2D collision)
+    private void BouncingShotApplied(Collider2D collision)
     {
         // Get wall normal
         Vector2 wallNormal = (transform.position - (Vector3)collision.ClosestPoint(transform.position)).normalized;
@@ -129,6 +133,19 @@ public class ProjectileController : MonoBehaviour
 
         // 2¹ø ¹Ý»ç ÈÄ È­»ì ÆÄ±«
         if (--bounceCount <= 0)
+        {
+            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
+        }
+    }
+
+    private void PiercingShotApplied(Collider2D collision)
+    {
+        // Reduce damage by 67% (i.e., keep 33%)
+        damageMultiplier *= 0.33f;
+
+        // if damage is too small, destroy the projectile
+        float projectedDamage = rangeWeaponHandler.DamageCalculator() * damageMultiplier;
+        if (projectedDamage <= 1f) // You can tweak this threshold
         {
             DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
         }
