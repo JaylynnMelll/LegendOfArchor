@@ -50,14 +50,18 @@ MonoBehaviour:
   weaponPower: 1
   weaponSpeed: 1
   weaponRange: 1.2
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
   target:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   isOnKnockback: 0
   knockbackPower: 0.1
   knockbackTime: 0.5
   attackSoundClip: {fileID: 8300000, guid: 31c9435606df8b947a42c9b9a26a15d8, type: 3}
   collideBoxSize: {x: 1, y: 1}
+  useSpinningProjectile: 1
+  spinSlashPrefab: {fileID: 8603610501604862296, guid: 9ccb8e9076f59cd4e935dd0bfb26d5f6, type: 3}
 --- !u!1 &5253842530948889035
 GameObject:
   m_ObjectHideFlags: 0

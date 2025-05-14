@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDelay: 1.5
   weaponSize: 1
-  weaponPower: 3
+  weaponPower: 20
   weaponSpeed: 20
   weaponRange: 1.2
   ciriticalChance: 0.2

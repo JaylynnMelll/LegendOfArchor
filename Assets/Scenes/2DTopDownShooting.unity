@@ -16363,7 +16363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRenderer: {fileID: 645536254}
   weaponPivot: {fileID: 530684166}
-  WeaponPrefab: {fileID: 2864783522489194586, guid: d6f52159f8040b5438cc6177863ad9bd, type: 3}
+  WeaponPrefab: {fileID: 0}
   dieMaterial: {fileID: 0}
   resetMaterial: {fileID: 0}
   dodgeDistance: 2.5
