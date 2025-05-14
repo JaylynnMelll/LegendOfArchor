@@ -15,6 +15,10 @@ public class PlayerController : BaseController
     private ContactFilter2D contactFilter;
     private Collider2D playerCollider;
 
+    [SerializeField] private float runSpeedMultiplier = 1.5f;
+    private bool isRunning = false;
+    public bool IsRunning => isRunning;
+
     private bool isDodging = false;
     public bool IsDodging => isDodging;
     private float lastDodgeTime = -Mathf.Infinity;
@@ -24,13 +28,25 @@ public class PlayerController : BaseController
     private GameManager gameManager;
     private Animator animator;
 
+    private PlayerInput playerInput;
+    private InputAction runAction;
     public void Init(GameManager gameManager)
     {
         this.gameManager = gameManager;
         camera = Camera.main;
         playerCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
+        playerInput = GetComponent<PlayerInput>();
+        BindingRunAction();
     }
+
+    private void BindingRunAction()
+    {
+        runAction = playerInput.actions["Run"];
+        runAction.performed += _ => isRunning = true;
+        runAction.canceled += _ => isRunning = false;
+    }
+
 
 
     // protected override void HandleAction()
@@ -41,7 +57,7 @@ public class PlayerController : BaseController
     {
         weaponHandler = handler;
     }
-   
+
 
     //     // float horizontal = Input.GetAxisRaw("Horizontal");
     //     // float vertical = Input.GetAxisRaw("Vertical");
@@ -108,6 +124,26 @@ public class PlayerController : BaseController
         isDodging = false;
         SetCollisionWithEnemies(true);
     }
+
+    protected override void Movement (Vector2 direction)
+    {
+        float currentSpeed = statHandler.Speed;
+
+        if (isRunning)
+            currentSpeed *= runSpeedMultiplier;
+
+        direction *= currentSpeed;
+
+        if (knockbackDuration > 0.0f)
+        {
+            direction *= 0.2f;
+            direction += knockback;
+        }
+
+        _rigidbody.velocity = direction;
+        animationHandler.Move(direction);
+    }
+
     public override void Died()
     {
         base.Died();
@@ -146,6 +182,16 @@ public class PlayerController : BaseController
             StartCoroutine(Dodge());
         }
     }
+
+    //void OnRun(InputValue inputvalue)
+    //{
+    //    isRunning = inputvalue.isPressed;
+    //}
+
+    //void OnRunCanceled()
+    //{
+    //    isRunning = false;
+    //}
 
     void OnFire(InputValue inputValue)
     {
