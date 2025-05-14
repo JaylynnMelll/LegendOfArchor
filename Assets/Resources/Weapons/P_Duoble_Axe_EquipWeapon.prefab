@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6358263627384955903}
   - component: {fileID: 2864783522489194586}
   m_Layer: 0
-  m_Name: P_Cleaver_EquipWeapon
+  m_Name: P_Duoble_Axe_EquipWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b250cf6449c1c4bb062140aa6c709c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 1
-  weaponSize: 0.8
-  weaponPower: 1
+  attackDelay: 1.5
+  weaponSize: 1
+  weaponPower: 3
   weaponSpeed: 1
   weaponRange: 1.2
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
   target:
     serializedVersion: 2
     m_Bits: 128
@@ -58,6 +60,8 @@ MonoBehaviour:
   knockbackTime: 0.5
   attackSoundClip: {fileID: 8300000, guid: 31c9435606df8b947a42c9b9a26a15d8, type: 3}
   collideBoxSize: {x: 1, y: 1}
+  useSpinningProjectile: 1
+  spinSlashPrefab: {fileID: 8603610501604862296, guid: 9ccb8e9076f59cd4e935dd0bfb26d5f6, type: 3}
 --- !u!1 &5253842530948889035
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +136,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 120
-  m_Sprite: {fileID: 21300000, guid: 6cd84eb8c45733a489fcdc56bc752084, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 018d19c5c33d0864b897e398e8199ac4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
