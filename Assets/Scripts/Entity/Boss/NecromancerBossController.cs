@@ -123,8 +123,6 @@ public class NecromancerBossController : BaseController, IEnemy
             if (resourceController.CurrentHealth <= 0f || this == null)
                 yield break;
 
-            enemyManager.aliveEnemyCount += skeletonCountPerSummon;
-
             for (int i = 0; i < skeletonCountPerSummon; i++)
             {
                 Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
