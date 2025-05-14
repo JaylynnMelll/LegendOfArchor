@@ -24,7 +24,7 @@ public class MeleeWeaponHandler : WeaponHandler
         {
             int slashCount = 1;
 
-            // 멀티샷 스킬 반영
+            //  멀티샷 스킬 반영
             var multiSkill = PlayerSkillHandler.acquiredSkills.Find(s => s.appliesMultiShot);
             if (multiSkill != null)
             {
@@ -33,16 +33,16 @@ public class MeleeWeaponHandler : WeaponHandler
                     slashCount += runtime.currentStacks;
             }
 
-            // 시각적으로 겹치지 않도록 앞쪽 원호에 배치
-            float totalAngle = 120f;
-            float angleStep = (slashCount > 1) ? totalAngle / (slashCount - 1) : 0f;
+            //  태양처럼 360도 고르게 퍼짐
+            float totalAngle = 360f;
+            float angleStep = slashCount > 0 ? totalAngle / slashCount : 0f;
 
             for (int i = 0; i < slashCount; i++)
             {
-                float angleOffset = -totalAngle / 2f + i * angleStep;
+                float angleOffset = i * angleStep;
 
                 GameObject spinObj = Instantiate(spinSlashPrefab, transform.position, Quaternion.identity);
-                spinObj.transform.SetParent(transform);
+                spinObj.transform.SetParent(transform); // 회전 중심 = 플레이어
 
                 var spin = spinObj.GetComponent<SpinningMeleeProjectile>();
                 if (spin != null)
@@ -64,7 +64,7 @@ public class MeleeWeaponHandler : WeaponHandler
             return;
         }
 
-        //  기존 근접 박스 공격
+        // 기존 박스 판정 근접 공격
         RaycastHit2D hit = Physics2D.BoxCast(
             transform.position + (Vector3)Controller.LookDirection * collideBoxSize.x,
             collideBoxSize, 0, Vector2.zero, 0, target);

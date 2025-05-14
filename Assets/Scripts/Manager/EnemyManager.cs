@@ -95,6 +95,12 @@ public class EnemyManager : MonoBehaviour
             enemy.ConnectedHPBar = null;
         }
 
+        if (enemy.IsSummoned == true)
+        {
+            enemyPool.ReturnEnemy(enemy.gameObject);
+            return;
+        }
+
         if(enemy.gameObject.TryGetComponent<EnemyController>(out _))
         {
             enemyPool.ReturnEnemy(enemy.gameObject);
