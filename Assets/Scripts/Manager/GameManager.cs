@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("StartScene");
+        Time.timeScale = 1;
     }
 
     // 경험치 및 레벨 UI 업데이트
