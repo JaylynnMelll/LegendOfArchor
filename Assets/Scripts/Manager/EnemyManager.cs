@@ -91,7 +91,7 @@ public class EnemyManager : MonoBehaviour
 
         if (enemy.ConnectedHPBar != null)
         {
-            GameManager.instance.ReturnEnemyHPBar(enemy.ConnectedHPBar);
+            GameManager.Instance.ReturnEnemyHPBar(enemy.ConnectedHPBar);
             enemy.ConnectedHPBar = null;
         }
 

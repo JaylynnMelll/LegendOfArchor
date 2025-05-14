@@ -119,7 +119,7 @@ public class SlimeBossController : BaseController, IEnemy
 
             if (resource != null)
             {
-                GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
+                GameObject hpBar = GameManager.Instance.CreateEnemyHPBar(split.transform, resource);
 
                 SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
 

@@ -71,13 +71,13 @@ public class PauseUI : BaseUI
     // 계속하기 버튼 클릭 시 호출되는 함수
     public void OnClickResumeButton()
     {
-        GameManager.instance.ResumeGame();
+        GameManager.Instance.ResumeGame();
     }
 
     // 메인메뉴 버튼 클릭 시 호출되는 함수
     public void OnClickMainMenuButton()
     {
-        GameManager.instance.ReturnToMainMenu();
+        GameManager.Instance.ReturnToMainMenu();
     }
 
     // UI 상태
