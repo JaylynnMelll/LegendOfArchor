@@ -128,18 +128,20 @@ public class SlimeBossController : BaseController, IEnemy
 
             SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
 
-            if (splitcontroller != null)
-            {
-                splitcontroller.InitSplit(splitCount + 1);
-                var resource = split.GetComponent<ResourceController>();
-                GameObject hpBar = GameManager.Instance.CreateEnemyHPBar(split.transform, resource);
-                splitcontroller.ConnectedHPBar = hpBar;
+                if (splitcontroller != null)
+                {
+                    // EnemyManager와 플레이어 Transform을 전달하여 초기화
+                    splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform, true);
 
-                // EnemyManager와 플레이어 Transform을 전달하여 초기화
-                splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
-            }
-            enemyManager.aliveEnemyCount++;
-        }
+                    splitcontroller.InitSplit(splitCount + 1);
+
+                    // 체력바 생성
+                    var resource = split.GetComponent<ResourceController>();
+                    GameObject hpBar = GameManager.Instance.CreateEnemyHPBar(split.transform, resource);
+                    splitcontroller.ConnectedHPBar = hpBar;
+                }
+                enemyManager.aliveEnemyCount++;
+         }
 
         enemyManager.aliveEnemyCount--;
         enemyManager.RemoveEnemyOnDeath(this);
