@@ -6,6 +6,8 @@ public class BaseController : MonoBehaviour
 {
     protected Rigidbody2D _rigidbody;
 
+    public GameObject ConnectedHPBar { get; set; }
+
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private Transform weaponPivot;
 

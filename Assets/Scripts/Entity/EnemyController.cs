@@ -6,7 +6,6 @@ public class EnemyController : BaseController, IEnemy
     private EnemyManager enemyManager;
     private Transform target;
 
-    public GameObject ConnectedHPBar { get; set; }
 
     [SerializeField] private float followRange = 15f;
 

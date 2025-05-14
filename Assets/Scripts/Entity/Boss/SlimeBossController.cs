@@ -5,11 +5,10 @@ using UnityEngine;
 public class SlimeBossController : BaseController, IEnemy
 
 {
-    public GameObject ConnectedHPBar { get; set; }
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
     [SerializeField] private AudioClip splitSound;
-    [SerializeField] private int maxSplitCount = 4; // 최대 분열 횟수
+    [SerializeField] private int maxSplitCount = 4; // 최대 분열 횟수
     [SerializeField] private int splitCount = 0; // 현재 분열 횟수
     [SerializeField] private int splitSpawnCount = 2; // 한 번에 나오는 분열 수
 
@@ -20,7 +19,7 @@ public class SlimeBossController : BaseController, IEnemy
     [SerializeField] private GameObject chargeWarningBoxPrefab;
     private GameObject currentWarningBox;
 
-    private bool isCharging = false;
+    private bool isCharging = false;
     private Transform target; // 플레이어 추적
 
     private EnemyManager enemyManager;
@@ -127,22 +126,20 @@ public class SlimeBossController : BaseController, IEnemy
             Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 0.5f;
             GameObject split = Instantiate(bossSlimeSplit, spawnPos, Quaternion.identity);
 
-                SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
+            SlimeBossController splitcontroller = split.GetComponent<SlimeBossController>();
 
-                if (splitcontroller != null)
-                {
-                    // EnemyManager와 플레이어 Transform을 전달하여 초기화
-                    splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform, true);
+            if (splitcontroller != null)
+            {
+                splitcontroller.InitSplit(splitCount + 1);
+                var resource = split.GetComponent<ResourceController>();
+                GameObject hpBar = GameManager.Instance.CreateEnemyHPBar(split.transform, resource);
+                splitcontroller.ConnectedHPBar = hpBar;
 
-                    splitcontroller.InitSplit(splitCount + 1);
-
-                    // 체력바 생성
-                    var resource = split.GetComponent<ResourceController>();
-                    GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
-                    splitcontroller.ConnectedHPBar = hpBar;
-                }
-                enemyManager.aliveEnemyCount++;
-         }
+                // EnemyManager와 플레이어 Transform을 전달하여 초기화
+                splitcontroller.InitEnemy(FindObjectOfType<EnemyManager>(), FindObjectOfType<GameManager>().player.transform);
+            }
+            enemyManager.aliveEnemyCount++;
+        }
 
         enemyManager.aliveEnemyCount--;
         enemyManager.RemoveEnemyOnDeath(this);
@@ -158,7 +155,7 @@ public class SlimeBossController : BaseController, IEnemy
         this.splitCount = newSplitCount;
 
         // 체력 줄이기
-        statHandler.Health = Mathf.Max(5, statHandler.Health - 20);
+        statHandler.Health = Mathf.Max(5, statHandler.Health / 2);
         resourceController.SetHealth(statHandler.Health);
 
         // 크기 줄이기
