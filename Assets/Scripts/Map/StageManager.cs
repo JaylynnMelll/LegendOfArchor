@@ -8,6 +8,9 @@ public class StageManager : MonoBehaviour
     // 임시 싱글톤 처리
     public static StageManager instance;
 
+    [Header("Connected Components")]
+    [SerializeField] GameUI gameUI; 
+
     // 방들의 부모 역할, 방 풀링 담당, 플레이어 위치
     [SerializeField] private Transform mapParent;
     [SerializeField] private MapPoolManager mapPoolManager;
@@ -17,8 +20,9 @@ public class StageManager : MonoBehaviour
     // 포탈 프리팹
     [SerializeField] private Portal portal;
 
-    // 현재 스테이지 번호, 현재 활성화 된 방
+    // 현재 스테이지 번호, 현재 활성화 된 방, 스테이지 숫자
     [SerializeField] public int currentStage = 1;
+    private int stageNumber = 1;
     private GameObject currentRoom;
 
     // enemy 관리
@@ -169,6 +173,7 @@ public class StageManager : MonoBehaviour
     private void NextStage()
     {
         StartCoroutine(LoadNextStageWithDelay());
+        gameUI.UpdateStageNumber(stageNumber++);
     }
 
     // 포탈 진입 후 지연 시간
