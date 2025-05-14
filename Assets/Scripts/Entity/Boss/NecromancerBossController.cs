@@ -26,6 +26,7 @@ public class NecromancerBossController : BaseController, IEnemy
     public bool IsSummoned => false;
 
     private List<GameObject> summonedSkeletons = new();
+    private Coroutine summonRoutine;
 
     // �ӽ� �������̽� ����
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
@@ -34,7 +35,7 @@ public class NecromancerBossController : BaseController, IEnemy
     {
         enemyManager = manager;
         target = player;
-        StartCoroutine(SummonSkeletons());
+        summonRoutine = StartCoroutine(SummonSkeletons());
         StartCoroutine(ShockwaveRoutine());
         StartCoroutine(ProjectileAttack());
     }
@@ -119,6 +120,9 @@ public class NecromancerBossController : BaseController, IEnemy
         {
             yield return new WaitForSeconds(summonInterval);
 
+            if (resourceController.CurrentHealth <= 0f || this == null)
+                yield break;
+
             enemyManager.aliveEnemyCount += skeletonCountPerSummon;
 
             for (int i = 0; i < skeletonCountPerSummon; i++)
@@ -167,6 +171,9 @@ public class NecromancerBossController : BaseController, IEnemy
     public override void Died()
     {
         base.Died();
+
+        if (summonRoutine != null)
+            StopCoroutine(summonRoutine);
 
         foreach (var skeleton in summonedSkeletons)
         {
