@@ -92,10 +92,16 @@ public class SlimeBossController : BaseController, IEnemy
     {
         Debug.Log($"슬라임 분열, 현재 분열 횟수 {splitCount}");
 
-        // 슬라임 분열 이펙트
-        if (bossSlimeSplitEffect != null)
+        if (bossSlimeSplitEffect != null)
         {
-            Instantiate(bossSlimeSplitEffect, transform.position, Quaternion.identity);
+            GameObject fx = Instantiate(bossSlimeSplitEffect, transform.position, Quaternion.identity);
+
+            // 분열 횟수에 따라 파티클 크기 조정
+            var scaler = fx.GetComponent<SlimeSplitEffectScaler>();
+            if (scaler != null)
+            {
+                scaler.ApplyScaleBySplitCount(splitCount);
+            }
         }
 
         // 분열 사운드 재생

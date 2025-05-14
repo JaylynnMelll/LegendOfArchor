@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2749214522583547635}
   - component: {fileID: 614626054912068394}
   - component: {fileID: 5310382675524659674}
+  - component: {fileID: 3193086718437290987}
   m_Layer: 0
   m_Name: SlimeSplitEffect
   m_TagString: Untagged
@@ -4969,3 +4970,18 @@ MonoBehaviour:
   lifetime: 0.5
   slowMultiplier: 0.1
   slowDuration: 2
+--- !u!114 &3193086718437290987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4496123836007199419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5488208245d8da745a496b2e80b760f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystemToScale: {fileID: 0}
+  scaleStep: 0.2
+  minScale: 0.3
