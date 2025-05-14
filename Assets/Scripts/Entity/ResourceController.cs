@@ -61,11 +61,6 @@ public class ResourceController : MonoBehaviour
         OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
     }
 
-    public void SetMaxHealth(float value)
-    {
-        MaxHealth = value;
-        OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
-    }
     public bool ChangeHealth(float change)
     {
         var playerController = GetComponent<PlayerController>();
@@ -127,11 +122,14 @@ public class ResourceController : MonoBehaviour
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     public void HPReset()
     {
+        Debug.Log("HP Boost successfully reset");
         MaxHealth = 100;
     }
 
     public void HPBoost()
     {
+        Debug.Log("HPBoost successfully applied");
         MaxHealth = (int)playerSkillHandler.CalculateFinalHealth(MaxHealth);
+        SetHealth(MaxHealth);
     }
 }
