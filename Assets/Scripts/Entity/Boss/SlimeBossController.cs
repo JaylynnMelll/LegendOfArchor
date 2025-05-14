@@ -138,7 +138,7 @@ public class SlimeBossController : BaseController, IEnemy
 
                     // 체력바 생성
                     var resource = split.GetComponent<ResourceController>();
-                    GameObject hpBar = GameManager.instance.CreateEnemyHPBar(split.transform, resource);
+                    GameObject hpBar = GameManager.Instance.CreateEnemyHPBar(split.transform, resource);
                     splitcontroller.ConnectedHPBar = hpBar;
                 }
                 enemyManager.aliveEnemyCount++;
