@@ -12,9 +12,12 @@ public class SkillButtonData : MonoBehaviour
     [SerializeField] private PlayerSkillHandler playerSkillHandler;
     [SerializeField] private SkillManager skillManager;
     [SerializeField] private Transform weaponPivot;
+    [SerializeField] private WeaponHandler weaponHandler;
     [SerializeField] private RangeWeaponHandler rangeWeaponHandler;
+    [SerializeField] private MeleeWeaponHandler meleeWeaponHandler;
     [SerializeField] private ResourceController resourceController;
     [SerializeField] private Cooldown cooldown;
+    private WeaponCategory weaponCategory;
 
     [Header("UI Components")]
     public Button button;
@@ -31,20 +34,23 @@ public class SkillButtonData : MonoBehaviour
     // [Unity LifeCycle]
     public void Init()
     {
-        GrabWeaponScript();
+        GrabWeaponScripts();
 
         // Event for applying skills to ranged weapon stats
-        if (rangeWeaponHandler != null)
+        if (weaponHandler != null)
         {
             // Prevention of multiple event calls on scene reload
             ApplySkillToStats.RemoveAllListeners();
 
             // Subscribing methods to ApplyingSKillToStats() events (Dynamically assigned)
-            ApplySkillToStats.AddListener(rangeWeaponHandler.ResetWeaponStats);
-            ApplySkillToStats.AddListener(rangeWeaponHandler.ApplyFinalWeaponStats);
+            ApplySkillToStats.AddListener(weaponHandler.ResetWeaponStats);
+            ApplySkillToStats.AddListener(weaponHandler.ApplyFinalWeaponStats);
 
-            ApplyMultiShot.RemoveAllListeners();
-            ApplyMultiShot.AddListener(rangeWeaponHandler.MultiShot);
+            if (weaponCategory == WeaponCategory.Ranged)
+            {
+                ApplyMultiShot.RemoveAllListeners();
+                ApplyMultiShot.AddListener(rangeWeaponHandler.MultiShot);
+            }
         }
 
         // Event for applying skills to player stats
@@ -96,6 +102,8 @@ public class SkillButtonData : MonoBehaviour
                 ApplyMultiShot?.Invoke();
                 break;
 
+            case SkillID.Parrying:
+            case SkillID.WeaponEnlarging:
             case SkillID.BouncingShot:
             case SkillID.PiercingShot:
                 break;
@@ -110,12 +118,19 @@ public class SkillButtonData : MonoBehaviour
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Private Methods]
-    private void GrabWeaponScript()
+    private void GrabWeaponScripts()
     {
-        if (weaponPivot.childCount > 0)
+        if (weaponCategory == WeaponCategory.Melee)
         {
-            Transform weapon = weaponPivot.GetChild(0);
-            rangeWeaponHandler = weapon.GetComponent<RangeWeaponHandler>();
+            meleeWeaponHandler = weaponPivot.GetComponentInChildren<MeleeWeaponHandler>();
+            weaponHandler = meleeWeaponHandler;
+            Debug.Log("MeleeWeaponHandler found in the weapon pivot.");
+        }
+        else if (weaponCategory == WeaponCategory.Ranged)
+        {
+            rangeWeaponHandler = weaponPivot.GetComponentInChildren<RangeWeaponHandler>();
+            weaponHandler = rangeWeaponHandler;
+            Debug.Log("RangeWeaponHandler found in the weapon pivot.");
         }
         else
         {

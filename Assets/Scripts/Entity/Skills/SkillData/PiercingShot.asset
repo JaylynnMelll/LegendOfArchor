@@ -16,10 +16,10 @@ MonoBehaviour:
   skillDescription: "\uD654\uC0B4\uC774 \uC801\uC744 \uAD00\uD1B5\uD558\uBA70, \uAD00\uD1B5\uD55C
     \uD6C4\uC758 \uD654\uC0B4\uC740 \uD53C\uD574\uB7C9\uC774 67 %\uB85C \uAC10\uC18C\uD55C\uB2E4. "
   icon: {fileID: 21300000, guid: e964ccce02f3ef24f8b75e168d0695e2, type: 3}
-  skillID: 0
-  category: 0
+  skillID: 6
+  category: 3
   weaponType: 1
-  elemenType: 0
+  elementType: 0
   triggerType: 0
   additionalDamagePercent: 0
   baseDamageMultiplier: 0
@@ -41,9 +41,10 @@ MonoBehaviour:
   dotInterval: 0
   dotPercent: 0
   appliesMultiShot: 0
-  delayBetweenShots: 0
   appliesPiercing: 0
   appliesBouncing: 0
+  appliesParrying: 0
+  appliesEnlargning: 0
   appliesFreeze: 0
   freezeDuration: 0
   appliesBurn: 0

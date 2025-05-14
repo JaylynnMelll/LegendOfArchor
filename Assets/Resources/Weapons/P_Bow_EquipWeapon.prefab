@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3354410002809973407}
   - component: {fileID: 4357769163611957157}
+  - component: {fileID: -6300033730515747185}
   m_Layer: 0
   m_Name: P_Bow_EquipWeapon
   m_TagString: Untagged
@@ -180,7 +181,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 8955690126287121776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4ba79616fadfe74094933d8f1de9973, type: 3}
+  m_Script: {fileID: 11500000, guid: 33cc8b2a936fdc243a4db81da50da4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCategory: 1
+  whoIsWeilding: 0
+  weaponStats: {fileID: -6300033730515747185}
+  multiShotSkill: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
+  attackDelay: 0.5
+  weaponSize: 0.7
+  weaponPower: 5
+  weaponSpeed: 10
+  weaponRange: 10
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
+  price: 100
+  target:
+    serializedVersion: 2
+    m_Bits: 128
+  isOnKnockback: 1
+  knockbackPower: 0.1
+  knockbackTime: 0.5
+  attackSoundClip: {fileID: 8300000, guid: 2d1568295d837214ab097377dcc23540, type: 3}
+  projectileSpawnPosition: {fileID: 4037765018204304055}
+  bulletIndex: 0
+  bulletSize: 0.7
+  bulletDuration: 10
+  bulletSpread: 1
+  numberOfProjectilesPerShot: 3
+  multipleProjectileAngle: 3
+  projectileColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &-6300033730515747185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8955690126287121776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762593529fac7ab4e8d522679cba203e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDelay: 0.5
@@ -190,19 +230,5 @@ MonoBehaviour:
   weaponRange: 10
   ciriticalChance: 0.2
   ciriticalDamage: 1.5
-  target:
-    serializedVersion: 2
-    m_Bits: 128
-  isOnKnockback: 1
   knockbackPower: 0.1
   knockbackTime: 0.5
-  attackSoundClip: {fileID: 8300000, guid: 8c35af7e9b6ee8348ac90fa74de4bce6, type: 3}
-  multishot: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
-  projectileSpawnPosition: {fileID: 4037765018204304055}
-  bulletIndex: 0
-  bulletSize: 0.7
-  bulletDuration: 10
-  bulletSpread: 1
-  numberOfProjectilesPerShot: 1
-  multipleProjectileAngle: 3
-  projectileColor: {r: 1, g: 1, b: 1, a: 1}

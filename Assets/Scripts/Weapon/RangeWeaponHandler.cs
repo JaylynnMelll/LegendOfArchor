@@ -11,7 +11,6 @@ public class RangeWeaponHandler : WeaponHandler
 {
     [Header("Connected Components")]
     private ProjectileManager projectileManager;
-    [SerializeField] private Skill multishot;
 
     [Header("Ranged Attack Info")]
     [SerializeField] private Transform projectileSpawnPosition;
@@ -85,14 +84,7 @@ public class RangeWeaponHandler : WeaponHandler
 
     public override void ResetWeaponStats()
     {
-        WeaponSize = 0.7f;
-        WeaponPower = 5;
-        WeaponSpeed = 10f;
-        WeaponRange = 10f;
-        CriticalChance = 0.2f;
-        CriticalDamage = 1.5f;
-        KnockbackPower = 0.1f;
-        KnockbackTime = 0.5f;
+        base.ResetWeaponStats();
     }
 
     public override void ApplyFinalWeaponStats()
@@ -119,11 +111,11 @@ public class RangeWeaponHandler : WeaponHandler
     {
         if (playerSkillHandler.trackingList != null)
         {
-            RuntimeSkill multishotSkill = playerSkillHandler.trackingList.Find(s => s.skill.skillID == multishot.skillID);
+            RuntimeSkill multishotSkill = playerSkillHandler.trackingList.Find(s => s.skill.skillID == multiShotSkill.skillID);
 
             if (multishotSkill == null) return;
 
-            if (multishotSkill.currentStacks <= multishot.maxStacks)
+            if (multishotSkill.currentStacks <= multiShotSkill.maxStacks)
             {
                 NumberofProjectilesPerShot += 1;
             }
@@ -133,17 +125,6 @@ public class RangeWeaponHandler : WeaponHandler
             }
         }
     }
-
-    public void BouncingShot()
-    {
-        Attack();
-    }
-
-    public void biggerArrow()
-    {
-
-    }
-
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Private Methods]

@@ -59,6 +59,8 @@ public enum SkillID
     MultiShot,
     BouncingShot,
     PiercingShot,
+    Parrying,
+    WeaponEnlarging,
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -78,7 +80,7 @@ public class Skill : ScriptableObject
     public SkillID skillID;                
     public SkillCategory category;
     public WeaponType weaponType;
-    public ElementType elemenType;
+    public ElementType elementType;
     public TriggerType triggerType;
 
     [Header("Effect Details")]
@@ -124,10 +126,14 @@ public class Skill : ScriptableObject
     public bool appliesDot;     
     public float dotInterval;                   // 몇 초마다 도트 데미지를 줄 것인지                    
     public float dotPercent;                    // 데미지별 도트 데미지 비율
-    public bool appliesMultiShot;                // 멀티샷 여부
-    public float delayBetweenShots;             // 멀티샷 간격
-    public bool appliesPiercing;                // 관통 여부
-    public bool appliesBouncing;              // 반사 여부
+
+    [Header("Weapon Modifiers")]
+    // ranged weapon 관련
+    public bool appliesMultiShot;           
+    public bool appliesPiercing;            
+    public bool appliesBouncing;
+    public bool appliesParrying;
+    public bool appliesEnlargning;
 
     [Header("Elemental Effects")]
     public bool appliesFreeze;                  // 적을 얼릴 것인지

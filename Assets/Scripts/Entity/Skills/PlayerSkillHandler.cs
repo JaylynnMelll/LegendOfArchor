@@ -84,7 +84,6 @@ public class PlayerSkillHandler : MonoBehaviour
     public float CalculateFinalDamage(float baseDamage)
     {
         float finalDamage = (baseDamage * damageMultiplicative) + (baseDamage * damageAdditive);
-        Debug.Log("Successfully calculated final damage: " + finalDamage);
         return finalDamage;
     }
 

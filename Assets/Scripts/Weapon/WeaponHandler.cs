@@ -2,8 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponCategory
+{
+    Melee,
+    Ranged,
+}
+
+public enum WhoIsWeilding
+{
+    Player,
+    Enemy,
+}
 public class WeaponHandler : MonoBehaviour
 {
+    [SerializeField] public WeaponCategory weaponCategory;
+    [SerializeField] public WhoIsWeilding whoIsWeilding;
+    [SerializeField] public BaseWeaponStats weaponStats;
+    [SerializeField] public Skill multiShotSkill;
+
     [Header("Attack Info")]
     [SerializeField] private float attackDelay = 1f;
     public float AttackDelay { get => attackDelay; set => attackDelay = value; }
@@ -78,23 +94,40 @@ public class WeaponHandler : MonoBehaviour
 
     public virtual void Attack()
     {
+        if (this is MeleeWeaponHandler && whoIsWeilding == WhoIsWeilding.Player)
+        {
+            StartCoroutine(DeactivateAnimatingWeaponPivot());
+        }
+
         AttackAnimation();
 
         if (attackSoundClip != null)
             SoundManager.PlayClip(attackSoundClip);
     }
 
+    private IEnumerator DeactivateAnimatingWeaponPivot()
+    {
+        // 근거리 무기를 휘두를 동안 player 손에 쥔 무기 이미지 비활성화
+        GameObject weaponImage = transform.GetChild(0).gameObject;
+        if (weaponImage != null)
+        {
+            weaponImage.SetActive(false);
+            yield return new WaitForSeconds(0.8f);
+            weaponImage.SetActive(true);
+        }
+    }
+
     public virtual void ResetWeaponStats()
     {
         // Reset weapon stats to default 
-        WeaponSize = 1f;
-        WeaponPower = 1f;
-        WeaponSpeed = 1f;
-        WeaponRange = 1f;
-        CriticalChance = 0.2f;
-        CriticalDamage = 1.5f;
-        KnockbackPower = 0.1f;
-        KnockbackTime = 0.5f;
+        WeaponSize = weaponStats.WeaponSize;
+        WeaponPower = weaponStats.WeaponPower;
+        WeaponSpeed = weaponStats.WeaponSpeed;
+        WeaponRange = weaponStats.WeaponRange;
+        CriticalChance = weaponStats.CriticalChance;
+        CriticalDamage = weaponStats.CriticalDamage;
+        KnockbackPower = weaponStats.KnockbackPower;
+        KnockbackTime = weaponStats.KnockbackTime;
     }
 
     public virtual void ApplyFinalWeaponStats()

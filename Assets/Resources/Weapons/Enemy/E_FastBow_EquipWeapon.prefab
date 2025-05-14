@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3354410002809973407}
   - component: {fileID: 4357769163611957157}
+  - component: {fileID: 6945046780749680118}
   m_Layer: 0
   m_Name: E_FastBow_EquipWeapon
   m_TagString: Untagged
@@ -180,24 +181,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 8955690126287121776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4ba79616fadfe74094933d8f1de9973, type: 3}
+  m_Script: {fileID: 11500000, guid: 33cc8b2a936fdc243a4db81da50da4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCategory: 1
+  whoIsWeilding: 1
+  weaponStats: {fileID: 6945046780749680118}
+  multiShotSkill: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
   attackDelay: 0.4
   weaponSize: 0.5
   weaponPower: 1
   weaponSpeed: 4
   weaponRange: 10
-  ciriticalChance: 0.2
-  ciriticalDamage: 1.5
+  ciriticalChance: 0
+  ciriticalDamage: 0
+  price: 100
   target:
     serializedVersion: 2
     m_Bits: 64
   isOnKnockback: 1
   knockbackPower: 1
   knockbackTime: 0.1
-  attackSoundClip: {fileID: 8300000, guid: 8c35af7e9b6ee8348ac90fa74de4bce6, type: 3}
-  multishot: {fileID: 0}
+  attackSoundClip: {fileID: 8300000, guid: b095eafb2ee512246aa5d2f8a2457340, type: 3}
   projectileSpawnPosition: {fileID: 4037765018204304055}
   bulletIndex: 1
   bulletSize: 0.5
@@ -205,4 +210,25 @@ MonoBehaviour:
   bulletSpread: 1
   numberOfProjectilesPerShot: 1
   multipleProjectileAngle: 1
-  projectileColor: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
+  projectileColor: {r: 1, g: 0.2784314, b: 0.2784314, a: 1}
+--- !u!114 &6945046780749680118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8955690126287121776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762593529fac7ab4e8d522679cba203e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDelay: 0
+  weaponSize: 0
+  weaponPower: 0
+  weaponSpeed: 0
+  weaponRange: 0
+  ciriticalChance: 0
+  ciriticalDamage: 0
+  knockbackPower: 0
+  knockbackTime: 0

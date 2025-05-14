@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpinningMeleeProjectile : MonoBehaviour
@@ -17,6 +18,11 @@ public class SpinningMeleeProjectile : MonoBehaviour
     private Transform center;
     private Transform visual;
     private float timeElapsed = 0f;
+
+    [Header("SkillData Reference")]
+    [SerializeField] private Skill weaponSizeEnlargedSkill;
+    [SerializeField] private Skill attackSpeedBoostSkill;
+    [SerializeField] private Skill parryingSkill;
 
     private Dictionary<Collider2D, float> hitCooldowns = new Dictionary<Collider2D, float>();
 
@@ -55,6 +61,8 @@ public class SpinningMeleeProjectile : MonoBehaviour
 
         transform.SetParent(null);
         Destroy(gameObject, duration);
+        ApplyEnlargingWeaponSize();
+        ApplyAttackSpeedBoost();
     }
 
     void Update()
@@ -80,21 +88,110 @@ public class SpinningMeleeProjectile : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, hitRadius, targetMask);
         foreach (var hit in hits)
         {
-            if (hitCooldowns.TryGetValue(hit, out float nextTime) && Time.time < nextTime)
-                continue;
+            ApplydParryingSkill(hit);
+        }
 
-            var rc = hit.GetComponent<ResourceController>();
-            if (rc != null)
-            {
-                float finalDmg = damage;
-                if (Random.value < criticalChance)
-                    finalDmg *= criticalDamage;
+        CheckParryAura();
+    }
 
-                rc.ChangeHealth(-finalDmg);
-                hitCooldowns[hit] = Time.time + hitCooldown;
+    private void ApplyEnlargingWeaponSize()
+    {
+        PlayerSkillHandler handler = FindObjectOfType<PlayerSkillHandler>();
+        if (handler == null || weaponSizeEnlargedSkill == null) return;
+
+        RuntimeSkill stackInfo = handler.trackingList.FirstOrDefault(s => s.skill == weaponSizeEnlargedSkill);
+        if (stackInfo == null) return;
+
+        int stack = Mathf.Clamp(stackInfo.currentStacks, 0, 5);
+        float multiplier = 1f + 0.2f * stack;
+
+        // Scale radius
+        radius *= multiplier;
+
+        // Scale the visual
+        if (visual != null)
+        {
+            visual.localScale *= multiplier;
+        }
 
 #if UNITY_EDITOR
-                Debug.Log($"[SpinSlash] {hit.name}에게 {finalDmg} 데미지!");
+        Debug.Log($"[SpinSlash] Radius: {radius}");
+        Debug.Log($"[SpinSlash] Visual Scale: {visual.localScale}");
+#endif
+    }
+
+    private void ApplyAttackSpeedBoost()
+    {
+        PlayerSkillHandler handler = FindObjectOfType<PlayerSkillHandler>();
+        if (handler == null || attackSpeedBoostSkill == null) return;
+
+        RuntimeSkill stackInfo = handler.trackingList.FirstOrDefault(s => s.skill == attackSpeedBoostSkill);
+        if (stackInfo == null) return;
+
+        int stack = Mathf.Clamp(stackInfo.currentStacks, 0, 5);
+        float multiplier = 1f + 0.3f * stack; // 50% per stack
+
+        rotationSpeed *= multiplier;
+
+#if UNITY_EDITOR
+        Debug.Log($"[SpinSlash] Attack Speed Multiplier: {multiplier}");
+        Debug.Log($"[SpinSlash] New Rotation Speed: {rotationSpeed}");
+#endif
+    }
+
+    private void ApplydParryingSkill(Collider2D hit)
+    {
+        if (hitCooldowns.TryGetValue(hit, out float nextTime) && Time.time < nextTime)
+            return;
+
+        // Enemy damage
+        var resourceController = hit.GetComponent<ResourceController>();
+        if (resourceController != null)
+        {
+            float finalDmg = damage;
+            if (Random.value < criticalChance)
+                finalDmg *= criticalDamage;
+
+            resourceController.ChangeHealth(-finalDmg);
+            hitCooldowns[hit] = Time.time + hitCooldown;
+
+#if UNITY_EDITOR
+            Debug.Log($"[SpinSlash] {hit.name}에게 {finalDmg} 데미지!");
+#endif
+        }
+        // Parry projectile
+        else if (HasParryingSkill() && hit.CompareTag("Projectile"))
+        {
+            Destroy(hit.gameObject);
+
+#if UNITY_EDITOR
+            Debug.Log($"[Parry] Destroyed projectile: {hit.name}");
+#endif
+        }
+
+    }
+    
+    private bool HasParryingSkill()
+    {
+        PlayerSkillHandler handler = FindObjectOfType<PlayerSkillHandler>();
+        if (handler == null || parryingSkill == null) return false;
+
+        return handler.acquiredSkills.Contains(parryingSkill);
+    }
+
+    private void CheckParryAura()
+    {
+        if (!HasParryingSkill()) return;
+
+        Collider2D[] parryTargets = Physics2D.OverlapCircleAll(transform.position, radius * 0.8f);
+        foreach (var obj in parryTargets)
+        {
+            if (obj.CompareTag("Projectiles"))
+            {
+                Destroy(obj.gameObject);
+
+#if UNITY_EDITOR
+                Debug.Log($"[Parry Aura] Destroyed projectile: {obj.name}");
 #endif
             }
         }
@@ -106,3 +203,5 @@ public class SpinningMeleeProjectile : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius * 0.8f);
     }
 }
+
+  

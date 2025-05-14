@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902f7217fe7337144bd731d0eb6aa9ad, type: 3}
   m_Name: AttackSpeedBoost
   m_EditorClassIdentifier: 
-  skillName: "\uACF5\uACA9 \uC18D\uB3C4 \uBD80\uC2A4\uD2B8"
+  skillName: "\uACF5\uACA9\uC18D\uB3C4\uBD80\uC2A4\uD2B8"
   skillDescription: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 50% \uC99D\uAC00\uD55C\uB2E4. "
   icon: {fileID: 21300000, guid: 2e423d3562da286409b3743e3716941e, type: 3}
   skillID: 1
@@ -40,7 +40,6 @@ MonoBehaviour:
   dotInterval: 0
   dotPercent: 0
   appliesMultiShot: 0
-  delayBetweenShots: 0
   appliesPiercing: 0
   appliesBouncing: 0
   appliesFreeze: 0
