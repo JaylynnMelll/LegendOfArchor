@@ -193,8 +193,16 @@ public class BaseController : MonoBehaviour
         movementDirection = initialMovementDirection;
         lookDirection = initialLookDirection;
         isAttacking = initialIsAttacking;
-        //statHandler.Health = (int)initialHealth;
+        
+        statHandler.Health = (int)initialHealth;
         resourceController.CurrentHealth = initialHealth;
+
+        // 스테이지에 비례해 적의 체력이 늘어남
+        if (StageManager.instance.currentStage >= 2)
+        {
+            statHandler.Health = statHandler.Health + StageManager.instance.currentStage;
+            resourceController.SetHealth(statHandler.Health);
+        }
         knockbackDuration = initialKnockbackDuration;
 
         // Rigidbody 초기화: 초기 이동 방향으로 설정

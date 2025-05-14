@@ -39,6 +39,14 @@ public class SlimeBossController : BaseController, IEnemy
     {
         target = player;
         enemyManager = manager;
+
+        // 스테이지에 비례해 적의 체력이 늘어남
+        if (StageManager.instance.currentStage >= 2)
+        {
+            statHandler.Health = statHandler.Health + StageManager.instance.currentStage;
+            resourceController.SetHealth(statHandler.Health);     
+        }
+
         if (chargeCoroutine == null)
         {
             chargeCoroutine = StartCoroutine(ChargeRoutine());
