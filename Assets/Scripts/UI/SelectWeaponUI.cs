@@ -13,7 +13,11 @@ public class SelectWeaponUI : MonoBehaviour
 
     [SerializeField] private GameObject weaponItemPrefab; // 무기아이콘, 텍스트 보여주는 버튼 프리팹
 
+    [SerializeField] private GameObject warningPanel;
+
     [SerializeField] private TextMeshProUGUI warningText; // 경고 텍스트
+
+    [SerializeField] private GameObject warningPanelBG; // 경고 텍스트 패널
 
     [SerializeField] private UnlockUI unlockUI; // 잠금해제 UI
 
@@ -240,11 +244,16 @@ public class SelectWeaponUI : MonoBehaviour
 
     private IEnumerator ShowWarningRoutine(string message)
     {
+        warningPanel.SetActive(true); // 패널 활성화
         warningText.text = message; // 텍스트 표시
         warningText.gameObject.SetActive(true); // 텍스트 활성화
+        warningPanelBG.SetActive(true); // 패널 활성화
 
         yield return new WaitForSeconds(2f);
+
+        warningPanel.SetActive(false); // 패널 비활성화
         warningText.gameObject.SetActive(false); // 텍스트 비활성화
+        warningPanelBG.SetActive(false); // 패널 비활성화
         warningText.text = ""; // 텍스트 내용 초기화
     }
 
