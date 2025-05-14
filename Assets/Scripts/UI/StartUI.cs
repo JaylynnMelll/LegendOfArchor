@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class StartUI : MonoBehaviour
 {
-    [SerializeField] private GameObject selectWeapon;
+    [SerializeField] private GameObject selectWeaponUI;
     public void OnClickStartButton()
     {
-        selectWeapon.SetActive(true);
+        selectWeaponUI.SetActive(true);
 
     }
 
     public void OnClickCancelPanelButton()
     {
-        selectWeapon.SetActive(false);
+        selectWeaponUI.SetActive(false);
     }
 
     public void OnClickExitButton()
