@@ -107,8 +107,17 @@ public class UIManager : MonoBehaviour
     // 일시정지 상태로 전환
     public void SetGamePause()
     {
-        pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.trackingList);
-        ChangeState(UIState.Pause);
+        if (currentState == UIState.Pause)
+        {
+            Time.timeScale = 1;
+            ChangeState(UIState.Game);
+        }
+        else
+        {
+            Time.timeScale = 0;
+            pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.trackingList);
+            ChangeState(UIState.Pause);
+        }
     }
 
     // 게임 오버 상태로 전환

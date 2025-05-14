@@ -76,12 +76,11 @@ public class GameManager : MonoBehaviour
 
     public bool IsGamePlaying()
     {
-        return uiManager.CurrentState == UIState.Game;
+        return uiManager.CurrentState == UIState.Game || uiManager.CurrentState == UIState.Pause;
     }
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
         uiManager.SetGamePause();
     }
 
