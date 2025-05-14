@@ -4,25 +4,36 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
+    // 싱글톤
+    public static ObstacleManager Instance { get; private set; }
+
+
     [SerializeField] private GameObject obstaclePrefab;
     private Queue<GameObject> obstaclePool = new();
 
-    private AnimationHandler anim;
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     public void SpawnObstacles(List<Transform> spawnPoints)
     {
         foreach (var point in spawnPoints)
         {
             var obstacle = GetObstacle();
+
+            // 부모로 설정
+            obstacle.transform.SetParent(this.transform);
             obstacle.transform.position = point.position;
             obstacle.SetActive(true);
 
             // 초기화
             var resource = obstacle.GetComponent<Obstacle>();
-            anim = obstacle.GetComponent<AnimationHandler>();
 
             if(resource != null)
             {
+                // 체력 설정
                 resource.SetHealth(20);
             }
         }

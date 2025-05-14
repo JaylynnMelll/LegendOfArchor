@@ -198,6 +198,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11282023}
   m_CullTransparentMesh: 1
+--- !u!1 &49777849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49777850}
+  - component: {fileID: 49777851}
+  m_Layer: 0
+  m_Name: ObstacleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49777850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49777849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7314041898207002244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49777851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49777849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e6b1220a165b5439a52a192c1a314a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 6168861241356395308, guid: 1a3e2a45ba3149345919e7423a7128b5, type: 3}
 --- !u!1 &142884113
 GameObject:
   m_ObjectHideFlags: 0
@@ -19101,6 +19146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalRooms:
   - {fileID: 5066307822751259844, guid: 5da63598d4c6aeb4ca30b1be16331cfc, type: 3}
+  - {fileID: 5066307822751259844, guid: 2311a38223264dd458a2f51aa80603b9, type: 3}
+  - {fileID: 5066307822751259844, guid: 34555e62dbfc92e438d4d5a48e5a9ad8, type: 3}
+  - {fileID: 5066307822751259844, guid: ccbfc535338c01f4d91832faaeb719f2, type: 3}
+  - {fileID: 5066307822751259844, guid: fa287b7da21f2ae4195b63afff43756e, type: 3}
   bossRooms:
   - {fileID: 5066307822751259844, guid: 085102681337e8c41886127834d09f0e, type: 3}
 --- !u!224 &5993668390872419098
@@ -19467,6 +19516,7 @@ Transform:
   - {fileID: 9214798495588784281}
   - {fileID: 3038429452024026706}
   - {fileID: 7342126361911085045}
+  - {fileID: 49777850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &7319374490161654616

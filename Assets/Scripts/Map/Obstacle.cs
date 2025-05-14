@@ -21,6 +21,7 @@ public class Obstacle : ResourceController
         }
 
         // 오브젝트 비활성화 or 제거
-        gameObject.SetActive(false);
+        ObstacleManager.Instance.ReturnObstacle(gameObject);
     }
+
 }

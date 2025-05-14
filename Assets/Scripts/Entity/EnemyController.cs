@@ -60,7 +60,7 @@ public class EnemyController : BaseController, IEnemy
             {
                 int layerMaskTarget = weaponHandler.target;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, weaponHandler.WeaponRange * 1.5f,
-                (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
+                (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget | (1 << LayerMask.NameToLayer("Obstacle")));
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
                 {

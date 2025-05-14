@@ -56,6 +56,10 @@ public class StageManager : MonoBehaviour
         if (currentRoom != null)
             mapPoolManager.ReturnRoom(currentRoom);
 
+        // 이전 장애물이 있었다면 풀에 반환
+        if(currentRoom != null)
+            ObstacleManager.Instance.ClearObstacles();
+
         // 보스 방인지 판단(5의 배수)
         RoomType type = (stage % 5 == 0) ? RoomType.Boss : RoomType.Normal;
         bool isBoss = type == RoomType.Boss;
@@ -70,6 +74,11 @@ public class StageManager : MonoBehaviour
         // enemy 스폰을 위한 스폰 포인트 찾기
         List<Transform> spawnPoints = new();
 
+        // obstacle 스폰을 위한 포인트 찾기
+        List<Transform> obstacleSpawnPoints = new();
+
+        Transform obstacleParent = currentRoom.transform.Find("Obstacles");
+
         Transform spawnPointsParent = currentRoom.transform.Find("SpawnPoints");
 
         if(spawnPointsParent != null)
@@ -81,6 +90,14 @@ public class StageManager : MonoBehaviour
             }
 
         }
+        if (obstacleParent != null)
+        {
+            foreach (Transform point in obstacleParent)
+            {
+                // 개별 스폰 포인트들 추가
+                obstacleSpawnPoints.Add(point);
+            }
+        }
         else
         {
             Debug.LogWarning("SpawnPoints 오브젝트를 찾을 수 없습니다.");
@@ -88,6 +105,9 @@ public class StageManager : MonoBehaviour
 
         // 조금 기다렸다가 적을 생성
         StartCoroutine(DelayedSpawnEnemies(spawnPoints, isBoss, stage));
+
+        // 장애물 호출
+        ObstacleManager.Instance.SpawnObstacles(obstacleSpawnPoints);
 
         // 포탈 비활성화
         portal.gameObject.SetActive(false);
