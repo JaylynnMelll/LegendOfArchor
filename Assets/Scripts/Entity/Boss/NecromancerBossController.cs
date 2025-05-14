@@ -21,7 +21,6 @@ public class NecromancerBossController : BaseController, IEnemy
     private EnemyManager enemyManager;
     private GameManager gameManager;
     private Transform target;
-    public GameObject ConnectedHPBar { get; set; }
 
     public bool IsSummoned => false;
 

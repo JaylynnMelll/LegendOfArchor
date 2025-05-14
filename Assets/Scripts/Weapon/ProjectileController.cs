@@ -1,3 +1,5 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public enum WhoShotIt
@@ -56,10 +58,10 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // º®¿¡ È­»ìÀÌ ºÎµúÈù °æ¿ì
+        // ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer)))
         {
-            // º®¹Ý»ç ½ºÅ³À» È¹µæÇÑ °æ¿ì
+            // ï¿½ï¿½ï¿½Ý»ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(bouncingShot))
             {
                 BouncingShotApplied(collision);
@@ -69,14 +71,14 @@ public class ProjectileController : MonoBehaviour
                 DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f, fxOnDestory);
             }
         }
-        
-        // Àû°ú È­»ìÀÌ ºÎµúÈù °æ¿ì
+
+        // ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         else if (rangeWeaponHandler.target.value == (rangeWeaponHandler.target.value | (1 << collision.gameObject.layer)))
         {
             ResourceController resourceController = collision.GetComponent<ResourceController>();
             if (resourceController != null)
             {
-                float finalDamage = rangeWeaponHandler.DamageCalculator() * damageMultiplier;
+                int finalDamage = (int)Math.Ceiling(rangeWeaponHandler.DamageCalculator() * damageMultiplier);
                 resourceController.ChangeHealth(-finalDamage);
 
                 if (rangeWeaponHandler.IsOnKnockback)
@@ -88,7 +90,7 @@ public class ProjectileController : MonoBehaviour
                     }
                 }
             }
-            // °üÅë¼¦ ½ºÅ³À» È¹µæÇÑ °æ¿ì
+            // ï¿½ï¿½ï¿½ë¼¦ ï¿½ï¿½Å³ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(piercingShot))
                 PiercingShotApplied(collision);
             else
@@ -131,7 +133,7 @@ public class ProjectileController : MonoBehaviour
         // Rotate to face new direction
         transform.right = direction;
 
-        // 2¹ø ¹Ý»ç ÈÄ È­»ì ÆÄ±«
+        // 2ï¿½ï¿½ ï¿½Ý»ï¿½ ï¿½ï¿½ È­ï¿½ï¿½ ï¿½Ä±ï¿½
         if (--bounceCount <= 0)
         {
             DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
