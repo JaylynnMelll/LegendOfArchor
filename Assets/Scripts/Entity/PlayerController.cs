@@ -32,6 +32,10 @@ public class PlayerController : BaseController
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void SetWeaponHandler(WeaponHandler handler)
+    {
+        weaponHandler = handler;
+    }
     protected override void HandleAction()
     {
         if (isDodging) return;
@@ -152,5 +156,7 @@ public class PlayerController : BaseController
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("EnemyProjectile"), !enable);
     }
 }
+
+
 
 

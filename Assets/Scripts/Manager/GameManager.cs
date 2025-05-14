@@ -49,6 +49,33 @@ public class GameManager : MonoBehaviour
     {
         CreatePlayerHPBar(); // 플레이어 체력바 생성
         stageManager.Init(enemyManager);
+
+        //string prefabName = PlayerPrefs.GetString("SelectedWeaponPrefabName");
+        //GameObject prefab = Resources.Load<GameObject>($"Weapons/{prefabName}");
+        //if (prefab != null)
+        //{
+        //    GameObject weapon = Instantiate(prefab, player.transform.Find("WeaponPivot"));
+        //    WeaponHandler handler = weapon.GetComponent<WeaponHandler>();
+
+        //    PlayerSkillHandler skillHandler = player.GetComponent<PlayerSkillHandler>();
+        //    handler.SetAsPlayerWeapon(skillHandler); 
+        //    player.SetWeaponHandler(handler);
+        //}
+       
+        string prefabName = PlayerPrefs.GetString("SelectedWeaponPrefabName");
+        Debug.Log($"[DEBUG] 저장된 무기 이름: {prefabName}");
+
+        GameObject prefab = Resources.Load<GameObject>($"Weapons/{prefabName}");
+        if (prefab == null)
+        {
+            Debug.LogError($"❌ 프리팹 로드 실패: Resources/Weapons/{prefabName}.prefab");
+        }
+        else
+        {
+            Debug.Log($"✅ 프리팹 로드 성공: {prefab.name}");
+        }
+        Debug.Log($"[DEBUG] PlayerPrefs에 저장된 무기 이름: {PlayerPrefs.GetString("SelectedWeaponPrefabName")}");
+
         if (isFirstLoading)
             isFirstLoading = false;
     }
