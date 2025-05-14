@@ -5,7 +5,7 @@ public class ProjectileManager : MonoBehaviour
     private static ProjectileManager instance;
     public static ProjectileManager Instance { get { return instance; } }
 
-    [SerializeField] private GameObject[] projectilePrefabs;
+    [SerializeField] public GameObject[] projectilePrefabs;
 
     [SerializeField] private ParticleSystem impactParticleSystem;
 
@@ -32,5 +32,15 @@ public class ProjectileManager : MonoBehaviour
         ParticleSystem.MainModule mainModule = impactParticleSystem.main;
         mainModule.startSpeedMultiplier = weaponHandler.BulletSize * 10f;
         impactParticleSystem.Play();
+    }
+
+    public void DestroyAllProjectile()
+    {
+        GameObject[] allProjectilesInScene = GameObject.FindGameObjectsWithTag("Projectiles");
+
+        foreach (GameObject projectile in allProjectilesInScene)
+        {
+            Destroy(projectile);
+        }
     }
 }

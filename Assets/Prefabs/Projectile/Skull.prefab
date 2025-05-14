@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5470463625502968074}
   m_Layer: 9
   m_Name: Skull
-  m_TagString: Untagged
+  m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +154,8 @@ MonoBehaviour:
   levelCollisionLayer:
     serializedVersion: 2
     m_Bits: 256
+  bounceShot: {fileID: 0}
+  whoShotIt: 1
   fxOnDestory: 1
 --- !u!1 &7159623407450369181
 GameObject:

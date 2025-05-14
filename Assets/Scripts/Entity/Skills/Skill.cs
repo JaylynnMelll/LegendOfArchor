@@ -57,6 +57,7 @@ public enum SkillID
     CriticalMaster,
     HPBoost,
     MultiShot,
+    BounceShot,
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -125,7 +126,7 @@ public class Skill : ScriptableObject
     public bool appliesMultiShot;                // 멀티샷 여부
     public float delayBetweenShots;             // 멀티샷 간격
     public bool appliesPiercing;                // 관통 여부
-    public bool appliesReflective;              // 반사 여부
+    public bool appliesBouncing;              // 반사 여부
 
     [Header("Elemental Effects")]
     public bool appliesFreeze;                  // 적을 얼릴 것인지

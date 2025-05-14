@@ -39,14 +39,14 @@ MonoBehaviour:
   duration: 0
   interval: 0
   isStackable: 0
-  maxStacks: 5
+  maxStacks: 3
   appliesDot: 0
   dotInterval: 0
   dotPercent: 0
   appliesMultiShot: 0
   delayBetweenShots: 0
   appliesPiercing: 0
-  appliesReflective: 0
+  appliesBouncing: 0
   appliesFreeze: 0
   freezeDuration: 0
   appliesBurn: 0

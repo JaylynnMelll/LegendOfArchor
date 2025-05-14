@@ -17534,6 +17534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefabs:
+  - {fileID: 5922963397970543215, guid: 792de7826e2d34c4eae83bedb9061211, type: 3}
   - {fileID: 5922963397970543215, guid: 3569a16286d292f499e5d13eac146e2c, type: 3}
   - {fileID: 3960677568025572990, guid: c5016fc6d0b540848b44181bd538e3ba, type: 3}
   impactParticleSystem: {fileID: 1082358554}
@@ -18609,6 +18610,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
   - {fileID: 11400000, guid: 503370163369423469de712800273213, type: 2}
+  - {fileID: 11400000, guid: ee640c585470adc4f9bbb58570f53be7, type: 2}
 --- !u!222 &3768147191921394301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18971,6 +18973,7 @@ MonoBehaviour:
   mapParent: {fileID: 3038429452024026706}
   mapPoolManager: {fileID: 5949996269236424895}
   playerTransform: {fileID: 1509543273}
+  projectileManager: {fileID: 1941601478}
   portal: {fileID: 1122899428}
   currentStage: 1
 --- !u!114 &5056773713127916460

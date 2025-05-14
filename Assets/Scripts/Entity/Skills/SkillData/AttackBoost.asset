@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: AttackBoost
   m_EditorClassIdentifier: 
   skillName: "\uACF5\uACA9 \uBD80\uC2A4\uD2B8"
-  skillDescription: "\uB300\uBBF8\uC9C0\uAC00 30 % \uC99D\uAC00\uD55C\uB2E4. \uC218\uCE58
+  skillDescription: "\uB300\uBBF8\uC9C0\uAC00 50 % \uC99D\uAC00\uD55C\uB2E4. \uC218\uCE58
     \uC99D\uAC00\uB294 \uD569\uC5F0\uC0B0\uC73C\uB85C \uC801\uC6A9\uB41C\uB2E4"
   icon: {fileID: 21300000, guid: d1b4e48e76596c54189086d9a4b3f592, type: 3}
+  skillID: 0
   category: 0
   weaponType: 2
   elemenType: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
   appliesMultiShot: 0
   delayBetweenShots: 0
   appliesPiercing: 0
-  appliesReflective: 0
+  appliesBouncing: 0
   appliesFreeze: 0
   freezeDuration: 0
   appliesBurn: 0
