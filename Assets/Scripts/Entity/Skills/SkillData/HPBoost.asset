@@ -39,7 +39,7 @@ MonoBehaviour:
   duration: 0
   interval: 0
   isStackable: 1
-  maxStacks: 3
+  maxStacks: 5
   appliesDot: 0
   dotInterval: 0
   dotPercent: 0

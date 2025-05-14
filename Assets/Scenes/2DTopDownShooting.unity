@@ -1433,7 +1433,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7830189, g: 0.66869724, b: 0.39520293, a: 0}
+  m_BackGroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1514,7 +1514,7 @@ GameObject:
   - component: {fileID: 530684166}
   m_Layer: 6
   m_Name: WeaponPivot
-  m_TagString: Untagged
+  m_TagString: WeaponPivot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18421,7 +18421,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
+  m_AnchoredPosition: {x: 47.2, y: -34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2037574730
@@ -18481,7 +18481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18857,7 +18857,9 @@ MonoBehaviour:
   playerSkillHandler: {fileID: 1509543282}
   skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
+  weaponHandler: {fileID: 0}
   rangeWeaponHandler: {fileID: 0}
+  meleeWeaponHandler: {fileID: 0}
   resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
@@ -18978,6 +18980,7 @@ MonoBehaviour:
   skillDataBase: {fileID: 3736914277136018618}
   resourceController: {fileID: 1509543279}
   playerSkillHandler: {fileID: 1509543282}
+  weaponPivot: {fileID: 530684166}
   chooseSkill:
   - {fileID: 0}
   - {fileID: 0}
@@ -19338,7 +19341,9 @@ MonoBehaviour:
   playerSkillHandler: {fileID: 1509543282}
   skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
+  weaponHandler: {fileID: 0}
   rangeWeaponHandler: {fileID: 0}
+  meleeWeaponHandler: {fileID: 0}
   resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1
@@ -19393,14 +19398,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ca8f30f66fb449aa054788decdff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runTimeskillList:
-  - {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
+  CommonSkillList:
   - {fileID: 11400000, guid: 80a859142042e8b44b3ec77dcc059bbb, type: 2}
   - {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
   - {fileID: 11400000, guid: 503370163369423469de712800273213, type: 2}
+  - {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
+  RangedWeaponSkillList:
   - {fileID: 11400000, guid: ee640c585470adc4f9bbb58570f53be7, type: 2}
   - {fileID: 11400000, guid: 20a2bdd5a9f0ca245ae83d7d46546ae8, type: 2}
+  MeleeWeaponSkillList:
+  - {fileID: 11400000, guid: b87d1915fd1c4c9459fed8a04791ee28, type: 2}
+  - {fileID: 11400000, guid: 6d852e92f84034840a81384547a6a048, type: 2}
 --- !u!222 &3768147191921394301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20577,7 +20586,9 @@ MonoBehaviour:
   playerSkillHandler: {fileID: 1509543282}
   skillManager: {fileID: 1764842113165123942}
   weaponPivot: {fileID: 530684166}
+  weaponHandler: {fileID: 0}
   rangeWeaponHandler: {fileID: 0}
+  meleeWeaponHandler: {fileID: 0}
   resourceController: {fileID: 1509543279}
   cooldown:
     cooldownTime: 1

@@ -281,3 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.5
   rotationSpeed: 720
+  hitCooldown: 0.2
+  weaponSizeEnlargedSkill: {fileID: 11400000, guid: 6d852e92f84034840a81384547a6a048, type: 2}
+  attackSpeedBoostSkill: {fileID: 11400000, guid: e131f6c436bb9af46890ee33b3b337d1, type: 2}
+  parryingSkill: {fileID: 11400000, guid: b87d1915fd1c4c9459fed8a04791ee28, type: 2}

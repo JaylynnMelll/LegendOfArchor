@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6358263627384955903}
   - component: {fileID: 2864783522489194586}
+  - component: {fileID: 1767775923537842974}
   m_Layer: 0
   m_Name: E_Mace_EquipWeapon
   m_TagString: Untagged
@@ -45,11 +46,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b250cf6449c1c4bb062140aa6c709c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCategory: 0
+  whoIsWeilding: 1
+  weaponStats: {fileID: 1767775923537842974}
+  multiShotSkill: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
   attackDelay: 1.5
   weaponSize: 1
   weaponPower: 3
   weaponSpeed: 1
   weaponRange: 1.2
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
+  price: 100
   target:
     serializedVersion: 2
     m_Bits: 64
@@ -58,6 +66,35 @@ MonoBehaviour:
   knockbackTime: 0.5
   attackSoundClip: {fileID: 8300000, guid: 31c9435606df8b947a42c9b9a26a15d8, type: 3}
   collideBoxSize: {x: 1, y: 1}
+  useSpinningProjectile: 0
+  spinSlashPrefab: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  weaponSizeMultiplier: 1.2
+  WeaponSizeEnlargedSkill: {fileID: 0}
+  parryingSkill: {fileID: 0}
+--- !u!114 &1767775923537842974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326550184588660626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762593529fac7ab4e8d522679cba203e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDelay: 0
+  weaponSize: 0
+  weaponPower: 0
+  weaponSpeed: 0
+  weaponRange: 0
+  ciriticalChance: 0
+  ciriticalDamage: 0
+  knockbackPower: 0
+  knockbackTime: 0
 --- !u!1 &5253842530948889035
 GameObject:
   m_ObjectHideFlags: 0

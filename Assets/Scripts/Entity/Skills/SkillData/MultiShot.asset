@@ -18,7 +18,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3f8b3a2e78c970545835e892f7723398, type: 3}
   skillID: 4
   category: 3
-  weaponType: 1
+  weaponType: 2
   elemenType: 0
   triggerType: 0
   additionalDamagePercent: 0
@@ -41,7 +41,6 @@ MonoBehaviour:
   dotInterval: 0
   dotPercent: 0
   appliesMultiShot: 1
-  delayBetweenShots: 0.2
   appliesPiercing: 0
   appliesBouncing: 0
   appliesFreeze: 0

@@ -73,7 +73,7 @@ public class NecromancerBossController : BaseController, IEnemy
             }
             else
             {
-                Debug.LogWarning("rangeWeaponHandler�� �������� ����");
+                Debug.LogWarning("weaponHandler�� �������� ����");
             }
         }
     }

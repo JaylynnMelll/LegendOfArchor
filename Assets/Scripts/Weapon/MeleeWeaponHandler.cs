@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class MeleeWeaponHandler : WeaponHandler
@@ -9,11 +10,15 @@ public class MeleeWeaponHandler : WeaponHandler
     public bool useSpinningProjectile = false;
     public GameObject spinSlashPrefab;
     public LayerMask wallLayer;
+    public float weaponSizeMultiplier = 1.2f;
+
+    public Skill WeaponSizeEnlargedSkill;
+    public Skill parryingSkill;
 
     protected override void Start()
     {
         base.Start();
-        collideBoxSize = collideBoxSize * WeaponSize;
+        collideBoxSize = SetColliderBoxSize();
     }
 
     public override void Attack()
@@ -24,13 +29,10 @@ public class MeleeWeaponHandler : WeaponHandler
         {
             int slashCount = 1;
 
-            //  멀티샷 스킬 반영
-            var multiSkill = PlayerSkillHandler.acquiredSkills.Find(s => s.appliesMultiShot);
-            if (multiSkill != null)
+            // 멀티샷 스킬이 적용된 경우
+            if (playerSkillHandler.acquiredSkills.Contains(multiShotSkill))
             {
-                var runtime = PlayerSkillHandler.trackingList.Find(rt => rt.skill == multiSkill);
-                if (runtime != null)
-                    slashCount += runtime.currentStacks;
+                MeleeMultiShotApplied(ref slashCount);
             }
 
             //  태양처럼 360도 고르게 퍼짐
@@ -63,7 +65,7 @@ public class MeleeWeaponHandler : WeaponHandler
 
             return;
         }
-
+        
         // 기존 박스 판정 근접 공격
         RaycastHit2D hit = Physics2D.BoxCast(
             transform.position + (Vector3)Controller.LookDirection * collideBoxSize.x,
@@ -84,11 +86,58 @@ public class MeleeWeaponHandler : WeaponHandler
                     }
                 }
             }
+            //if (whoIsWeilding == WhoIsWeilding.Player && hit.collider == GameObject.FindObjectByTag)
+            //{
+            //    //  파링 스킬이 적용된 경우
+            //    ParryingSkillApplied();
+            //}
         }
+    }
+
+    public void MeleeMultiShotApplied(ref int slashCount)
+    {
+        //  멀티샷 스킬 플레이어에게만 반영
+        if (playerSkillHandler.trackingList != null)
+        {
+            Skill multiShotSkill = playerSkillHandler.acquiredSkills.Find(s => s.appliesMultiShot);
+            if (multiShotSkill && whoIsWeilding == WhoIsWeilding.Player)
+            {
+                RuntimeSkill multiShotCurrentStacks = playerSkillHandler.trackingList.Find(rt => rt.skill == multiShotSkill);
+                if (multiShotCurrentStacks != null && whoIsWeilding == WhoIsWeilding.Player)
+                {
+                    if (multiShotCurrentStacks.currentStacks < multiShotSkill.maxStacks)
+                        slashCount += multiShotCurrentStacks.currentStacks;
+                }
+            }
+        }
+    }
+
+
+    public void ParryingSkillApplied()
+    {
+        ////  파링 스킬 플레이어에게만 반영
+        //Skill ParryingSkill = playerSkillHandler.acquiredSkills.Find(rt => rt.appliesParrying);
+        //RuntimeSkill ParryingSkillCurrentStacks = playerSkillHandler.trackingList.Find(rt => rt.skill.appliesParrying);
+        //if (ParryingSkillCurrentStacks != null && whoIsWeilding == WhoIsWeilding.Player)
+        //{
+        //    if (ParryingSkillCurrentStacks.currentStacks <= ParryingSkill.maxStacks)
+        //    {
+        //        WeaponSize = 1f;
+        //        WeaponSize += (weaponSizeMultiplier * ParryingSkillCurrentStacks.currentStacks);
+        //        collideBoxSize = SetColliderBoxSize();
+        //    }
+        //    else
+        //        return;
+        //}
     }
 
     public override void Rotate(bool isLeft)
     {
         transform.eulerAngles = isLeft ? new Vector3(0, 180, 0) : Vector3.zero;
+    }
+
+    private Vector2 SetColliderBoxSize()
+    {
+        return collideBoxSize = collideBoxSize * WeaponSize;
     }
 }
