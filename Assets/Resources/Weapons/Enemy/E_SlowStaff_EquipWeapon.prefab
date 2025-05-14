@@ -188,6 +188,8 @@ MonoBehaviour:
   weaponPower: 2
   weaponSpeed: 1
   weaponRange: 10
+  ciriticalChance: 0.2
+  ciriticalDamage: 1.5
   target:
     serializedVersion: 2
     m_Bits: 64
@@ -195,8 +197,9 @@ MonoBehaviour:
   knockbackPower: 3
   knockbackTime: 0.1
   attackSoundClip: {fileID: 8300000, guid: 34470dcb98e4f85458ae0dda20f88a65, type: 3}
+  multishot: {fileID: 0}
   projectileSpawnPosition: {fileID: 4037765018204304055}
-  bulletIndex: 1
+  bulletIndex: 2
   bulletSize: 1
   bulletDuration: 10
   bulletSpread: 1

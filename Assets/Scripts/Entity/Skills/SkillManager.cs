@@ -28,25 +28,51 @@ public class SkillManager : MonoBehaviour
 
         for (int i = 0; i < chooseSkill.Length; i++)
         {
-            // 랜덤 스킬을 추가해줄 때 중복되는 스킬이 추가되지 않도록 체크
-            while (true)
+            int retryLimit = 100;       // 최대 재시도 횟수
+            bool isSkillChosen = true; // 스킬이 선택되었는지 여부
+
+            // 랜덤 스킬을 추가해줄 때 중복되는 스킬이 추가되지 않도록 체크해주는 while문
+            while (retryLimit-- > 0)
             {
                 int randomIndex = Random.Range(0, skillDataBase.runTimeskillList.Count);
-                if (chooseSkill[i] == null)
-                {
-                    if (!chooseSkill.Contains(skillDataBase.runTimeskillList[randomIndex]))
-                    {
-                        chooseSkill[i] = skillDataBase.runTimeskillList[randomIndex];
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
+                Skill randomSkill = skillDataBase.runTimeskillList[randomIndex];
 
+                // chooseSkill 배열 내 중복된 스킬은 스킵
+                if (chooseSkill.Contains(randomSkill))
+                    continue; 
+
+                // 아직 획득하지 않은 스킬인 경우 바로 추가
+                if (!playerSkillHandler.acquiredSkills.Contains(randomSkill))
+                {
+                    chooseSkill[i] = randomSkill;
+                    break;
+                }
+
+                // 이미 보유한 스킬인 경우, 추가 가능한지 현재 스택 확인
+                RuntimeSkill stackTrack = playerSkillHandler.trackingList.FirstOrDefault(s => s.skill == randomSkill);
+
+#if UNITY_EDITOR
+                if (stackTrack == null)
+                {
+                    Debug.Log($"stackTrack is null for skill: {randomSkill.name}");
+                }
+#endif
+
+                // 이미 최대 스택인 경우 스킵
+                if (stackTrack != null && stackTrack.currentStacks >= randomSkill.maxStacks)
+                    continue;
+
+                // 중복 아니고, 스택 가능하면 추가
+                chooseSkill[i] = randomSkill;
+                break;
+            }
+#if UNITY_EDITOR
+            if (!isSkillChosen)
+            {
+                Debug.LogWarning($"No valid skill found for slot {i} after 100 retries.");
+            }
+#endif
+        }
     }
 
     public void ClearChooseSkillList()

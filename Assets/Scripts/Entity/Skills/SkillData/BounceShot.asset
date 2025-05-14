@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902f7217fe7337144bd731d0eb6aa9ad, type: 3}
+  m_Name: BounceShot
+  m_EditorClassIdentifier: 
+  skillName: "\uBCBD\uBC18\uC0AC"
+  skillDescription: "\uBCBD\uC5D0 \uBD80\uB52A\uD78C \uD654\uC0B4\uC774 \uC0AC\uB77C\uC9C0\uC9C0
+    \uC54A\uACE0 2 \uD68C \uD295\uACA8 \uB098\uAC00\uBA70, \uD295\uAE38 \uB54C\uB9C8\uB2E4
+    \uD53C\uD574\uB7C9\uC774 50 % \uAC10\uC18C\uD55C\uB2E4"
+  icon: {fileID: 21300000, guid: 84befdaef039e59408204cf67947089a, type: 3}
+  skillID: 5
+  category: 3
+  weaponType: 1
+  elemenType: 0
+  triggerType: 0
+  additionalDamagePercent: 0
+  baseDamageMultiplier: 0
+  additionalAttakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 0
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 0
+  additionalCriticalChancePercent: 0
+  criticalDamageMultiplier: 0
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 0
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 0
+  duration: 0
+  interval: 0
+  isStackable: 0
+  maxStacks: 1
+  appliesDot: 0
+  dotInterval: 0
+  dotPercent: 0
+  appliesMultiShot: 0
+  delayBetweenShots: 0
+  appliesPiercing: 0
+  appliesBouncing: 1
+  appliesFreeze: 0
+  freezeDuration: 0
+  appliesBurn: 0
+  appliesChainEffect: 0

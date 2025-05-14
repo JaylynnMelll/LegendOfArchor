@@ -186,7 +186,7 @@ MonoBehaviour:
   attackDelay: 0.5
   weaponSize: 0.7
   weaponPower: 5
-  weaponSpeed: 15
+  weaponSpeed: 10
   weaponRange: 10
   ciriticalChance: 0.2
   ciriticalDamage: 1.5

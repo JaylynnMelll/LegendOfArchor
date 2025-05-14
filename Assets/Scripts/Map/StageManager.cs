@@ -12,6 +12,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Transform mapParent;
     [SerializeField] private MapPoolManager mapPoolManager;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private ProjectileManager projectileManager;
 
     // 포탈 프리팹
     [SerializeField] private Portal portal;
@@ -175,6 +176,7 @@ public class StageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         currentStage++;
+        projectileManager.DestroyAllProjectile();
         LoadRoom(currentStage);
     }
 
