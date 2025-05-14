@@ -10,6 +10,7 @@ public class GameUI : BaseUI
     [SerializeField] private Button pauseButton; // 정지 버튼
     [SerializeField] private TextMeshProUGUI levelText; // 플레이어 레벨 텍스트
     [SerializeField] private TextMeshProUGUI goldText; // 플레이어 골드 텍스트
+    [SerializeField] private TextMeshProUGUI StageNumberText; // 현재 스테이지 텍스트
     [SerializeField] private Slider expSlider; // 겸험치 게이지
     [SerializeField] private float expFillSpeed = 3f; // 경험치 게이지 채워지는 속도
     private float targetExp;
@@ -60,6 +61,11 @@ public class GameUI : BaseUI
     public void UpdateGold(int amount)
     {
         goldText.text = $"{amount}";
+    }
+
+    public void UpdateStageNumber(int stageNumber)
+    {
+        StageNumberText.text = $"{stageNumber}";
     }
 
     protected override UIState GetUIState()
