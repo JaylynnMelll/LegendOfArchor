@@ -2416,7 +2416,7 @@ GameObject:
   - component: {fileID: 5072732738634807714}
   - component: {fileID: 17691178623296546}
   - component: {fileID: 7516430908457337300}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ForeDesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3210,7 +3210,7 @@ GameObject:
   - component: {fileID: 8390152348122773160}
   - component: {fileID: 7769068397106394970}
   - component: {fileID: 8620022664442126747}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BackDesign
   m_TagString: Untagged
   m_Icon: {fileID: 0}

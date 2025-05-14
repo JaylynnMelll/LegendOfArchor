@@ -134,7 +134,7 @@ public class RangeWeaponHandler : WeaponHandler
         }
     }
 
-    public void ConsecutiveShot()
+    public void BouncingShot()
     {
         Attack();
     }
