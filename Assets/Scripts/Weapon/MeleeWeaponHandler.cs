@@ -4,8 +4,11 @@ public class MeleeWeaponHandler : WeaponHandler
 {
     [Header("Melee Attack Info")]
     public Vector2 collideBoxSize = Vector2.one;
-    public bool useSpinningProjectile = false; // 회전형 공격 사용 여부
-    public GameObject spinSlashPrefab; // 회전형 프리팹
+
+    [Header("SpinSlash Settings")]
+    public bool useSpinningProjectile = false;
+    public GameObject spinSlashPrefab;
+    public LayerMask wallLayer;
 
     protected override void Start()
     {
@@ -19,26 +22,49 @@ public class MeleeWeaponHandler : WeaponHandler
 
         if (IsPlayerWeapon && useSpinningProjectile && spinSlashPrefab != null)
         {
-            GameObject spinObj = Instantiate(spinSlashPrefab, transform.position, Quaternion.identity);
-            spinObj.transform.SetParent(transform); // 플레이어 기준 회전
+            int slashCount = 1;
 
-            var spinComp = spinObj.GetComponent<SpinningMeleeProjectile>();
-            if (spinComp != null)
+            // 멀티샷 스킬 반영
+            var multiSkill = PlayerSkillHandler.acquiredSkills.Find(s => s.appliesMultiShot);
+            if (multiSkill != null)
             {
-                spinComp.Init(
-                    transform,
-                    target,
-                    WeaponPower,
-                    KnockbackPower,
-                    KnockbackTime,
-                    WeaponRange,
-                    GetWeaponSprite()
-                );
+                var runtime = PlayerSkillHandler.trackingList.Find(rt => rt.skill == multiSkill);
+                if (runtime != null)
+                    slashCount += runtime.currentStacks;
             }
+
+            // 시각적으로 겹치지 않도록 앞쪽 원호에 배치
+            float totalAngle = 120f;
+            float angleStep = (slashCount > 1) ? totalAngle / (slashCount - 1) : 0f;
+
+            for (int i = 0; i < slashCount; i++)
+            {
+                float angleOffset = -totalAngle / 2f + i * angleStep;
+
+                GameObject spinObj = Instantiate(spinSlashPrefab, transform.position, Quaternion.identity);
+                spinObj.transform.SetParent(transform);
+
+                var spin = spinObj.GetComponent<SpinningMeleeProjectile>();
+                if (spin != null)
+                {
+                    spin.Init(
+                        transform,
+                        target,
+                        wallLayer,
+                        PlayerSkillHandler.CalculateFinalDamage(WeaponPower),
+                        PlayerSkillHandler.CalculateFinalRange(WeaponRange),
+                        PlayerSkillHandler.CalculateFinalCriticalChance(0f),
+                        PlayerSkillHandler.CalculateFinalCriticalDamage(1f),
+                        GetWeaponSprite(),
+                        angleOffset
+                    );
+                }
+            }
+
             return;
         }
 
-        // 기존 BoxCast 방식
+        //  기존 근접 박스 공격
         RaycastHit2D hit = Physics2D.BoxCast(
             transform.position + (Vector3)Controller.LookDirection * collideBoxSize.x,
             collideBoxSize, 0, Vector2.zero, 0, target);
@@ -63,9 +89,6 @@ public class MeleeWeaponHandler : WeaponHandler
 
     public override void Rotate(bool isLeft)
     {
-        if (isLeft)
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        else
-            transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.eulerAngles = isLeft ? new Vector3(0, 180, 0) : Vector3.zero;
     }
 }
