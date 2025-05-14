@@ -8,6 +8,7 @@ public class SlimeBossController : BaseController, IEnemy
     public GameObject ConnectedHPBar { get; set; }
     [SerializeField] private GameObject bossSlimeSplit; // 분열 시 생성될 보스 프리팹
     [SerializeField] private GameObject bossSlimeSplitEffect; // 분열 이펙트
+    [SerializeField] private AudioClip splitSound;
     [SerializeField] private int maxSplitCount = 4; // 최대 분열 횟수
     [SerializeField] private int splitCount = 0; // 현재 분열 횟수
     [SerializeField] private int splitSpawnCount = 2; // 한 번에 나오는 분열 수
@@ -91,11 +92,21 @@ public class SlimeBossController : BaseController, IEnemy
     {
         Debug.Log($"슬라임 분열, 현재 분열 횟수 {splitCount}");
 
-        // 슬라임 분열 이펙트
-        if (bossSlimeSplitEffect != null)
+        if (bossSlimeSplitEffect != null)
         {
-            Instantiate(bossSlimeSplitEffect, transform.position, Quaternion.identity);
+            GameObject fx = Instantiate(bossSlimeSplitEffect, transform.position, Quaternion.identity);
+
+            // 분열 횟수에 따라 파티클 크기 조정
+            var scaler = fx.GetComponent<SlimeSplitEffectScaler>();
+            if (scaler != null)
+            {
+                scaler.ApplyScaleBySplitCount(splitCount);
+            }
         }
+
+        // 분열 사운드 재생
+        if (splitSound != null)
+            AudioSource.PlayClipAtPoint(splitSound, transform.position);
 
         // 분열된 개체 생성
         for (int i = 0; i < splitSpawnCount; i++)
