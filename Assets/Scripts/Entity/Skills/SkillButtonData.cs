@@ -99,6 +99,7 @@ public class SkillButtonData : MonoBehaviour
                 break;
 
             case SkillID.BouncingShot:
+            case SkillID.PiercingShot:
                 break;
 
             default:
