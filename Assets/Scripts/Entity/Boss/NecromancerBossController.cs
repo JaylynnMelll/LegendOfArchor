@@ -31,13 +31,20 @@ public class NecromancerBossController : BaseController, IEnemy
     // �ӽ� �������̽� ����
     GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
 
-    public void InitEnemy(EnemyManager manager, Transform player)
+    public void InitEnemy(EnemyManager manager, Transform player, bool isSplitSpawn = false)
     {
         enemyManager = manager;
         target = player;
         summonRoutine = StartCoroutine(SummonSkeletons());
         StartCoroutine(ShockwaveRoutine());
         StartCoroutine(ProjectileAttack());
+
+        // 스테이지에 비례해 적의 체력이 늘어남
+        if (StageManager.instance.currentStage >= 2)
+        {
+            statHandler.Health = statHandler.Health + StageManager.instance.currentStage;
+            resourceController.SetHealth(statHandler.Health);
+        }
     }
     protected override void Awake()
     {

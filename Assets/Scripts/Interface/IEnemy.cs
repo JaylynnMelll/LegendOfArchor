@@ -7,7 +7,7 @@ public interface IEnemy
     // �ӽ� �������̽� ����
     GameObject gameObject { get; set; }
 
-    void InitEnemy(EnemyManager enemyManager, Transform player);
+    void InitEnemy(EnemyManager enemyManager, Transform player, bool isSplitSpawn = false);
 
     bool IsSummoned { get; }
 
