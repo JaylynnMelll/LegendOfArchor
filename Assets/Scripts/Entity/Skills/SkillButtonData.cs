@@ -80,7 +80,7 @@ public class SkillButtonData : MonoBehaviour
 
         playerSkillHandler.SkillAcquired(assignedSkill);
         ApplyingSkillsToStats();
-        GameManager.instance.SkillAdded();
+        GameManager.Instance.SkillAdded();
 
         cooldown.StartCoolingDown();
     }
@@ -98,7 +98,8 @@ public class SkillButtonData : MonoBehaviour
                 ApplyMultiShot?.Invoke();
                 break;
 
-            case SkillID.BounceShot:
+            case SkillID.BouncingShot:
+            case SkillID.PiercingShot:
                 break;
 
             default:

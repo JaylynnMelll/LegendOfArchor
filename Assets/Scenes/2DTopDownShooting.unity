@@ -10425,6 +10425,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6784536952050185590, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
+      propertyPath: portalSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a59ec50a0ecac034e8fb008f23b0803f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16424,6 +16428,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
+  runSpeedMultiplier: 1.5
 --- !u!114 &1509543277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18624,6 +18629,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db874e32b4ebf784ab41845ef266ffb9, type: 2}
   - {fileID: 11400000, guid: 503370163369423469de712800273213, type: 2}
   - {fileID: 11400000, guid: ee640c585470adc4f9bbb58570f53be7, type: 2}
+  - {fileID: 11400000, guid: 20a2bdd5a9f0ca245ae83d7d46546ae8, type: 2}
 --- !u!222 &3768147191921394301
 CanvasRenderer:
   m_ObjectHideFlags: 0

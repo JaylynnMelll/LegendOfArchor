@@ -41,7 +41,7 @@ public class GameUI : BaseUI
 
     public void OnClickPauseButton()
     {
-        GameManager.instance.PauseGame();
+        GameManager.Instance.PauseGame();
     }
 
     // 경험치 게이지 업데이트
@@ -53,13 +53,13 @@ public class GameUI : BaseUI
     // 레벨 업데이트
     public void UpdateLevel(int level)
     {
-        levelText.text = level.ToString();
+        levelText.text = $"{level}";
     }
 
     // 골드 업데이트
     public void UpdateGold(int amount)
     {
-        goldText.text = amount.ToString();
+        goldText.text = $"{amount}";
     }
 
     protected override UIState GetUIState()
