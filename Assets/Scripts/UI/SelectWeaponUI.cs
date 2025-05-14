@@ -8,6 +8,7 @@ using UnityEngine.UI;
 // 무기 선택 UI 제어
 public class SelectWeaponUI : MonoBehaviour
 {
+    [SerializeField] private GameObject selectWeapon; // 무기 선택 UI 패널
     [SerializeField] private Transform weaponsRoot; // 무기 버튼들이 들어갈 부모 오브젝트 (Weapons 오브젝트)
     [SerializeField] private GameObject weaponItemPrefab; // 무기아이콘, 텍스트 보여주는 버튼 프리팹
 
@@ -131,6 +132,6 @@ public class SelectWeaponUI : MonoBehaviour
         warningText.text = "";
 
         // 선택창 닫기
-        gameObject.SetActive(false);
+        selectWeapon.SetActive(false);
     }
 }
