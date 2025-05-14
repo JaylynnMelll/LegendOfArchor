@@ -54,15 +54,15 @@ public class SpinningMeleeProjectile : MonoBehaviour
 
         if (visualTransform != null)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(visualTransform.position, hitRadius, enemyLayer);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(visualTransform.position, hitRadius, target);
             foreach (var hit in hits)
             {
                 if (!alreadyHit.Contains(hit.gameObject))
                 {
-                    var target = hit.GetComponent<ResourceController>();
-                    if (target != null)
+                    var rc = hit.GetComponent<ResourceController>();
+                    if (rc != null)
                     {
-                        target.ChangeHealth(-damage);
+                        rc.ChangeHealth(-damage);
                         alreadyHit.Add(hit.gameObject);
                         Debug.Log($"[SpinSlash] {hit.name}에게 {damage} 데미지!");
                     }
