@@ -80,7 +80,7 @@ public class SkillButtonData : MonoBehaviour
 
         playerSkillHandler.SkillAcquired(assignedSkill);
         ApplyingSkillsToStats();
-        GameManager.instance.SkillAdded();
+        GameManager.Instance.SkillAdded();
 
         cooldown.StartCoolingDown();
     }

@@ -17,19 +17,41 @@ public class PlayerStats : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        CurrentHP = MaxHP;
+        LoadGold();
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.UpdateGold(Gold);
     }
 
     public void AddGold(int amount)
     {
         Gold += amount;
-        GameManager.instance.UpdateGold();
+        SetGold();
+        GameManager.Instance.UpdateGold(Gold);
+    }
+
+    public void SetGold()
+    {
+        SaveGold();
+        LoadGold();
+    }
+
+    public void SaveGold()
+    {
+        PlayerPrefs.SetInt("Gold", Gold);
+    }
+
+    public void LoadGold()
+    {
+        Gold = PlayerPrefs.GetInt("Gold", 0);
     }
 
     public void AddExp(int amount)
     {
         Exp += amount;
-        GameManager.instance.UpdateExp();
+        GameManager.Instance.UpdateExp();
         CheckLevelUp();
     }
 
@@ -40,8 +62,8 @@ public class PlayerStats : MonoBehaviour
             Exp -= MaxExp;
             Level++;
             MaxExp = Mathf.RoundToInt(MaxExp * 1.25f);
-            GameManager.instance.UpdateExp();
-            GameManager.instance.LevelUp(Level);
+            GameManager.Instance.UpdateExp();
+            GameManager.Instance.LevelUp(Level);
         }
     }
 }

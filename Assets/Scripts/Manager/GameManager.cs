@@ -3,10 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     // 플레이어 스탯 관리
-    public PlayerStats playerStats { get; private set; } // Exp, Gold 등
     public PlayerController player { get; private set; } // 플레이어 제어
     private ResourceController _playerResourceController; // 플레이어 체력, 리소스 접근
 
@@ -22,13 +21,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         // 플레이어 객체 초기화 및 연결
         player = FindObjectOfType<PlayerController>();
         player.Init(this); // GameManager 참조 넘김
-
-        playerStats = PlayerStats.Instance; // 스탯 싱글톤 가져오기
 
         // UIManager 찾기
         uiManager = FindObjectOfType<UIManager>();
@@ -105,16 +102,16 @@ public class GameManager : MonoBehaviour
     public void UpdateExp()
     {
         uiManager.ChangePlayerExpAndLevel(
-            playerStats.Exp,
-            playerStats.MaxExp,
-            playerStats.Level
+            PlayerStats.Instance.Exp,
+            PlayerStats.Instance.MaxExp,
+            PlayerStats.Instance.Level
             );
     }
 
     // 골드 UI 업데이트
-    public void UpdateGold()
+    public void UpdateGold(int gold)
     {
-        uiManager.ChangePlayerGold(playerStats.Gold);
+        uiManager.ChangePlayerGold(gold);
     }
 
     public void LevelUp(int level)

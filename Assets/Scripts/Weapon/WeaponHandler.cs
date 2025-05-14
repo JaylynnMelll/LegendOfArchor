@@ -20,11 +20,14 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private float weaponRange = 10f;
     public float WeaponRange { get => weaponRange; set => weaponRange = value; }
 
-    [SerializeField] private float ciriticalChance =0.2f;
+    [SerializeField] private float ciriticalChance = 0.2f;
     public float CriticalChance { get => ciriticalChance; set => ciriticalChance = value; }
 
     [SerializeField] private float ciriticalDamage = 1.5f;
     public float CriticalDamage { get => ciriticalDamage; set => ciriticalDamage = value; }
+
+    [SerializeField] private int price = 100;
+    public int Price { get => price; set => price = value; }
 
     public LayerMask target;
 

@@ -83,7 +83,7 @@ public class ResourceController : MonoBehaviour
             animationHandler.Damage();
             if (damageSoundClip != null)
                 SoundManager.PlayClip(damageSoundClip);
-            GameManager.instance.ShowDamageText(transform.position, Mathf.FloorToInt(-change));
+            GameManager.Instance.ShowDamageText(transform.position, Mathf.FloorToInt(-change));
         }
         if (CurrentHealth <= 0f)
         {
