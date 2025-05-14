@@ -13,17 +13,19 @@ public class SelectWeaponUI : MonoBehaviour
 
     [SerializeField] private GameObject weaponItemPrefab; // 무기아이콘, 텍스트 보여주는 버튼 프리팹
 
-    [SerializeField] private Image selectedWeaponIcon; // 선택한 무기 아이콘
-
-    [SerializeField] private GameObject[] powerIcons; // 선택된 무기의 파워 표기
-
-    [SerializeField] private List<GameObject> weaponPrefabs; // 무기 프리팹들
-
     [SerializeField] private TextMeshProUGUI warningText; // 경고 텍스트
 
     [SerializeField] private UnlockUI unlockUI; // 잠금해제 UI
 
     [SerializeField] private TextMeshProUGUI goldText;
+
+    [SerializeField] private Image emptyIcon;
+
+    [SerializeField] private Image selectedWeaponIcon; // 선택한 무기 아이콘
+
+    [SerializeField] private List<GameObject> weaponPrefabs; // 무기 프리팹들
+
+    [SerializeField] private GameObject[] powerIcons; // 선택된 무기의 파워 표기
 
     private const string GoldKey = "Gold"; // 오타, 실수방지용 변수
 
@@ -253,7 +255,7 @@ public class SelectWeaponUI : MonoBehaviour
         selectedWeaponIndex = -1;
 
         // 미리보기 초기화
-        selectedWeaponIcon.sprite = null;
+        selectedWeaponIcon.sprite = emptyIcon.sprite;
 
         foreach (var star in powerIcons)
             star.SetActive(false);
