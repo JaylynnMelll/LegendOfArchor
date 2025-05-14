@@ -119,6 +119,8 @@ public class NecromancerBossController : BaseController, IEnemy
         {
             yield return new WaitForSeconds(summonInterval);
 
+            enemyManager.aliveEnemyCount += skeletonCountPerSummon;
+
             for (int i = 0; i < skeletonCountPerSummon; i++)
             {
                 Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * 2f;
@@ -182,5 +184,7 @@ public class NecromancerBossController : BaseController, IEnemy
 
         base.OnDeathComplete();
         enemyManager.RemoveEnemyOnDeath(this);
+
+        enemyManager.aliveEnemyCount--;
     }
 }
