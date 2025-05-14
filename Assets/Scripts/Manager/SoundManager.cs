@@ -38,4 +38,12 @@ public class SoundManager : MonoBehaviour
         SoundSource soundSource = obj.GetComponent<SoundSource>();
         soundSource.Play(clip, instance.soundEffectVolume, instance.soundEffectPitchVariance);
     }
+
+    // 오버로드 함수 (볼륨 조절 추가)
+    public static void PlayClip(AudioClip clip, float customVolume)
+    {
+        SoundSource obj = Instantiate(instance.soundSourcePrefab);
+        SoundSource soundSource = obj.GetComponent<SoundSource>();
+        soundSource.Play(clip, customVolume, instance.soundEffectPitchVariance);
+    }
 }
