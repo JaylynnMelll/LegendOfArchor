@@ -15,8 +15,8 @@ public class BaseController : MonoBehaviour
     protected Vector2 lookDirection = Vector2.zero;
     public Vector2 LookDirection { get { return lookDirection; } }
 
-    private Vector2 knockback = Vector2.zero;
-    private float knockbackDuration = 0.5f;
+    protected Vector2 knockback = Vector2.zero;
+    protected float knockbackDuration = 0.5f;
 
     protected AnimationHandler animationHandler;
     protected StatHandler statHandler;
@@ -97,7 +97,7 @@ public class BaseController : MonoBehaviour
 
     }
 
-    private void Movement(Vector2 direction)
+    protected virtual void Movement(Vector2 direction)
     {
         direction = direction * statHandler.Speed;        
         if (knockbackDuration > 0.0f)

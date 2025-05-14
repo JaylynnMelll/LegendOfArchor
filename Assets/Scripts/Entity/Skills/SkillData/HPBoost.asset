@@ -38,7 +38,7 @@ MonoBehaviour:
   baseHealthMultiplier: 0.2
   duration: 0
   interval: 0
-  isStackable: 0
+  isStackable: 1
   maxStacks: 3
   appliesDot: 0
   dotInterval: 0
