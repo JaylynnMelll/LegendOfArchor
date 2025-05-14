@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3705197586145016841}
   - component: {fileID: 3459457304232826559}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6333362313171251606}
   - component: {fileID: 1736813905909149177}
   - component: {fileID: 7872369650961493443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpinSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,8 @@ MonoBehaviour:
   duration: 0.5
   rotationSpeed: 720
   radius: 1.5
-  damage: 5
+  damage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  hitRadius: 1

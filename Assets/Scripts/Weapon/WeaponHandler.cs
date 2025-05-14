@@ -113,4 +113,11 @@ public class WeaponHandler : MonoBehaviour
     {
         weaponRenderer.flipY = isLeft;
     }
+
+    public Sprite GetWeaponSprite()
+    {
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+        return sr != null ? sr.sprite : null;
+    }
+
 }

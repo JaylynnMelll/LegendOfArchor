@@ -20,13 +20,20 @@ public class MeleeWeaponHandler : WeaponHandler
         if (IsPlayerWeapon && useSpinningProjectile && spinSlashPrefab != null)
         {
             GameObject spinObj = Instantiate(spinSlashPrefab, transform.position, Quaternion.identity);
-            spinObj.transform.SetParent(transform); // 플레이어를 중심으로 회전
+            spinObj.transform.SetParent(transform); // 플레이어 기준 회전
 
             var spinComp = spinObj.GetComponent<SpinningMeleeProjectile>();
             if (spinComp != null)
             {
-                spinComp.damage = WeaponPower;
-                spinComp.enemyLayer = target;
+                spinComp.Init(
+                    transform,
+                    target,
+                    WeaponPower,
+                    KnockbackPower,
+                    KnockbackTime,
+                    WeaponRange,
+                    GetWeaponSprite()
+                );
             }
             return;
         }

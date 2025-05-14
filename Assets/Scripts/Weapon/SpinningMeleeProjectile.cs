@@ -1,28 +1,44 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpinningMeleeProjectile : MonoBehaviour
 {
     public float duration = 0.5f;
-    public float rotationSpeed = 720f; // degrees per second
+    public float rotationSpeed = 720f;
     public float radius = 1.5f;
     public float damage = 5f;
+    public float hitRadius = 0.6f;
     public LayerMask enemyLayer;
+    public LayerMask target;
 
     private float timeElapsed = 0f;
     private Transform center;
     private Transform visualTransform;
+    private HashSet<GameObject> alreadyHit = new HashSet<GameObject>();
+
+    public void Init(Transform owner, LayerMask targetMask, float power, float knockback, float knockTime, float range, Sprite weaponSprite)
+    {
+        this.damage = power;
+        this.target = targetMask;
+
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr != null && weaponSprite != null)
+        {
+            sr.sprite = weaponSprite;
+            sr.color = new Color(1f, 1f, 1f, 0.8f); // 약간 반투명 (선택)
+        }
+
+        Destroy(gameObject, duration);
+    }
 
     void Start()
     {
-        center = transform.parent; // 캐릭터 중심 기준 회전
-        transform.SetParent(null); // 부모에서 분리
+        center = transform.parent;
+        transform.SetParent(null);
 
-        // 자식 Visual을 찾고 위치 조정
         visualTransform = transform.Find("Visual");
         if (visualTransform != null)
-        {
             visualTransform.localPosition = Vector3.right * radius;
-        }
     }
 
     void Update()
@@ -36,21 +52,31 @@ public class SpinningMeleeProjectile : MonoBehaviour
 
         transform.RotateAround(center.position, Vector3.forward, rotationSpeed * Time.deltaTime);
 
-        // 충돌 판정
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.3f, enemyLayer);
-        foreach (var hit in hits)
+        if (visualTransform != null)
         {
-            var target = hit.GetComponent<ResourceController>();
-            if (target != null)
+            Collider2D[] hits = Physics2D.OverlapCircleAll(visualTransform.position, hitRadius, enemyLayer);
+            foreach (var hit in hits)
             {
-                target.ChangeHealth(-damage);
+                if (!alreadyHit.Contains(hit.gameObject))
+                {
+                    var target = hit.GetComponent<ResourceController>();
+                    if (target != null)
+                    {
+                        target.ChangeHealth(-damage);
+                        alreadyHit.Add(hit.gameObject);
+                        Debug.Log($"[SpinSlash] {hit.name}에게 {damage} 데미지!");
+                    }
+                }
             }
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.3f);
+        if (visualTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(visualTransform.position, hitRadius);
+        }
     }
 }
