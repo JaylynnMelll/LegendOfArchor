@@ -15846,7 +15846,7 @@ MonoBehaviour:
   soundEffectVolume: 0.3
   soundEffectPitchVariance: 0.2
   musicVolume: 0.1
-  musicClip: {fileID: 8300000, guid: 6ba261602ab9bc54e9c45fd12bcf077e, type: 3}
+  musicClip: {fileID: 8300000, guid: 9f54ef032e9b9e0439cfb2dc24d6960b, type: 3}
   soundSourcePrefab: {fileID: 6305477046131438181, guid: 84f4df385f440de428fa74571eb72f76, type: 3}
 --- !u!1 &1334174160
 GameObject:
