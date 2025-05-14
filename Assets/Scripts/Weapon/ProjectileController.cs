@@ -31,7 +31,6 @@ public class ProjectileController : MonoBehaviour
     private void Awake()
     {
         playerSkillHandler = FindObjectOfType<PlayerSkillHandler>();
-        Debug.Log("successfully grabbed playerSkillHandler");
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
         pivot = transform.GetChild(0);
@@ -76,8 +75,16 @@ public class ProjectileController : MonoBehaviour
             ResourceController resourceController = collision.GetComponent<ResourceController>();
             if (resourceController != null)
             {
-                float finalDamage = rangeWeaponHandler.DamageCalculator() * damageMultiplier;
-                resourceController.ChangeHealth(-finalDamage);
+                if (whoShotIt == WhoShotIt.Player)
+                {
+                    float finalDamage = rangeWeaponHandler.DamageCalculator() * damageMultiplier;
+                    resourceController.ChangeHealth(-finalDamage);
+                }
+                else
+                {
+                    resourceController.ChangeHealth(-rangeWeaponHandler.WeaponPower);
+                }
+                
 
                 if (rangeWeaponHandler.IsOnKnockback)
                 {

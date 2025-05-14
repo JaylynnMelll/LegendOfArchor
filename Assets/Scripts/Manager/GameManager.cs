@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
     public void RequestStageLoad(int stageNumber, bool isBossRoom)
     {
         stageManager.LoadRoom(stageNumber);
+        Debug.Log($"스테이지 {stageNumber} 로드 요청");
     }
 
     // 게임 오버 처리

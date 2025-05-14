@@ -55,8 +55,6 @@ public class SkillButtonData : MonoBehaviour
             ApplyHPBoost.AddListener(resourceController.HPReset);
             ApplyHPBoost.AddListener(resourceController.HPBoost);
         }
-
-        Debug.Log("SkillButtonData initialized successfully.");
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -118,7 +116,6 @@ public class SkillButtonData : MonoBehaviour
         {
             Transform weapon = weaponPivot.GetChild(0);
             rangeWeaponHandler = weapon.GetComponent<RangeWeaponHandler>();
-            Debug.Log("Weapon script grabbed successfully.");
         }
         else
         {

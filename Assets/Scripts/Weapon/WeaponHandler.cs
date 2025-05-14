@@ -57,7 +57,6 @@ public class WeaponHandler : MonoBehaviour
     protected virtual void Awake()
     {
         playerSkillHandler = FindObjectOfType<PlayerSkillHandler>();
-        Debug.Log(playerSkillHandler.gameObject.name);
         Controller = GetComponentInParent<BaseController>();
         animator = GetComponentInChildren<Animator>();
         weaponRenderer = GetComponentInChildren<SpriteRenderer>();

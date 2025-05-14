@@ -22,7 +22,7 @@ public class StageManager : MonoBehaviour
 
     // 현재 스테이지 번호, 현재 활성화 된 방, 스테이지 숫자
     [SerializeField] public int currentStage = 1;
-    private int stageNumber = 1;
+    public int stageNumber = 1;
     private GameObject currentRoom;
 
     // enemy 관리
@@ -41,6 +41,7 @@ public class StageManager : MonoBehaviour
     {
         this.enemyManager = enemyManager;
         LoadRoom(currentStage);
+        gameUI.UpdateStageNumber(stageNumber);
     }
 
     // 방 생성 및 초기화
@@ -173,7 +174,6 @@ public class StageManager : MonoBehaviour
     private void NextStage()
     {
         StartCoroutine(LoadNextStageWithDelay());
-        gameUI.UpdateStageNumber(stageNumber++);
     }
 
     // 포탈 진입 후 지연 시간
@@ -183,6 +183,8 @@ public class StageManager : MonoBehaviour
         currentStage++;
         projectileManager.DestroyAllProjectile();
         LoadRoom(currentStage);
+        stageNumber++;
+        gameUI.UpdateStageNumber(stageNumber);
     }
 
     // 현재 스테이지 값 반환

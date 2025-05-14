@@ -158,8 +158,8 @@ MonoBehaviour:
   piercingShot: {fileID: 11400000, guid: 20a2bdd5a9f0ca245ae83d7d46546ae8, type: 2}
   whoShotIt: 1
   fxOnDestory: 1
-  bounceCount: 3
-  damageMultiplier: 1
+  bounceCount: 0
+  damageMultiplier: 0
 --- !u!1 &6192947378816387348
 GameObject:
   m_ObjectHideFlags: 0
