@@ -10848,7 +10848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145351725652993486, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6748866926488925756, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10894,6 +10894,22 @@ PrefabInstance:
       propertyPath: portalSound
       value: 
       objectReference: {fileID: 8300000, guid: a59ec50a0ecac034e8fb008f23b0803f, type: 3}
+    - target: {fileID: 7714944014109394748, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4482912
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714944014109394748, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
+      propertyPath: m_Size.y
+      value: 1.6965694
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714944014109394748, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0048227906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714944014109394748, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.18111348
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18421,7 +18437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 47.2, y: -34}
+  m_AnchoredPosition: {x: 47.19995, y: -34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2037574730
@@ -19775,7 +19791,8 @@ MonoBehaviour:
   playerTransform: {fileID: 1509543273}
   projectileManager: {fileID: 1941601478}
   portal: {fileID: 1122899428}
-  currentStage: 5
+  currentStage: 1
+  stageNumber: 1
 --- !u!114 &5056773713127916460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20801,6 +20818,8 @@ MonoBehaviour:
   normalEnemies:
   - {fileID: 9214229529407106475, guid: c3f657a4b65877942b76cd84cc549cc2, type: 3}
   - {fileID: 9214229529407106475, guid: 67c09224e495c794cbbaabea82b784be, type: 3}
+  - {fileID: 5479887269148786689, guid: a94854e2967419d40a13d4c6478c1ed5, type: 3}
+  - {fileID: 8264194638359092396, guid: e8ba93768bdaadb4388f5ec381fa0d4b, type: 3}
   slimeBossPrefab: {fileID: 1853731775948942785, guid: 309c8fc6e768e8643a12684357661e87, type: 3}
   necromancerBossPrefab: {fileID: 8264194638359092396, guid: dc6e46d2379c6f941a721bcc6d7f9293, type: 3}
 --- !u!114 &8952490859823448957
