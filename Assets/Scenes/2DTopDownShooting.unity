@@ -10848,7 +10848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145351725652993486, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6748866926488925756, guid: 2a7ebe4afb644d24e8cf316e10e51169, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17035,7 +17035,7 @@ MonoBehaviour:
   resetMaterial: {fileID: 0}
   dodgeDistance: 2.5
   dodgeDuration: 0.3
-  dodgeCooldown: 0
+  dodgeCooldown: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -19792,7 +19792,6 @@ MonoBehaviour:
   projectileManager: {fileID: 1941601478}
   portal: {fileID: 1122899428}
   currentStage: 1
-  stageNumber: 1
 --- !u!114 &5056773713127916460
 MonoBehaviour:
   m_ObjectHideFlags: 0
