@@ -1,4 +1,4 @@
-# 🏹 Archero-like Unity Game
+# 🏹 LegendOfArchor
 
 ![image](https://github.com/user-attachments/assets/071832fb-31fb-4250-a172-1b29b611bca2)
 
