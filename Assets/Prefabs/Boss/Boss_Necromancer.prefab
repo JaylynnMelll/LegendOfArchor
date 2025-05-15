@@ -315,5 +315,5 @@ MonoBehaviour:
   summonEffectPrefab: {fileID: 1793387824243165137, guid: b68b7ace2a11a174e9dbb199b897b6f6, type: 3}
   shockwaveEffectPrefab: {fileID: 7733185582974939058, guid: e0eaeb8976bc69044922cbbe22c992c7, type: 3}
   shockwaveCooldown: 8
-  projectileAttackInterval: 3
+  projectileAttackInterval: 2
   followRange: 15
