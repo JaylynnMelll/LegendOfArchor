@@ -22,7 +22,6 @@ public class StageManager : MonoBehaviour
 
     // 현재 스테이지 번호, 현재 활성화 된 방, 스테이지 숫자
     [SerializeField] public int currentStage = 1;
-    public int stageNumber = 1;
     private GameObject currentRoom;
 
     // enemy 관리
@@ -41,7 +40,7 @@ public class StageManager : MonoBehaviour
     {
         this.enemyManager = enemyManager;
         LoadRoom(currentStage);
-        gameUI.UpdateStageNumber(stageNumber);
+        gameUI.UpdateStageNumber(currentStage);
     }
 
     // 방 생성 및 초기화
@@ -183,8 +182,7 @@ public class StageManager : MonoBehaviour
         currentStage++;
         projectileManager.DestroyAllProjectile();
         LoadRoom(currentStage);
-        stageNumber++;
-        gameUI.UpdateStageNumber(stageNumber);
+        gameUI.UpdateStageNumber(currentStage);
     }
 
     // 현재 스테이지 값 반환
