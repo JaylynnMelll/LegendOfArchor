@@ -76,6 +76,8 @@
 ---
 
 ## ⚙️ 주요 기능
+![image](https://github.com/user-attachments/assets/fa698a8c-69b2-4f6c-93c7-10c48e23d7c9)
+
 
 - **오브젝트 풀링 시스템**
   - `EnemyPool`, `MapPool`, `ObstacleManager`를 통해 풀링 처리
