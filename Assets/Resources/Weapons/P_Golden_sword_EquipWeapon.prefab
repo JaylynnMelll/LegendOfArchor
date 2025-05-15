@@ -57,7 +57,7 @@ MonoBehaviour:
   weaponRange: 1.2
   ciriticalChance: 0.2
   ciriticalDamage: 1.5
-  price: 100
+  price: 500
   target:
     serializedVersion: 2
     m_Bits: 128

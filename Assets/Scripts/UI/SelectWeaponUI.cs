@@ -206,10 +206,10 @@ public class SelectWeaponUI : MonoBehaviour
 
         float power = weapon.WeaponPower;
 
-        if (power >= 5f) return 5;
-        if (power >= 4f) return 4;
-        if (power >= 3f) return 3;
-        if (power >= 2f) return 2;
+        if (power >= 20f) return 5;
+        if (power >= 15f) return 4;
+        if (power >= 10f) return 3;
+        if (power >= 5f) return 2;
         if (power > 0f) return 1;
         return 0;
     }

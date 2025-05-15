@@ -52,12 +52,12 @@ MonoBehaviour:
   multiShotSkill: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
   attackDelay: 1.5
   weaponSize: 1
-  weaponPower: 3
+  weaponPower: 10
   weaponSpeed: 1
   weaponRange: 1.2
   ciriticalChance: 0.2
   ciriticalDamage: 1.5
-  price: 100
+  price: 700
   target:
     serializedVersion: 2
     m_Bits: 128

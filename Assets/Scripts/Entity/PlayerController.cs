@@ -207,6 +207,7 @@ public class PlayerController : BaseController
         if (gameManager != null && gameManager.IsGamePlaying())
         {
             gameManager.PauseGame();
+            isAttacking = false;
         }
     }
 

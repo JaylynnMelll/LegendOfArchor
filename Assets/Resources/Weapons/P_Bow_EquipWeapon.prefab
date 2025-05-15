@@ -190,7 +190,7 @@ MonoBehaviour:
   multiShotSkill: {fileID: 11400000, guid: 3498d6f3667b76149a1685a1344f6fed, type: 2}
   attackDelay: 0.5
   weaponSize: 0.7
-  weaponPower: 5
+  weaponPower: 3
   weaponSpeed: 10
   weaponRange: 10
   ciriticalChance: 0.2
