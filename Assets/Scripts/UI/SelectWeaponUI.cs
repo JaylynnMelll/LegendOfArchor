@@ -118,6 +118,7 @@ public class SelectWeaponUI : MonoBehaviour
         // 무기 선택 처리
         selectedWeaponIndex = index;
         selectedWeaponIcon.sprite = prefab.GetComponentInChildren<SpriteRenderer>().sprite;
+        selectedWeaponIcon.color = new Color(1f, 1f, 1f, 1f);
 
         // 무기 파워에 따라서 아이콘 표시
         int powerCount = GetWeaponPower(prefab);
@@ -265,6 +266,7 @@ public class SelectWeaponUI : MonoBehaviour
 
         // 미리보기 초기화
         selectedWeaponIcon.sprite = emptyIcon.sprite;
+        selectedWeaponIcon.color = new Color(1f, 1f, 1f, 0f);
 
         foreach (var star in powerIcons)
             star.SetActive(false);
