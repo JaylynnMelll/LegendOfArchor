@@ -4,5 +4,12 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    void InitEnemy(EnemyManager enemyManager, Transform player);
+    // �ӽ� �������̽� ����
+    GameObject gameObject { get; set; }
+
+    void InitEnemy(EnemyManager enemyManager, Transform player, bool isSplitSpawn = false);
+
+    bool IsSummoned { get; }
+
+    GameObject ConnectedHPBar { get; set; }
 }

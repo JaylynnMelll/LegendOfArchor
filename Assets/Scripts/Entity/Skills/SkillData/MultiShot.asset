@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902f7217fe7337144bd731d0eb6aa9ad, type: 3}
+  m_Name: MultiShot
+  m_EditorClassIdentifier: 
+  skillName: "\uBA40\uD2F0\uC0F7"
+  skillDescription: " \uCD94\uAC00\uB85C \uC6D0\uAC70\uB9AC \uACF5\uACA9\uCCB4\uB97C
+    \uD558\uB098 \uB354 \uBC1C\uC0AC\uD55C\uB2E4."
+  icon: {fileID: 21300000, guid: 3f8b3a2e78c970545835e892f7723398, type: 3}
+  skillID: 4
+  category: 3
+  weaponType: 2
+  elemenType: 0
+  triggerType: 0
+  additionalDamagePercent: 0
+  baseDamageMultiplier: 0.9
+  additionalAttakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 0
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 0
+  additionalCriticalChancePercent: 0
+  criticalDamageMultiplier: 0
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 0
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 0
+  duration: 0
+  interval: 0
+  isStackable: 1
+  maxStacks: 5
+  appliesDot: 0
+  dotInterval: 0
+  dotPercent: 0
+  appliesMultiShot: 1
+  appliesPiercing: 0
+  appliesBouncing: 0
+  appliesFreeze: 0
+  freezeDuration: 0
+  appliesBurn: 0
+  appliesChainEffect: 0

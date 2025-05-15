@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902f7217fe7337144bd731d0eb6aa9ad, type: 3}
+  m_Name: CriticalMaster
+  m_EditorClassIdentifier: 
+  skillName: "\uD06C\uB9AC\uD2F0\uCEEC\uB9C8\uC2A4\uD130"
+  skillDescription: "\uD06C\uB9AC\uD2F0\uCEEC \uB300\uBBF8\uC9C0 40 %, \uD06C\uB9AC\uD2F0\uCEEC
+    \uD655\uB960 10 %\uAC00 \uC99D\uAC00\uD55C\uB2E4."
+  icon: {fileID: 21300000, guid: e099be5f0d900564e944f1937847ee2c, type: 3}
+  skillID: 2
+  category: 0
+  weaponType: 2
+  elemenType: 0
+  triggerType: 0
+  additionalDamagePercent: 0
+  baseDamageMultiplier: 0
+  additionalAttakSpeedPercent: 0
+  baseAttackSpeedMultiplier: 0
+  additionalAttackRangePercent: 0
+  baseAttackRangeMultiplier: 0
+  additionalCriticalChancePercent: 0.1
+  criticalDamageMultiplier: 0.4
+  additionalProjectileSizePercent: 0
+  baseProjectileSizeMultiplier: 0
+  additionalHealthPercent: 0
+  baseHealthMultiplier: 0
+  duration: 0
+  interval: 0
+  isStackable: 1
+  maxStacks: 3
+  appliesDot: 0
+  dotInterval: 0
+  dotPercent: 0
+  appliesMultiShot: 0
+  appliesPiercing: 0
+  appliesBouncing: 0
+  appliesFreeze: 0
+  freezeDuration: 0
+  appliesBurn: 0
+  appliesChainEffect: 0

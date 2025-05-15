@@ -1,88 +1,169 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     // 플레이어 스탯 관리
-    public PlayerStats playerStats { get; private set; }
-    public PlayerController player { get; private set; }
-    private ResourceController _playerResourceController;
+    public PlayerController player { get; private set; } // 플레이어 제어
+    private ResourceController _playerResourceController; // 플레이어 체력, 리소스 접근
 
     [SerializeField] private int currentWaveIndex = 0;
 
     private EnemyManager enemyManager;
+    private StageManager stageManager;
     private UIManager uiManager;
+    private EnemyPool enemyPool;
+    private BossPool bossPool;
 
-    public static bool isFirstLoading = true;
+    public static bool isFirstLoading = true; // 첫 실행 여부
 
     private void Awake()
     {
-        instance = this;
-        player = FindObjectOfType<PlayerController>();
-        player.Init(this);
-        playerStats = PlayerStats.Instance;
+        Instance = this;
 
+        // 플레이어 객체 초기화 및 연결
+        player = FindObjectOfType<PlayerController>();
+        player.Init(this); // GameManager 참조 넘김
+
+        // UIManager 찾기
         uiManager = FindObjectOfType<UIManager>();
-        uiManager.InitPlayerHPBar(player.transform);
 
         _playerResourceController = player.GetComponent<ResourceController>();
-        _playerResourceController.RemoveHealthChangeEvent(uiManager.ChangePlayerHP);
-        _playerResourceController.AddHealthChangeEvent(uiManager.ChangePlayerHP);
+
+        // Pool 찾기
+        enemyPool = FindObjectOfType<EnemyPool>();
+        bossPool = FindObjectOfType<BossPool>();
 
         enemyManager = GetComponentInChildren<EnemyManager>();
-        enemyManager.Init(this);
+        enemyManager.Init(this, enemyPool, bossPool);
+        stageManager = FindObjectOfType<StageManager>();
     }
 
     private void Start()
     {
-        if (!isFirstLoading)
+        CreatePlayerHPBar(); // 플레이어 체력바 생성
+        stageManager.Init(enemyManager);
+
+        // ✅ 선택된 무기 프리팹 이름 불러와 장착
+        string prefabName = PlayerPrefs.GetString("SelectedWeaponPrefabName", "P_Golden_sword_EquipWeapon");
+        EquipWeapon(prefabName);
+
+        if (isFirstLoading)
+            isFirstLoading = false;
+    }
+
+    // ✅ 무기 장착 함수 (무기 교체용)
+    public void EquipWeapon(string prefabName)
+    {
+        Transform pivot = player.transform.Find("WeaponPivot");
+
+        // 기존 무기 제거
+        foreach (Transform child in pivot)
+            Destroy(child.gameObject);
+
+        // 프리팹 로드 및 장착
+        GameObject prefab = Resources.Load<GameObject>($"Weapons/{prefabName}");
+        if (prefab != null)
         {
-            StartGame();
+            GameObject weapon = Instantiate(prefab, pivot);
+            WeaponHandler handler = weapon.GetComponent<WeaponHandler>();
+
+            PlayerSkillHandler skillHandler = player.GetComponent<PlayerSkillHandler>();
+            handler.SetAsPlayerWeapon(skillHandler);
+            player.SetWeaponHandler(handler);
         }
         else
         {
-            isFirstLoading = false;
+            Debug.LogWarning($"무기 프리팹 로드 실패: {prefabName}");
         }
     }
 
-    public void StartGame()
+    // 체력바 생성
+    public void CreatePlayerHPBar()
     {
-        uiManager.SetPlayGame();
-        StartNextWave();
+        uiManager.CreatePlayerHPBar(player.transform, _playerResourceController);
     }
 
-    void StartNextWave()
+    // 적 체력바 생성
+    public GameObject CreateEnemyHPBar(Transform enemyTransform, ResourceController resource)
     {
-        currentWaveIndex += 1;
-        // uiManager.ChangeWave(currentWaveIndex);
-        enemyManager.StartWave(1 + currentWaveIndex / 5);
+        return uiManager.CreateEnemyHPBar(enemyTransform, resource);
+    }
+
+    public void ReturnEnemyHPBar(GameObject hpBar)
+    {
+        uiManager.ReturnEnemyHPBar(hpBar);
+    }
+
+    public void ShowDamageText(Vector3 worldPos, int damage)
+    {
+        uiManager.ShowDamageText(worldPos, damage);
+    }
+
+    public bool IsGamePlaying()
+    {
+        return uiManager.CurrentState == UIState.Game || uiManager.CurrentState == UIState.Pause;
+    }
+
+    public void PauseGame()
+    {
+        uiManager.SetGamePause();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        uiManager.ChangeState(UIState.Game);
+    }
+
+    public void SkillAdded()
+    {
+        Time.timeScale = 1;
+        uiManager.ChangeState(UIState.Game);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
+        Time.timeScale = 1;
     }
 
     // 경험치 및 레벨 UI 업데이트
     public void UpdateExp()
     {
         uiManager.ChangePlayerExpAndLevel(
-            playerStats.Exp,
-            playerStats.MaxExp,
-            playerStats.Level
+            PlayerStats.Instance.Exp,
+            PlayerStats.Instance.MaxExp,
+            PlayerStats.Instance.Level
             );
     }
 
     // 골드 UI 업데이트
-    public void UpdateGold()
+    public void UpdateGold(int gold)
     {
-        uiManager.ChangePlayerGold(playerStats.Gold);
+        uiManager.ChangePlayerGold(gold);
     }
 
-    public void EndOfWave()
+    public void LevelUp(int level)
     {
-        StartNextWave();
+        Time.timeScale = 0;
+        uiManager.PlayerLevelUp(level);
     }
 
+    // 스테이지 정보와 적 스폰을 stageManager에 요청
+    public void RequestStageLoad(int stageNumber, bool isBossRoom)
+    {
+        stageManager.LoadRoom(stageNumber);
+        Debug.Log($"스테이지 {stageNumber} 로드 요청");
+    }
+
+    // 게임 오버 처리
     public void GameOver()
     {
-        enemyManager.StopWave();
         uiManager.SetGameOver();
+        Time.timeScale = 0;
+        uiManager.DestroyPlayerHPBar();
     }
 }

@@ -3,69 +3,99 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// UI 상태 열거형
 public enum UIState
 {
-    Home,
     Game,
+    LevelUp,
+    Pause,
     GameOver,
 }
 
 public class UIManager : MonoBehaviour
 {
-    // 각각의 UI 클래스 참조
-    HomeUI homeUI;
     GameUI gameUI;
+    LevelUpUI levelUpUI;
     GameOverUI gameOverUI;
-    HPBarUI hpBarUI;
+    PauseUI pauseUI;
+    private UIState currentState;
+    public HPBarPool hpBarPool;
+
+    public GameObject damageTextPrefab; // TextMeshPro 프리팹
+    public Transform damageTextRoot; // World Space Canvas의 Transform
+    public SkillManager skillManager;
+
+    private HPBarUI playerHpBarUI;
 
     // 현재 UI 상태
-    private UIState currentState;
-
-    // 체력바 프리팹이 붙을 위치
-    private Transform hpBarRoot;
+    public UIState CurrentState => currentState;
 
     // 체력바 프리팹 연결용
     [SerializeField] private GameObject hpBarPrefab;
+    // 체력바 프리팹이 붙을 위치
+    [SerializeField] private Transform hpBarRoot;
 
-
+    [SerializeField] private PlayerSkillHandler playerSkillHandler;
 
     private void Awake()
     {
-        // 각각의 UI를 하위 오브젝트에서 찾아 초기화
-        homeUI = GetComponentInChildren<HomeUI>(true);
-        homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
         gameUI.Init(this);
+        levelUpUI = GetComponentInChildren<LevelUpUI>(true);
+        levelUpUI.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
+        pauseUI = GetComponentInChildren<PauseUI>(true);
+        pauseUI.Init(this);
 
-        // 체력바가 붙을 위치 찾기
-        hpBarRoot = gameUI.transform.Find("HpBar");
-
-        // 처음엔 홈 상태로
-        ChangeState(UIState.Home);
+        ChangeState(UIState.Game);
     }
 
-    // 플레이어 체력바 UI 생성, 초기화
-    public void InitPlayerHPBar(Transform target)
+
+    public void CreatePlayerHPBar(Transform target, ResourceController resource)
     {
-        // 체력바 프리팹 인스턴스화
+        if (playerHpBarUI != null) return;
         GameObject hpBar = Instantiate(hpBarPrefab, hpBarRoot);
+        playerHpBarUI = hpBar.GetComponent<HPBarUI>();
 
-        // 체력바 따라다니게 설정
-        var follow = hpBar.GetComponent<FollowHPBar>();
-        follow.SetTarget(target);
+        hpBar.GetComponent<FollowHPBar>().SetTarget(target);
+        playerHpBarUI.SetFillColor(Color.green);
+        playerHpBarUI.Init(resource);
+    }
 
-        // 체력바 색상 설정
-        var hpBarUI = hpBar.GetComponent<HPBarUI>();
-        hpBarUI.SetFillColor(Color.green);
 
-        // 초기 체력 수치 설정        
-        var stats = PlayerStats.Instance;
-        hpBarUI.UpdateHP(stats.CurrentHP, stats.MaxHP);
+    public GameObject CreateEnemyHPBar(Transform target, ResourceController resource)
+    {
+        GameObject hpBar = hpBarPool.GetHPBar(hpBarPrefab);
+        resource.SetHealth(resource.MaxHealth);
+        hpBar.GetComponent<FollowHPBar>().SetTarget(target);
+        hpBar.GetComponent<HPBarUI>().SetFillColor(Color.red);
+        hpBar.GetComponent<HPBarUI>().Init(resource);
 
-        this.hpBarUI = hpBarUI;// UIManager에서 사용하기위해 사용
+        return hpBar;
+    }
+
+    public void ReturnEnemyHPBar(GameObject hpBar)
+    {
+        hpBarPool.ReturnHPBar(hpBar);
+    }
+    public void DestroyPlayerHPBar()
+    {
+        if (playerHpBarUI != null)
+        {
+            Destroy(playerHpBarUI.gameObject); // 완전히 제거
+            playerHpBarUI = null;
+        }
+    }
+    public void ShowDamageText(Vector3 worldPos, int damage)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        GameObject textObj = Instantiate(damageTextPrefab, screenPos, Quaternion.identity, damageTextRoot);
+
+        var damageText = textObj.GetComponent<DamageText>();
+        if (damageText != null)
+        {
+            damageText.Init(damage);
+        }
     }
 
     // 게임중 상태로 전환
@@ -74,16 +104,26 @@ public class UIManager : MonoBehaviour
         ChangeState(UIState.Game);
     }
 
+    // 일시정지 상태로 전환
+    public void SetGamePause()
+    {
+        if (currentState == UIState.Pause)
+        {
+            Time.timeScale = 1;
+            ChangeState(UIState.Game);
+        }
+        else
+        {
+            Time.timeScale = 0;
+            pauseUI.ShowAcquiredSkillIcons(playerSkillHandler.trackingList);
+            ChangeState(UIState.Pause);
+        }
+    }
+
     // 게임 오버 상태로 전환
     public void SetGameOver()
     {
         ChangeState(UIState.GameOver);
-    }
-
-    // 삭제예정
-    public void ChangeWave(int waveIndex)
-    {
-        gameUI.UpdateWaveText(waveIndex);
     }
 
     // 골드 갱신
@@ -92,10 +132,10 @@ public class UIManager : MonoBehaviour
         gameUI.UpdateGold(gold);
     }
 
-    // 플레이어 체력 갱신
-    public void ChangePlayerHP(float currentHP, float maxHP)
+    public void PlayerLevelUp(int level)
     {
-        hpBarUI.UpdateHP(currentHP, maxHP);
+        levelUpUI.ShowLevelUpUI(level);
+        ChangeState(UIState.LevelUp);
     }
 
     // 경험치 바, 레벨 갱신
@@ -109,8 +149,9 @@ public class UIManager : MonoBehaviour
     public void ChangeState(UIState state)
     {
         currentState = state;
-        homeUI.SetActive(currentState);
         gameUI.SetActive(currentState);
+        levelUpUI.SetActive(currentState);
+        pauseUI.SetActive(currentState);
         gameOverUI.SetActive(currentState);
     }
 }

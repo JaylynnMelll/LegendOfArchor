@@ -1,17 +1,35 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class EnemyController : BaseController, IEnemy
 {
     private EnemyManager enemyManager;
     private Transform target;
 
+
     [SerializeField] private float followRange = 15f;
 
-    public void InitEnemy(EnemyManager enemyManager, Transform target)
+    GameObject IEnemy.gameObject { get => gameObject; set => throw new System.NotImplementedException(); }
+
+    private bool isSummoned = false;
+    public bool IsSummoned => isSummoned;
+
+    public void Init(EnemyManager enemyManager, Transform target)
     {
         this.enemyManager = enemyManager;
         this.target = target;
+    }
+
+    // �ӽñ���
+    public void InitEnemy(EnemyManager enemyManager, Transform target, bool isSplitSpawn = false)
+    {
+        this.enemyManager = enemyManager;
+        this.target = target;
+    }
+
+    public void SummonCheck()
+    {
+        isSummoned = true;
     }
 
     protected float DistanceToTarget()
@@ -33,7 +51,6 @@ public class EnemyController : BaseController, IEnemy
         Vector2 direction = DirectionToTarget();
 
         isAttacking = false;
-
         if (distance <= followRange)
         {
             lookDirection = direction;
@@ -42,7 +59,7 @@ public class EnemyController : BaseController, IEnemy
             {
                 int layerMaskTarget = weaponHandler.target;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, weaponHandler.WeaponRange * 1.5f,
-                  (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget);
+                (1 << LayerMask.NameToLayer("Level")) | layerMaskTarget | (1 << LayerMask.NameToLayer("Obstacle")));
 
                 if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
                 {
@@ -68,4 +85,11 @@ public class EnemyController : BaseController, IEnemy
         base.Died();
         enemyManager.RemoveEnemyOnDeath(this);
     }
+
+    public override void Reset()
+    {
+        base.Reset();
+    }
+
+
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5081310978090759210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 4942958020934697610}
   - component: {fileID: 6046283788892299112}
   - component: {fileID: 5470463625502968074}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Skull
-  m_TagString: Untagged
+  m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,12 @@ MonoBehaviour:
   levelCollisionLayer:
     serializedVersion: 2
     m_Bits: 256
+  bouncingShot: {fileID: 11400000, guid: ee640c585470adc4f9bbb58570f53be7, type: 2}
+  piercingShot: {fileID: 11400000, guid: 20a2bdd5a9f0ca245ae83d7d46546ae8, type: 2}
+  whoShotIt: 1
   fxOnDestory: 1
+  bounceCount: 3
+  damageMultiplier: 1
 --- !u!1 &7159623407450369181
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2543568526200301438}
   - component: {fileID: 2408270037071328802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

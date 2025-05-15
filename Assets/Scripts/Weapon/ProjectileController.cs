@@ -1,10 +1,21 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
+public enum WhoShotIt
+{
+    Player,
+    Enemy
+}
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private LayerMask levelCollisionLayer;
-
+    [SerializeField] private Skill bouncingShot;
+    [SerializeField] private Skill piercingShot;
+    [SerializeField] private WhoShotIt whoShotIt;
+    private PlayerSkillHandler playerSkillHandler;
     private RangeWeaponHandler rangeWeaponHandler;
+    private ProjectileManager projectileManager;
 
     private float currentDuration;
     private Vector2 direction;
@@ -16,10 +27,12 @@ public class ProjectileController : MonoBehaviour
 
     public bool fxOnDestory = true;
 
-    private ProjectileManager projectileManager;
+    [SerializeField] private int bounceCount = 3;
+    [SerializeField] private float damageMultiplier = 1f;
 
     private void Awake()
     {
+        playerSkillHandler = FindObjectOfType<PlayerSkillHandler>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _rigidbody = GetComponent<Rigidbody2D>();
         pivot = transform.GetChild(0);
@@ -44,16 +57,29 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // ���� ȭ���� �ε��� ���
         if (levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer)))
         {
-            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f, fxOnDestory);
+            // ���ݻ� ��ų�� ȹ���� ���
+            if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(bouncingShot))
+            {
+                BouncingShotApplied(collision);
+            }
+            else
+            {
+                DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f, fxOnDestory);
+            }
         }
+
+        // ���� ȭ���� �ε��� ���
         else if (rangeWeaponHandler.target.value == (rangeWeaponHandler.target.value | (1 << collision.gameObject.layer)))
         {
             ResourceController resourceController = collision.GetComponent<ResourceController>();
             if (resourceController != null)
             {
-                resourceController.ChangeHealth(-rangeWeaponHandler.WeaponPower);
+                int finalDamage = (int)Math.Ceiling(rangeWeaponHandler.DamageCalculator() * damageMultiplier);
+                resourceController.ChangeHealth(-finalDamage);
+
                 if (rangeWeaponHandler.IsOnKnockback)
                 {
                     BaseController controller = collision.GetComponent<BaseController>();
@@ -63,8 +89,11 @@ public class ProjectileController : MonoBehaviour
                     }
                 }
             }
-
-            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
+            // ���뼦 ��ų�� ȹ���� ���
+            if (whoShotIt == WhoShotIt.Player && playerSkillHandler.acquiredSkills.Contains(piercingShot))
+                PiercingShotApplied(collision);
+            else
+                DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
         }
     }
 
@@ -88,6 +117,39 @@ public class ProjectileController : MonoBehaviour
             pivot.localRotation = Quaternion.Euler(0, 0, 0);
 
         isReady = true;
+    }
+
+    private void BouncingShotApplied(Collider2D collision)
+    {
+        // Get wall normal
+        Vector2 wallNormal = (transform.position - (Vector3)collision.ClosestPoint(transform.position)).normalized;
+
+        // Reflect current direction using wall normal
+        direction = Vector2.Reflect(direction, wallNormal).normalized;
+
+        damageMultiplier *= 0.5f;
+
+        // Rotate to face new direction
+        transform.right = direction;
+
+        // 2�� �ݻ� �� ȭ�� �ı�
+        if (--bounceCount <= 0)
+        {
+            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
+        }
+    }
+
+    private void PiercingShotApplied(Collider2D collision)
+    {
+        // Reduce damage by 67% (i.e., keep 33%)
+        damageMultiplier *= 0.33f;
+
+        // if damage is too small, destroy the projectile
+        float projectedDamage = rangeWeaponHandler.DamageCalculator() * damageMultiplier;
+        if (projectedDamage <= 1f) // You can tweak this threshold
+        {
+            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
+        }
     }
 
     private void DestroyProjectile(Vector3 position, bool createFx)
