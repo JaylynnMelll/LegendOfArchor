@@ -86,11 +86,6 @@ public class MeleeWeaponHandler : WeaponHandler
                     }
                 }
             }
-            //if (whoIsWeilding == WhoIsWeilding.Player && hit.collider == GameObject.FindObjectByTag)
-            //{
-            //    //  파링 스킬이 적용된 경우
-            //    ParryingSkillApplied();
-            //}
         }
     }
 
@@ -110,25 +105,6 @@ public class MeleeWeaponHandler : WeaponHandler
                 }
             }
         }
-    }
-
-
-    public void ParryingSkillApplied()
-    {
-        ////  파링 스킬 플레이어에게만 반영
-        //Skill ParryingSkill = playerSkillHandler.acquiredSkills.Find(rt => rt.appliesParrying);
-        //RuntimeSkill ParryingSkillCurrentStacks = playerSkillHandler.trackingList.Find(rt => rt.skill.appliesParrying);
-        //if (ParryingSkillCurrentStacks != null && whoIsWeilding == WhoIsWeilding.Player)
-        //{
-        //    if (ParryingSkillCurrentStacks.currentStacks <= ParryingSkill.maxStacks)
-        //    {
-        //        WeaponSize = 1f;
-        //        WeaponSize += (weaponSizeMultiplier * ParryingSkillCurrentStacks.currentStacks);
-        //        collideBoxSize = SetColliderBoxSize();
-        //    }
-        //    else
-        //        return;
-        //}
     }
 
     public override void Rotate(bool isLeft)
