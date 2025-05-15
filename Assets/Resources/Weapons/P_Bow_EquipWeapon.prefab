@@ -208,7 +208,7 @@ MonoBehaviour:
   bulletSize: 0.7
   bulletDuration: 10
   bulletSpread: 1
-  numberOfProjectilesPerShot: 3
+  numberOfProjectilesPerShot: 1
   multipleProjectileAngle: 3
   projectileColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &-6300033730515747185

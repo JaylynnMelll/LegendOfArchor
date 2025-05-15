@@ -17,7 +17,7 @@ public class SkillButtonData : MonoBehaviour
     [SerializeField] private MeleeWeaponHandler meleeWeaponHandler;
     [SerializeField] private ResourceController resourceController;
     [SerializeField] private Cooldown cooldown;
-    private WeaponCategory weaponCategory;
+    [SerializeField] private WeaponCategory weaponCategory;
 
     [Header("UI Components")]
     public Button button;
@@ -34,6 +34,9 @@ public class SkillButtonData : MonoBehaviour
     // [Unity LifeCycle]
     public void Init()
     {
+        weaponCategory = weaponPivot.GetComponentInChildren<WeaponHandler>().weaponCategory;
+        Debug.Log("WeaponCategory: " + weaponCategory);
+        GrabWeaponCategory();
         GrabWeaponScripts();
 
         // Event for applying skills to ranged weapon stats
@@ -95,11 +98,13 @@ public class SkillButtonData : MonoBehaviour
         {
             case SkillID.HPBoost:
                 ApplyHPBoost?.Invoke();
+                Debug.Log("HP Boost applied to stats: " + assignedSkill.name);
                 break;
 
             case SkillID.MultiShot:
                 ApplySkillToStats?.Invoke();
                 ApplyMultiShot?.Invoke();
+                Debug.Log("MultiShot applied to stats: " + assignedSkill.name);
                 break;
 
             case SkillID.Parrying:
@@ -110,6 +115,7 @@ public class SkillButtonData : MonoBehaviour
 
             default:
                 ApplySkillToStats?.Invoke();
+                Debug.Log("Skill applied to stats: " + assignedSkill.name);
                 break;
         }
         
@@ -118,8 +124,21 @@ public class SkillButtonData : MonoBehaviour
 
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
     // [Private Methods]
+    private void GrabWeaponCategory()
+    {
+        if (weaponHandler != null)
+        {
+            weaponCategory = weaponHandler.weaponCategory;
+        }
+        else
+        {
+            Debug.LogError("WeaponHandler is not assigned.");
+        }
+    }
+
     private void GrabWeaponScripts()
     {
+        Debug.Log(weaponCategory);
         if (weaponCategory == WeaponCategory.Melee)
         {
             meleeWeaponHandler = weaponPivot.GetComponentInChildren<MeleeWeaponHandler>();
